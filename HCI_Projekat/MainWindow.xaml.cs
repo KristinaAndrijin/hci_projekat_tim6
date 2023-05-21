@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HCI_Projekat.Model;
+using HCI_Projekat.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,13 @@ namespace HCI_Projekat
         public MainWindow()
         {
             InitializeComponent();
+            /*UserService.Register("djole", "1234", "Djordje", "Djordjevic", "User");
+            User? u = UserService.Login("djole", "1234");
+            if(u != null)
+            {
+                Console.WriteLine("pozdrav, " + u.Name);
+            }*/
+
         }
     }
 }
