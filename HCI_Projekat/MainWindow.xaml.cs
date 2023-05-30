@@ -1,4 +1,5 @@
 ﻿using HCI_Projekat.Model;
+using HCI_Projekat.Pages;
 using HCI_Projekat.Service;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,15 @@ namespace HCI_Projekat
             {
                 Console.WriteLine("pozdrav, " + u.Name);
             }*/
+            MainFrame.Content = new HomePage();
 
         }
+
+        private void BtnClickP1(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new HomePage();
+        }
+
+    
     }
 }
