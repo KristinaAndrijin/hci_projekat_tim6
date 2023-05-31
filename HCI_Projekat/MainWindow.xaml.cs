@@ -43,7 +43,15 @@ namespace HCI_Projekat
 
         private void GoToLogin(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new LoginPage();
+            MainFrame.Navigate(new LoginPage());
+        }
+
+        private void NavigateBack(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.NavigationService.CanGoBack)
+            {
+                MainFrame.NavigationService.GoBack();
+            }
         }
     }
 }
