@@ -16,20 +16,19 @@ using System.Windows.Shapes;
 namespace HCI_Projekat.Pages
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for RegistrationPage.xaml
     /// </summary>
-    public partial class LoginPage : Page
+    public partial class RegistrationPage : Page
     {
-        public LoginPage()
+        public RegistrationPage()
         {
             InitializeComponent();
         }
 
-        private void GoToRegister(object sender, RoutedEventArgs e)
+        private void GoToLogin(object sender, RoutedEventArgs e)
         {
-            RegistrationPage registrationPage = new RegistrationPage();
-            NavigationService.Navigate(registrationPage);
+            LoginPage loginPage = new LoginPage();
+            NavigationService.Navigate(loginPage);
         }
-
     }
 }

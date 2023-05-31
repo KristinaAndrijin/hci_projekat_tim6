@@ -53,5 +53,10 @@ namespace HCI_Projekat
                 MainFrame.NavigationService.GoBack();
             }
         }
+
+        private void GoToRegister(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new RegistrationPage());
+        }
     }
 }

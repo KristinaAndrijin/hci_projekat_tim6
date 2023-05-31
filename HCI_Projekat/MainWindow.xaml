@@ -8,12 +8,39 @@
         Title="MainWindow" Height="500" Width="800"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="MaterialDesignFlatButtonNoHover" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" TargetName="ContentPresenter" Value="0.5" />
+                                    <Setter Property="Foreground" Value="Gray" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
             <Button MinWidth="100" Margin="0,0,10,0" Click="GoToLogin">Prijava</Button>
+            <Button MinWidth="100" Margin="0,0,10,0" Click="GoToRegister">Registracija</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <Button MinWidth="100" Margin="0,0,10,0" Click="NavigateBack" IsEnabled="{Binding ElementName=MainFrame, Path=CanGoBack}" Style="{StaticResource MaterialDesignIconButton}">
+            <Button MinWidth="100" Margin="0,0,10,0" Click="NavigateBack" IsEnabled="{Binding ElementName=MainFrame, Path=CanGoBack}" Style="{StaticResource MaterialDesignFlatButtonNoHover}">
                 <materialDesign:PackIcon Width="100" Kind="ArrowLeft" Foreground="White"/>
             </Button>
         </StackPanel>
