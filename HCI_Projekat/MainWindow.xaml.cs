@@ -41,6 +41,9 @@ namespace HCI_Projekat
             MainFrame.Content = new HomePage();
         }
 
-    
+        private void GoToLogin(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new LoginPage();
+        }
     }
 }
