@@ -15,8 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MySql.Data;
-using MySql.Data.MySqlClient;
 
 
 namespace HCI_Projekat
@@ -26,21 +24,21 @@ namespace HCI_Projekat
     /// </summary>
     public partial class MainWindow : Window
     {
-        string connStr = "server=localhost;user=root;database=hcisql;password=root";
+        //string connStr = "SERVER=localhost;USER=root;DATABASE=hcisql;PASSWORD=root";
         public MainWindow()
         {
             InitializeComponent();
-            /*UserService.Register("djole", "1234", "Djordje", "Djordjevic", "User");
+            UserService.Register("djole", "1234", "Djordje", "Djordjevic", "User");
             User? u = UserService.Login("djole", "1234");
-            if(u != null)
+            if (u != null)
             {
                 Console.WriteLine("pozdrav, " + u.Name);
-            }*/
+            }
             MainFrame.Content = new HomePage();
             // connectToMySql();
         }
-        
-        private void connectToMySql()
+
+        /*private void connectToMySql()
         {
             try
             {
@@ -61,7 +59,7 @@ namespace HCI_Projekat
             {
                 Console.WriteLine(ex.ToString());
             }
-        }
+        }*/
 
         private void BtnClickP1(object sender, RoutedEventArgs e)
         {

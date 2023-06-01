@@ -12,7 +12,7 @@ namespace HCI_Projekat.Service
     {
         public static User? Login(string username, string password)
         {
-            using(var context = new MySqlContext())
+            using(var context = new Repository.AppContext())
             {
                 var user = context.Users.FirstOrDefault(p => p.Email == username && p.Password == password);
                 if(user != null)
@@ -31,7 +31,7 @@ namespace HCI_Projekat.Service
                 Name = name, 
                 Lastname = lastname,
                 Role = role };
-            using(var context = new MySqlContext())
+            using(var context = new Repository.AppContext())
             {
                 context.Users.Add(newUser);
                 context.SaveChanges();
