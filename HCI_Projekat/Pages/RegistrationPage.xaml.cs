@@ -30,5 +30,18 @@ namespace HCI_Projekat.Pages
             LoginPage loginPage = new LoginPage();
             NavigationService.Navigate(loginPage);
         }
+
+        private void Register(object sender, RoutedEventArgs e)
+        {
+            string email = Email.Text;
+            string password = Password.Password;
+            string repeatPassword = RepeatPassword.Password;
+            string name = Name.Text;
+            string surname = Surname.Text;
+            OutputTextBlock.Text = "Email: " + email + "\n" + "Password: " + password + "\n" +
+                "Repeat: " + repeatPassword + "\n"
+                + "Name: " + name + "\n"
+                + "Surname: " + surname;
+        }
     }
 }

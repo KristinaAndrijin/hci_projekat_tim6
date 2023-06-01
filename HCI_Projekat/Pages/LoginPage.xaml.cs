@@ -31,5 +31,13 @@ namespace HCI_Projekat.Pages
             NavigationService.Navigate(registrationPage);
         }
 
+        private void Login(object sender, RoutedEventArgs e)
+        {
+            string email = Email.Text;
+            string password = Password.Password;
+            OutputTextBlock.Text = "Email: " + email + "\nPassword: " + password;
+        }
+
+
     }
 }

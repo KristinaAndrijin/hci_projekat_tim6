@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HCI_Projekat.Model
 {
-    internal class User
+    public class User
     {
         [Key]
         public int Id { get; set; }
@@ -18,7 +18,7 @@ namespace HCI_Projekat.Model
         public string Password { get; set; }
         public Role Role { get; set; }
     }
-    internal enum Role
+    public enum Role
     {
         User, Agent
     }
