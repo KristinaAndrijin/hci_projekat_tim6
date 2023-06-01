@@ -12,5 +12,9 @@ namespace HCI_Projekat.Repository
     internal class AppContext : DbContext
     {
         public DbSet<User>? Users { get; set; }
+        public DbSet<Trip>? Trips { get; set; }
+        public DbSet<Accomodation>? Accomodations { get; set; }
+        public DbSet<Restaurant>? Restaurants { get; set; }
+        public DbSet<Attraction>? Attractions { get; set; }
     }
 }
