@@ -35,17 +35,18 @@ namespace HCI_Projekat
             //    Console.WriteLine("pozdrav, " + u.Name);
             //}
             MainFrame.Content = new HomePage();
-            //if (UserService.HasLoggedIn)
-            //{
-            //    Login.Visibility = Visibility.Collapsed;
-            //    Register.Visibility = Visibility.Collapsed;
-            //    Logout.Visibility = Visibility.Visible;
-            //} else
-            //{
-            //    Login.Visibility = Visibility.Visible;
-            //    Register.Visibility = Visibility.Visible;
-            //    Logout.Visibility = Visibility.Collapsed;
-            //}
+            if (UserService.HasLoggedIn)
+            {
+                Login.Visibility = Visibility.Collapsed;
+                Register.Visibility = Visibility.Collapsed;
+                Logout.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Login.Visibility = Visibility.Visible;
+                Register.Visibility = Visibility.Visible;
+                Logout.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void BtnClickP1(object sender, RoutedEventArgs e)
@@ -55,7 +56,9 @@ namespace HCI_Projekat
 
         private void GoToLogin(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new LoginPage());
+            LoginPage loginPage = new LoginPage();
+            loginPage.MainWindowInstance = this;
+            MainFrame.Navigate(loginPage);
         }
 
         private void NavigateBack(object sender, RoutedEventArgs e)
@@ -74,6 +77,9 @@ namespace HCI_Projekat
         private void GoToLogout(object sender, RoutedEventArgs e)
         {
             UserService.Logout();
+            Login.Visibility = Visibility.Visible;
+            Register.Visibility = Visibility.Visible;
+            Logout.Visibility = Visibility.Collapsed;
         }
     }
 }

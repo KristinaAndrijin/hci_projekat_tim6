@@ -54,7 +54,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 
         </ResourceDictionary>
     </Page.Resources>
-    <Grid>
+    <Grid PreviewKeyDown="Grid_PreviewKeyDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>

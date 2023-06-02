@@ -58,5 +58,13 @@ namespace HCI_Projekat.Pages
                 new MessageBoxCustom("Uspešno ste se registrovali!", MessageType.Success, MessageButtons.Ok).ShowDialog();
             }
         }
+
+        private void Grid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Register(sender, e);
+            }
+        }
     }
 }
