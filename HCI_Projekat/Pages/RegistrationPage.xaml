@@ -68,35 +68,35 @@
                 <materialDesign:PackIcon VerticalAlignment="Center" Margin="0 0 5 0" Kind="Email" Width="40" Height="40"></materialDesign:PackIcon>
                 <Border CornerRadius="15 15 15 15" Background="White" Width="300" Height="50">
                     <TextBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="250" Height="25" Background="White" BorderBrush="Black" 
-                    Text="{Binding emailAddress}" materialDesign:HintAssist.Hint="Enter email address" x:Name="Email" />
+                    Text="{Binding emailAddress}" materialDesign:HintAssist.Hint="Unesite email adresu" x:Name="Email" />
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
                 <materialDesign:PackIcon VerticalAlignment="Center" Kind="Lock" Width="40" Height="40" Margin="0 0 5 0"></materialDesign:PackIcon>
                 <Border CornerRadius="15 15 15 15" Background="White" Width="300" Height="50">
                     <PasswordBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="250" Height="25" Background="White" BorderBrush="Black" 
-                    materialDesign:HintAssist.Hint="Enter password" x:Name="Password" />
+                    materialDesign:HintAssist.Hint="Unesite lozinku" x:Name="Password" />
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
                 <materialDesign:PackIcon VerticalAlignment="Center" Kind="Lock" Width="40" Height="40" Margin="0 0 5 0"></materialDesign:PackIcon>
                 <Border CornerRadius="15 15 15 15" Background="White" Width="300" Height="50">
                     <PasswordBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="250" Height="25" Background="White" BorderBrush="Black" 
-                    materialDesign:HintAssist.Hint="Re-enter password" x:Name="RepeatPassword" />
+                    materialDesign:HintAssist.Hint="Ponovo unesite lozinku" x:Name="RepeatPassword" />
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
                 <materialDesign:PackIcon VerticalAlignment="Center" Margin="0 0 5 0" Kind="Account" Width="40" Height="40"></materialDesign:PackIcon>
                 <Border CornerRadius="15 15 15 15" Background="White" Width="300" Height="50">
                     <TextBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="250" Height="25" Background="White" BorderBrush="Black" 
-                    Text="{Binding name}" materialDesign:HintAssist.Hint="Enter name" x:Name="Name" />
+                    Text="{Binding name}" materialDesign:HintAssist.Hint="Unesite ime" x:Name="Name" />
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0 20 0 20">
                 <materialDesign:PackIcon VerticalAlignment="Center" Margin="0 0 5 0" Kind="Account" Width="40" Height="40"></materialDesign:PackIcon>
                 <Border CornerRadius="15 15 15 15" Background="White" Width="300" Height="50">
                     <TextBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="250" Height="25" Background="White" BorderBrush="Black" 
-                    Text="{Binding surname}" materialDesign:HintAssist.Hint="Enter surname" x:Name="Surname" />
+                    Text="{Binding surname}" materialDesign:HintAssist.Hint="Unesite prezime" x:Name="Surname" />
                 </Border>
             </StackPanel>
             <Button Margin="0 0 0 0" Style="{StaticResource RoundedButtonStyle}" Width="350" Height="50" Content="Registrujte se" Background="Blue" Click="Register" />
@@ -107,7 +107,7 @@
                 </Button>
             </StackPanel>
 
-            <TextBlock x:Name="OutputTextBlock" Margin="10" />
+            <!--<TextBlock x:Name="OutputTextBlock" Margin="10"> -->
 
         </StackPanel>
     </Grid>

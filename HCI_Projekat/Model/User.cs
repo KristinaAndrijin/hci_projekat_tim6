@@ -17,6 +17,17 @@ namespace HCI_Projekat.Model
         public string? Email { get; set; }
         public string? Password { get; set; }
         public Role Role { get; set; }
+
+        //public User() { }
+
+        //public User(string? name, string? lastname, string? email, string? password, Role role)
+        //{
+        //    Name = name;
+        //    Lastname = lastname;
+        //    Email = email;
+        //    Password = password;
+        //    Role = role;
+        //}
     }
     public enum Role
     {

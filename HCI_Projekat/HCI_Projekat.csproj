@@ -22,4 +22,18 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="Pages\MessageBoxCustom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Pages\MessageBoxCustom.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

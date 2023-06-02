@@ -28,12 +28,12 @@ namespace HCI_Projekat
         public MainWindow()
         {
             InitializeComponent();
-            UserService.Register("djole", "1234", "Djordje", "Djordjevic", "User");
-            User? u = UserService.Login("djole", "1234");
-            if (u != null)
-            {
-                Console.WriteLine("pozdrav, " + u.Name);
-            }
+            //UserService.Register("djole", "1234", "Djordje", "Djordjevic", "User");
+            //User? u = UserService.Login("djole", "1234");
+            //if (u != null)
+            //{
+            //    Console.WriteLine("pozdrav, " + u.Name);
+            //}
             MainFrame.Content = new HomePage();
             // connectToMySql();
         }

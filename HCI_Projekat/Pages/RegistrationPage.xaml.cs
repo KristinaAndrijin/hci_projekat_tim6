@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HCI_Projekat.Model;
+using HCI_Projekat.Repository;
+using HCI_Projekat.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
+using AppContext = HCI_Projekat.Repository.AppContext;
 
 namespace HCI_Projekat.Pages
 {
@@ -20,6 +25,7 @@ namespace HCI_Projekat.Pages
     /// </summary>
     public partial class RegistrationPage : Page
     {
+        //private readonly AppContext dbContext;
         public RegistrationPage()
         {
             InitializeComponent();
@@ -38,10 +44,19 @@ namespace HCI_Projekat.Pages
             string repeatPassword = RepeatPassword.Password;
             string name = Name.Text;
             string surname = Surname.Text;
-            OutputTextBlock.Text = "Email: " + email + "\n" + "Password: " + password + "\n" +
-                "Repeat: " + repeatPassword + "\n"
-                + "Name: " + name + "\n"
-                + "Surname: " + surname;
+            if (password != repeatPassword)
+            {
+                new MessageBoxCustom("Lozinke se ne poklapaju!", MessageType.Warning, MessageButtons.Ok).ShowDialog();
+            }
+            else
+            {
+                //OutputTextBlock.Text = "Email: " + email + "\n" + "Password: " + password + "\n" +
+                    //"Repeat: " + repeatPassword + "\n"
+                    //+ "Name: " + name + "\n"
+                    //+ "Surname: " + surname;
+                UserService.Register(email, password, name, surname, "User");
+                new MessageBoxCustom("Uspešno ste se registrovali!", MessageType.Success, MessageButtons.Ok).ShowDialog();
+            }
         }
     }
 }

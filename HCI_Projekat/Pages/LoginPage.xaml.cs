@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HCI_Projekat.Model;
+using HCI_Projekat.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +37,15 @@ namespace HCI_Projekat.Pages
         {
             string email = Email.Text;
             string password = Password.Password;
-            OutputTextBlock.Text = "Email: " + email + "\nPassword: " + password;
+            User u = UserService.Login(email, password);
+            if (u != null)
+            {
+                new MessageBoxCustom("Uspešno ste se ulogovali!", MessageType.Success, MessageButtons.Ok).ShowDialog();
+            } else
+            {
+                new MessageBoxCustom("Prijava nije uspela!", MessageType.Warning, MessageButtons.Ok).ShowDialog();
+            }
+            //OutputTextBlock.Text = "Email: " + email + "\nPassword: " + password;
         }
 
 
