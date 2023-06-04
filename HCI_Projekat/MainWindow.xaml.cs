@@ -28,38 +28,26 @@ namespace HCI_Projekat
         public MainWindow()
         {
             InitializeComponent();
-            /*UserService.Register("djole", "1234", "Djordje", "Djordjevic", "User");
-            User? u = UserService.Login("djole", "1234");
-            if (u != null)
+            //UserService.Register("djole", "1234", "Djordje", "Djordjevic", "User");
+            //User? u = UserService.Login("djole", "1234");
+            //if (u != null)
+            //{
+            //    Console.WriteLine("pozdrav, " + u.Name);
+            //}
+            MainFrame.Content = new HomePage();
+            if (UserService.HasLoggedIn)
             {
-                Console.WriteLine("pozdrav, " + u.Name);
-            }*/
-            MainFrame.Content = new AgentHomePage();
-            // connectToMySql();
+                Login.Visibility = Visibility.Collapsed;
+                Register.Visibility = Visibility.Collapsed;
+                Logout.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Login.Visibility = Visibility.Visible;
+                Register.Visibility = Visibility.Visible;
+                Logout.Visibility = Visibility.Collapsed;
+            }
         }
-
-        /*private void connectToMySql()
-        {
-            try
-            {
-                Console.WriteLine("Connecting to MySQL...");
-                using (MySqlConnection connection = new MySqlConnection(connStr))
-                {
-                    connection.Open();
-
-                    // string createTableQuery = "CREATE TABLE IF NOT EXISTS Users (Id INT AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(50), Surname VARCHAR(50), Email VARCHAR(50), Password VARCHAR(50))";
-                    // using (MySqlCommand command = new MySqlCommand(createTableQuery, connection))
-                    // {
-                    //     command.ExecuteNonQuery();
-                    // }
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-        }*/
 
         private void BtnClickP1(object sender, RoutedEventArgs e)
         {
@@ -68,7 +56,9 @@ namespace HCI_Projekat
 
         private void GoToLogin(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new LoginPage());
+            LoginPage loginPage = new LoginPage();
+            loginPage.MainWindowInstance = this;
+            MainFrame.Navigate(loginPage);
         }
 
         private void NavigateBack(object sender, RoutedEventArgs e)
@@ -82,6 +72,14 @@ namespace HCI_Projekat
         private void GoToRegister(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new RegistrationPage());
+        }
+
+        private void GoToLogout(object sender, RoutedEventArgs e)
+        {
+            UserService.Logout();
+            Login.Visibility = Visibility.Visible;
+            Register.Visibility = Visibility.Visible;
+            Logout.Visibility = Visibility.Collapsed;
         }
     }
 }
