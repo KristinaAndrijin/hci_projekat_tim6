@@ -24,5 +24,34 @@ namespace HCI_Projekat.Pages.Tabele
         {
             InitializeComponent();
         }
+
+        private void AddNew(object sender, RoutedEventArgs e)
+        {
+            //placeholder prozor, ubaci svoj kad napravis formu
+            Window window = new Window();
+            window.Show();
+        }
+
+        private void EditButton(object sender, RoutedEventArgs e)
+        {
+            //placeholder prozor, ubaci svoj kad napravis formu
+            Window window = new Window();
+            window.Show();
+        }
+
+        private void DeleteButton(object sender, RoutedEventArgs e)
+        {
+            var msgBox = new MessageBoxCustom("Da li ste sigurni da zelite to da obrisete?", MessageType.Confirmation, MessageButtons.YesNo);
+            msgBox.ShowDialog();
+            if ((bool)msgBox.DialogResult)
+            {
+                new MessageBoxCustom("obrisato", MessageType.Info, MessageButtons.Ok).ShowDialog();
+            }
+            else
+            {
+                new MessageBoxCustom("nije obrisato", MessageType.Info, MessageButtons.Ok).ShowDialog();
+
+            }
+        }
     }
 }

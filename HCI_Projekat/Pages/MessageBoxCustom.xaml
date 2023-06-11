@@ -90,9 +90,9 @@
                     </Grid.ColumnDefinitions>
 
                     <Button x:Name="btnOk" Background="Blue" Click="btnOk_Click" Grid.Column="1" Style="{StaticResource RoundedButtonStyle}" Margin="5" Width="100" Content="OK" ToolTip="Ok"/>
-                    <Button x:Name="btnCancel" Background="Gray" Click="btnCancel_Click" Grid.Column="2" Style="{StaticResource RoundedButtonStyle}" Margin="5" Width="100" Content="Cancel" ToolTip="Cancel"/>
-                    <Button x:Name="btnYes" Background="Blue" Click="btnYes_Click" Grid.Column="1" Style="{StaticResource RoundedButtonStyle}" Margin="5" Width="100" Content="Yes" ToolTip="Yes"/>
-                    <Button x:Name="btnNo" Background="Gray" Click="btnNo_Click" Grid.Column="2" Style="{StaticResource RoundedButtonStyle}" Margin="5" Width="100" Content="No" ToolTip="No"/>
+                    <Button x:Name="btnCancel" Background="Gray" Click="btnCancel_Click" Grid.Column="2" Style="{StaticResource RoundedButtonStyle}" Margin="5" Width="100" Content="Poništi" ToolTip="Poništi"/>
+                    <Button x:Name="btnYes" Background="Blue" Click="btnYes_Click" Grid.Column="1" Style="{StaticResource RoundedButtonStyle}" Margin="5" Width="100" Content="Da" ToolTip="Da"/>
+                    <Button x:Name="btnNo" Background="Gray" Click="btnNo_Click" Grid.Column="2" Style="{StaticResource RoundedButtonStyle}" Margin="5" Width="100" Content="Ne" ToolTip="Ne"/>
                 </Grid>
 
             </Grid>
