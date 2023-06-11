@@ -42,6 +42,7 @@
             <Button x:Name="Login" MinWidth="100" Margin="0,0,10,0" Click="GoToLogin">Prijava</Button>
             <Button x:Name="Register" MinWidth="100" Margin="0,0,10,0" Click="GoToRegister">Registracija</Button>
             <Button x:Name="Logout" MinWidth="100" Margin="0,0,10,0" Click="GoToLogout">Odjavite se</Button>
+            <Button x:Name="Mape" MinWidth="100" Margin="0,0,10,0" Click="GoToMape">Mape</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Button MinWidth="100" Margin="0,0,10,0" Click="NavigateBack" IsEnabled="{Binding ElementName=MainFrame, Path=CanGoBack}" Style="{StaticResource MaterialDesignFlatButtonNoHover}" ToolTip="Prethodna stranica">
