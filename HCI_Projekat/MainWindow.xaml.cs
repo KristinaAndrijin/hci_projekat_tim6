@@ -34,7 +34,7 @@ namespace HCI_Projekat
             //{
             //    Console.WriteLine("pozdrav, " + u.Name);
             //}
-            MainFrame.Content = new HomePage();
+            MainFrame.Content = new AgentHomePage();
             if (UserService.HasLoggedIn)
             {
                 Login.Visibility = Visibility.Collapsed;

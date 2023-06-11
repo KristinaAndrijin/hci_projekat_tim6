@@ -44,7 +44,7 @@
             <Button x:Name="Logout" MinWidth="100" Margin="0,0,10,0" Click="GoToLogout">Odjavite se</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <Button MinWidth="100" Margin="0,0,10,0" Click="NavigateBack" IsEnabled="{Binding ElementName=MainFrame, Path=CanGoBack}" Style="{StaticResource MaterialDesignFlatButtonNoHover}">
+            <Button MinWidth="100" Margin="0,0,10,0" Click="NavigateBack" IsEnabled="{Binding ElementName=MainFrame, Path=CanGoBack}" Style="{StaticResource MaterialDesignFlatButtonNoHover}" ToolTip="Prethodna stranica">
                 <materialDesign:PackIcon Width="100" Kind="ArrowLeft" Foreground="White"/>
             </Button>
         </StackPanel>

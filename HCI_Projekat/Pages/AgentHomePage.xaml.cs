@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HCI_Projekat.Pages.Tabele;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,48 @@ namespace HCI_Projekat.Pages
         public AgentHomePage()
         {
             InitializeComponent();
+            AgentFrame.Navigate(new TripsTable());
+        }
+
+        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
+
+            string selectedText = selectedItem.Content.ToString();
+
+            if(selectedText == "Putovanja")
+            {
+                if(AgentFrame != null)
+                {
+                    AgentFrame.Navigate(new TripsTable());
+
+                }
+            }
+            else if(selectedText == "Atrakcije")
+            {
+                if (AgentFrame != null)
+                {
+                    AgentFrame.Navigate(new AttractionsTable());
+
+                }
+            }
+            else if (selectedText == "Restorani")
+            {
+                if (AgentFrame != null)
+                {
+                    AgentFrame.Navigate(new RestaurantsTable());
+
+                }
+            }
+            else if (selectedText == "Smestaj")
+            {
+                if (AgentFrame != null)
+                {
+                    AgentFrame.Navigate(new AccomodationTable());
+
+                }
+            }
         }
     }
 }

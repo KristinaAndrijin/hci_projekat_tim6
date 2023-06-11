@@ -10,15 +10,12 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            
+            <ColumnDefinition MinWidth="120"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="9*"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <ComboBox MinWidth="100" SelectedIndex="0">
+            <ComboBox MinWidth="120" SelectedIndex="0" IsReadOnly="True" Foreground="White" ToolTip="Odaberite prikaz" SelectionChanged="OnSelectionChanged">
                 <ComboBoxItem Content="Putovanja"/>
                 <ComboBoxItem Content="Atrakcije"/>
                 <ComboBoxItem Content="Restorani"/>
@@ -28,5 +25,7 @@
             </ComboBox>
             
         </StackPanel>
+        <Frame Name="AgentFrame" Grid.Column="1"/>
+
     </Grid>
 </Page>
