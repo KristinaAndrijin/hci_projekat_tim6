@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HCI_Projekat.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,13 @@ namespace HCI_Projekat.Pages.Tabele
     /// </summary>
     public partial class RestaurantsTable : Page
     {
+        public List<Restaurant> Restaurants { get; set; } 
         public RestaurantsTable()
         {
             InitializeComponent();
+            DataContext = this;
+            Repository.AppContext dbContext = new Repository.AppContext();
+            Restaurants = dbContext.Restaurants.ToList();
         }
     }
 }
