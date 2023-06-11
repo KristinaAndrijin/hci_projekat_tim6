@@ -13,7 +13,7 @@
             <RowDefinition/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <DataGrid Name="DataGridPutovanja" Grid.Row="1" Grid.Column="1" CanUserSortColumns="True">
+        <DataGrid Name="DataGridSmestaj" Grid.Row="1" Grid.Column="1" CanUserSortColumns="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Width="*"/>
                 <DataGridTextColumn Header="Adresa" Width="*"/>
