@@ -67,8 +67,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 
             <StackPanel Margin="0 20 0 0">
                 <TextBlock Text="Email adresa" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="28 0 5 0" />
-                <Border BorderThickness="1.5" x:Name="EmailBorder" CornerRadius="15 15 15 15" Background="White" Width="300" Height="50">
-                    <TextBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="250" Height="25" Background="White" BorderBrush="Black"
+                <Border BorderThickness="1.5" x:Name="EmailBorder" CornerRadius="15 15 15 15" Background="White" Width="310" Height="50">
+                    <TextBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="280" Height="25" Background="White" BorderBrush="Black"
                      materialDesign:HintAssist.Hint="ime@domen.com" x:Name="Email" LostFocus="Email_LostFocus"/>
                 </Border>
                 <TextBlock x:Name="EmailValidationMessage" Text="Email mora biti oblika ime@domen.com" Foreground="White" Margin="5,2,0,0" Visibility="Collapsed" TextWrapping="Wrap" Height="30" HorizontalAlignment="Center"/>
@@ -76,9 +76,9 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 
             <StackPanel Margin="0 20 0 20">
                 <TextBlock Text="Lozinka" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="28 0 5 0" />
-                <Border BorderThickness="1.5" x:Name="PasswordBorder" CornerRadius="15 15 15 15" Background="White" Width="300" Height="50">
-                    <PasswordBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="250" Height="25" Background="White" BorderBrush="Black"
-                         materialDesign:HintAssist.Hint="Unesite lozinku" x:Name="Password" LostFocus="Password_LostFocus" />
+                <Border BorderThickness="1.5" x:Name="PasswordBorder" CornerRadius="15 15 15 15" Background="White" Width="310" Height="50">
+                    <PasswordBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="280" Height="25" Background="White" BorderBrush="Black"
+                         materialDesign:HintAssist.Hint="Unesite lozinku" x:Name="Password" PasswordChanged="Password_PasswordChanged" />
                 </Border>
                 <TextBlock x:Name="PasswordValidationMessage" Text="Lozinka treba da ima 8 karaktera, makar 1 veliko i malo slovo i broj" VerticalAlignment="Center" Foreground="White" Margin="5,2,0,0" Visibility="Visible" TextWrapping="Wrap" Height="30" />
             </StackPanel>
