@@ -16,5 +16,6 @@ namespace HCI_Projekat.Repository
         public DbSet<Accomodation>? Accomodations { get; set; }
         public DbSet<Restaurant>? Restaurants { get; set; }
         public DbSet<Attraction>? Attractions { get; set; }
+        public DbSet<BoughtTrip>? BoughtTrips { get; set; }
     }
 }
