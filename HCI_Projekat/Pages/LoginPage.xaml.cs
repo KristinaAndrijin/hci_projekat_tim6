@@ -55,10 +55,18 @@ namespace HCI_Projekat.Pages
                 MainWindowInstance.Login.Visibility = Visibility.Collapsed;
                 MainWindowInstance.Register.Visibility = Visibility.Collapsed;
                 MainWindowInstance.Logout.Visibility = Visibility.Visible;
-                if (MainFrame.NavigationService.CanGoBack)
+                if(u.Role == Role.User)
                 {
-                    MainFrame.NavigationService.GoBack();
+                    if (MainFrame.NavigationService.CanGoBack)
+                    {
+                        MainFrame.NavigationService.GoBack();
+                    }
                 }
+                else if(u.Role == Role.Agent)
+                {
+                    MainWindowInstance.MainFrame.NavigationService.Navigate(new AgentHomePage());
+                }
+                
             } else
             {
                 new MessageBoxCustom("Prijava nije uspela!", MessageType.Warning, MessageButtons.Ok).ShowDialog();

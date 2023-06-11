@@ -74,6 +74,13 @@ namespace HCI_Projekat
 
         private void GoToLogout(object sender, RoutedEventArgs e)
         {
+            if (UserService.HasLoggedIn)
+            {
+                if(UserService.CurrentlyLoggedIn.Role == Role.Agent)
+                {
+                    MainFrame.Content = new HomePage();
+                }
+            }
             UserService.Logout();
             Login.Visibility = Visibility.Visible;
             Register.Visibility = Visibility.Visible;
