@@ -1,6 +1,11 @@
-﻿using HCI_Projekat.Model;
+﻿using HCI_Projekat.Commands;
+using HCI_Projekat.Model;
+using HCI_Projekat.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,21 +18,83 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AppContext = HCI_Projekat.Repository.AppContext;
 
 namespace HCI_Projekat.Pages.Tabele
 {
     /// <summary>
     /// Interaction logic for RestaurantsTable.xaml
     /// </summary>
-    public partial class RestaurantsTable : Page
+    public partial class RestaurantsTable : Page, INotifyPropertyChanged
     {
-        public List<Restaurant> Restaurants { get; set; } 
+        private ObservableCollection<Restaurant> _selectedItems;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public ObservableCollection<Restaurant> SelectedItems
+        {
+            get { return _selectedItems; }
+            set
+            {
+                _selectedItems = value;
+                OnPropertyChanged(nameof(SelectedItems));
+            }
+        }
+
+        private void OnPropertyChanged(string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public ICommand DeleteSelectedItemsCommand { get; }
+        public List<Restaurant> Restaurants { get; set; }
         public RestaurantsTable()
         {
             InitializeComponent();
             DataContext = this;
             Repository.AppContext dbContext = new Repository.AppContext();
             Restaurants = dbContext.Restaurants.ToList();
+            DeleteSelectedItemsCommand = new RelayCommand<IEnumerable<Restaurant>>(ProcessSelectedItems, CanProcessSelectedItems);
+        }
+
+        private void ProcessSelectedItems(IEnumerable<Restaurant> selectedItems)
+        {
+            var msgBox = new MessageBoxCustom("Da li sigurno zelite da obrisete to?", MessageType.Confirmation, MessageButtons.YesNo);
+            msgBox.ShowDialog();
+            if ((bool)msgBox.DialogResult)
+            {
+                using (var context = new AppContext())
+                {
+                    DbSet<Restaurant> itemSet = context.Restaurants;
+
+                    foreach (Restaurant selectedItem in selectedItems)
+                    {
+                        var trackedItem = itemSet.Find(selectedItem.Id);
+                        if (trackedItem != null)
+                        {
+                            itemSet.Remove(trackedItem);
+                        }
+                    }
+
+                    context.SaveChanges();
+
+                    var updatedItems = itemSet.ToList();
+
+                    // Update the UI with the updated data
+                    DataGridRestorani.ItemsSource = updatedItems;
+                }
+            }
+        }
+
+        private bool CanProcessSelectedItems(IEnumerable<Restaurant> selectedItems)
+        {
+            return selectedItems != null && selectedItems.Any();
+        }
+
+
+        private void YourDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedItems = new ObservableCollection<Restaurant>(DataGridRestorani.SelectedItems.Cast<Restaurant>());
         }
     }
 }
