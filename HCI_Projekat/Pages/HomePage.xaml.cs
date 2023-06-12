@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
+
 
 namespace HCI_Projekat.Pages
 {
@@ -28,7 +30,21 @@ namespace HCI_Projekat.Pages
         {
             using (var context = new Repository.AppContext())
             {
-                TripsList = context.Trips.Where(a => !a.IsDeleted).ToList();
+                TripsList = context.Trips
+                    .Include(t => t.Attractions)
+                    .Include(t => t.Accomodations)
+                    .Include(t => t.Restaurants)
+                    .Where(a => !a.IsDeleted)
+                    .ToList();
+
+                foreach (var trip in TripsList)
+                {
+                    Debug.WriteLine($"Attractions for Trip '{trip.Name}':");
+                    foreach (var attraction in trip.Attractions)
+                    {
+                        Debug.WriteLine(attraction.Name);
+                    }
+                }
             }
             InitializeComponent();
 
