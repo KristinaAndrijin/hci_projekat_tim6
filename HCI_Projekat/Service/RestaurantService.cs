@@ -39,17 +39,17 @@ namespace HCI_Projekat.Service
                 };
                 using (var context = new AppContext())
                 {
-                    context.Restaurants.Add(newRestaurant);
+                    context.Restaurants?.Add(newRestaurant);
                     context.SaveChanges();
                 }
                 return newRestaurant;
             }
 
-            public static Restaurant? Edit(int id, string address, RestaurantType type, string name)
+            public static Restaurant Edit(int id, string address, RestaurantType type, string name)
             {
                 using (var context = new AppContext())
                 {
-                    var restaurant = context.Restaurants.Find(id);
+                    var restaurant = context.Restaurants?.Find(id);
                     if (restaurant != null)
                     {
                         restaurant.Address = address;

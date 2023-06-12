@@ -66,6 +66,7 @@ namespace HCI_Projekat.Pages.Tabele
             foreach(Restaurant selectedItem in selectedItems)
             {
                 RestaurantForm festaurantForm = new RestaurantForm(selectedItem);
+                festaurantForm.ItemAdded += Form_ItemAdded;
                 festaurantForm.Show();
             }
 
@@ -96,7 +97,7 @@ namespace HCI_Projekat.Pages.Tabele
 
                     context.SaveChanges();
 
-                    var updatedItems = itemSet.ToList();
+                    var updatedItems = itemSet.Where(a => !a.IsDeleted).ToList();
 
                     // Update the UI with the updated data
                     DataGridRestorani.ItemsSource = updatedItems;
@@ -141,9 +142,16 @@ namespace HCI_Projekat.Pages.Tabele
         private void AddNewItem()
         {
             RestaurantForm festaurantForm = new RestaurantForm();
+            festaurantForm.ItemAdded += Form_ItemAdded;
             festaurantForm.Show();
         }
-
+        private void Form_ItemAdded(object sender, EventArgs e)
+        {
+            using (var context = new Repository.AppContext())
+            {
+                DataGridRestorani.ItemsSource = context.Restaurants?.Where(a => !a.IsDeleted).ToList();
+            }
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             AddNewItem();

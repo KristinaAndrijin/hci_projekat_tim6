@@ -102,6 +102,7 @@ namespace HCI_Projekat.Pages.Tabele
             {
                 AccomodationForm accomodationForm = new AccomodationForm();
                 accomodationForm.DataContext = selectedItem;
+                accomodationForm.ItemAdded += AccomodationForm_ItemAdded;
                 accomodationForm.Show();
             }
 

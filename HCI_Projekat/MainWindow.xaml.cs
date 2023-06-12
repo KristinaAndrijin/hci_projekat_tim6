@@ -59,6 +59,7 @@ namespace HCI_Projekat
 
         private void BtnClickP1(object sender, RoutedEventArgs e)
         {
+            //ignore
             MainFrame.Content = new AgentHomePage();
         }
 

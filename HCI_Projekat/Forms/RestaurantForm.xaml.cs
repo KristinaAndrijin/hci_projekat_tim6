@@ -45,6 +45,7 @@ namespace HCI_Projekat.Forms
         string addressEdit { get; set; }
         string cityEdit { get; set; }
         string nameEdit { get; set; }
+        public event EventHandler ItemAdded;//event koji hvatam u tabeli
 
 
         const string BING_API_KEY = "Ah8LozC7khuISaCoOppLN2Vm_mhOD65qXBZVEDcQoZ34UApWABR9jxtuKdlYb7jV";
@@ -467,6 +468,7 @@ namespace HCI_Projekat.Forms
             {
                 RestaurantService.Add(pin_address, type, Name.Text);
                 new MessageBoxCustom("Restoran je uspešno dodat", MessageType.Success, MessageButtons.Ok).ShowDialog();
+                ItemAdded?.Invoke(this, EventArgs.Empty);//event koji hvatam u tabeli
                 Address.Text = null;
                 City.Text = null;
                 Name.Text = null;
@@ -475,6 +477,7 @@ namespace HCI_Projekat.Forms
             {
                 RestaurantService.Edit(restaurant_id, pin_address, type, Name.Text);
                 new MessageBoxCustom("Restoran je uspešno izmenjen", MessageType.Success, MessageButtons.Ok).ShowDialog();
+                ItemAdded?.Invoke(this, EventArgs.Empty);//event koji hvatam u tabeli
                 this.Close();
             }
         }
