@@ -54,7 +54,7 @@ namespace HCI_Projekat.Pages.Tabele
             InitializeComponent();
             DataContext = this;
             AppContext dbContext = new AppContext();
-            Restaurants = dbContext.Restaurants!.ToList();
+            Restaurants = dbContext.Restaurants!.Where(a => !a.IsDeleted).ToList();
             DeleteSelectedItemsCommand = new RelayCommand<IEnumerable<Restaurant>>(ProcessSelectedItems, CanProcessSelectedItems);
             EditSelectedItemsCommand = new RelayCommand<IEnumerable<Restaurant>>(EditSelectedItems, CanProcessSelectedItems);
 
@@ -71,7 +71,7 @@ namespace HCI_Projekat.Pages.Tabele
 
             using(var context = new AppContext())
             {
-                DataGridRestorani.ItemsSource = context.Restaurants?.ToList();
+                DataGridRestorani.ItemsSource = context.Restaurants?.Where(a => !a.IsDeleted).ToList();
             }
         }
 
@@ -90,7 +90,7 @@ namespace HCI_Projekat.Pages.Tabele
                         var trackedItem = itemSet.Find(selectedItem.Id);
                         if (trackedItem != null)
                         {
-                            itemSet.Remove(trackedItem);
+                            trackedItem.IsDeleted = true;
                         }
                     }
 

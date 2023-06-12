@@ -15,7 +15,7 @@ namespace HCI_Projekat.Model
         public string? StartingAddress  { get; set; }
         public string? EndingAddress { get; set; }
         public int Price { get; set; }
-        
+        public bool IsDeleted { get; set; }
         public ICollection<Attraction>? Attractions { get; set; }
         public ICollection<Restaurant>? Restaurants { get; set; }
         public ICollection<Accomodation>? Accomodations { get; set; }

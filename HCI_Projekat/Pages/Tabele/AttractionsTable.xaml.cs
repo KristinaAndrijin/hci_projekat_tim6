@@ -51,7 +51,7 @@ namespace HCI_Projekat.Pages.Tabele
             InitializeComponent();
             DataContext = this;
             Repository.AppContext dbContext = new Repository.AppContext();
-            Attractions = dbContext.Attractions!.ToList();
+            Attractions = dbContext.Attractions!.Where(a => !a.IsDeleted).ToList();
             DeleteSelectedItemsCommand = new RelayCommand<IEnumerable<Attraction>>(DeleteSelectedItems, CanProcessSelectedItems);
             EditSelectedItemsCommand = new RelayCommand<IEnumerable<Attraction>>(EditSelectedItems, CanProcessSelectedItems);
         }
@@ -79,13 +79,13 @@ namespace HCI_Projekat.Pages.Tabele
                         var trackedItem = itemSet.Find(selectedItem.Id);
                         if (trackedItem != null)
                         {
-                            itemSet.Remove(trackedItem);
+                            trackedItem.IsDeleted = true;
                         }
                     }
 
                     context.SaveChanges();
 
-                    var updatedItems = itemSet.ToList();
+                    var updatedItems = itemSet.Where(a => !a.IsDeleted).ToList();
 
                     // Update the UI with the updated data
                     DataGridAtrakcije.ItemsSource = updatedItems;
@@ -105,7 +105,7 @@ namespace HCI_Projekat.Pages.Tabele
 
             using (var context = new Repository.AppContext())
             {
-                DataGridAtrakcije.ItemsSource = context.Attractions?.ToList();
+                DataGridAtrakcije.ItemsSource = context.Attractions?.Where(a => !a.IsDeleted).ToList();
             }
         }
 
@@ -127,7 +127,7 @@ namespace HCI_Projekat.Pages.Tabele
         {
             using (var context = new Repository.AppContext())
             {
-                DataGridAtrakcije.ItemsSource = context.Attractions?.ToList();
+                DataGridAtrakcije.ItemsSource = context.Attractions?.Where(a => !a.IsDeleted).ToList();
             }
         }
 

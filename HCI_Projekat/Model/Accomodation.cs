@@ -13,6 +13,7 @@ namespace HCI_Projekat.Model
         public string? Address { get; set; }
         public AccomodationType Type { get; set; }
         public ICollection<Trip> Trips { get; set; }
+        public bool IsDeleted { get; set; }
     }
     public enum AccomodationType
     {
