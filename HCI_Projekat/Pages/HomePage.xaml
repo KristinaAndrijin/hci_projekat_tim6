@@ -20,7 +20,7 @@
             <!-- 20% of page height -->
             <RowDefinition Height="7*"/>
             <!-- 70% of page height -->
-            <RowDefinition Height="1*"/>
+            
             <!-- 10% of page height -->
         </Grid.RowDefinitions>
 
@@ -131,11 +131,6 @@
         </ScrollViewer>
 
 
-        <!-- Part 3: Pagination -->
-        <Border Grid.Row="2" Background="LightGray">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Total Trips: 10 | Current Page: 1" HorizontalAlignment="Center"/>
-            </StackPanel>
-        </Border>
+        
     </Grid>
 </Page>
