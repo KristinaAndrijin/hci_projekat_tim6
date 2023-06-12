@@ -39,5 +39,10 @@ namespace HCI_Projekat.Pages.Tabele
             }
 
         }
+
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PickedDate = DatePicker.SelectedDate!.Value;
+        }
     }
 }

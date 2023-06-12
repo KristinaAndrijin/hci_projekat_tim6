@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
             <Label>Odaberite datum </Label>
-            <DatePicker VerticalAlignment="Top" Margin="10,0,0,0" MinWidth="150" Name="DatePicker" SelectedDate="{Binding PickedDate}">
+            <DatePicker VerticalAlignment="Top" Margin="10,0,0,0" MinWidth="150" Name="DatePicker" SelectedDate="{Binding PickedDate}" SelectedDateChanged="DatePicker_SelectedDateChanged">
                 <DatePicker.Style>
                     <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
                         <Setter Property="Foreground" Value="White" />
