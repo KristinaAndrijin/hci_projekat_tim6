@@ -20,9 +20,9 @@
                 <DataGridTextColumn Header="Pocetna adresa" Width="2*" Binding="{Binding StartingAddress}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Krajnnja adresa" Width="2*" Binding="{Binding EndingAddress}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Cena" Width="*" Binding="{Binding Price}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Broj atrakcija" Width="*" Binding="{Binding Attractions.Count}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Broj restorana" Width="*" Binding="{Binding Restaurants.Count}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Broj smestaja" Width="*" Binding="{Binding Accomodations.Count}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Broj atrakcija" Width="*" Binding="{Binding AttractionsCount}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Broj restorana" Width="*" Binding="{Binding RestaurantsCount}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Broj smestaja" Width="*" Binding="{Binding AccomodationsCount}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
