@@ -118,5 +118,17 @@ namespace HCI_Projekat.Pages.Tabele
                 e.Handled = true; // Suppress the default delete behavior
             }
         }
+
+        private void Page_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.E)
+            {
+                EditSelectedItemsCommand.Execute(SelectedItems);
+            }
+            else if (e.Key == Key.Delete)
+            {
+                DeleteSelectedItemsCommand.Execute(SelectedItems);
+            }
+        }
     }
 }
