@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HCI_Projekat.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,18 @@ namespace HCI_Projekat.Pages.Tabele
         public AccomodationTable()
         {
             InitializeComponent();
+        }
+
+        private void AddNew(object sender, RoutedEventArgs e)
+        {
+            AccomodationForm accomodationForm = new AccomodationForm();
+            accomodationForm.Show();
+        }
+
+        private void EditButton(object sender, RoutedEventArgs e)
+        {
+            //AccomodationForm accomodationForm = new AccomodationForm("tntntn");
+            //accomodationForm.Show();
         }
     }
 }

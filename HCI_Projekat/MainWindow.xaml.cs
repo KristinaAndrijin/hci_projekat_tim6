@@ -44,12 +44,12 @@ namespace HCI_Projekat
                 Register.Visibility = Visibility.Visible;
                 Logout.Visibility = Visibility.Collapsed;
             }
-            MainFrame.Content = new HomePage();
+            MainFrame.Content = new AgentHomePage();
         }
 
         private void BtnClickP1(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new HomePage();
+            MainFrame.Content = new AgentHomePage();
         }
 
         private void GoToLogin(object sender, RoutedEventArgs e)

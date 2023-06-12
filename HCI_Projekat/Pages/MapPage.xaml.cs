@@ -46,10 +46,11 @@ namespace HCI_Projekat.Pages
             List<string> addresses = new List<string>
             {
                 "Belgrade, Serbia",
-                "Novi Sad, Serbia",
-                "Niš, Serbia",
-                "Kragujevac, Serbia",
-                "Subotica, Serbia"
+                "Bačka 92, Zrenjanin, Srbija"
+                //"Novi Sad, Serbia",
+                //"Niš, Serbia",
+                //"Kragujevac, Serbia",
+                //"Subotica, Serbia"
             };
 
             SearchAndAddPushpinsWithRequestUrl(addresses);

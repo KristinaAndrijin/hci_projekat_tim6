@@ -21,8 +21,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-            <Button Width="75" Margin="10,0,0,0" Content="Novo" ToolTip="Dodaj novi smestaj, Ctrl+N"/>
-            <Button Width="75" Margin="10,0,0,0" Content="Izmeni" ToolTip="Izmeni odabrane smestaje, Ctrl+E"/>
+            <Button Width="75" Margin="10,0,0,0" Content="Novo" ToolTip="Dodaj novi smestaj, Ctrl+N" Click="AddNew"/>
+            <Button Width="75" Margin="10,0,0,0" Content="Izmeni" ToolTip="Izmeni odabrane smestaje, Ctrl+E" Click="EditButton"/>
             <Button Width="75" Margin="10,0,0,0" Content="Obriši" ToolTip="Obriši odabrane smestaje, Delete"/>
         </StackPanel>
     </Grid>

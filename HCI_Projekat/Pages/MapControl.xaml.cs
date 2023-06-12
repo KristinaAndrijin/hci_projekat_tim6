@@ -46,10 +46,7 @@ namespace HCI_Projekat.Pages
             List<string> addresses = new List<string>
             {
                 "Belgrade, Serbia",
-                "Novi Sad, Serbia",
-                "Niš, Serbia",
-                "Kragujevac, Serbia",
-                "Subotica, Serbia"
+                "Bačka 92, Zrenjanin, Srbija"
             };
 
             SearchAndAddPushpinsWithRequestUrl(addresses);
@@ -77,11 +74,13 @@ namespace HCI_Projekat.Pages
 
                             Location location = new Location(latitude, longitude);
 
-                            Pushpin pushpin = new Pushpin();
-                            pushpin.Background = new SolidColorBrush(Colors.Blue);
-                            pushpin.Tag = "Moj prvi pun!!!";
-                            pushpin.ToolTip = "Moj prvi pin!!";
-                            MapLayer.SetPosition(pushpin, location);
+                            // Pushpin pushpin = new Pushpin();
+                            Pushpin pushpin = new Pushpin { Location = location, Background = new SolidColorBrush(Colors.Blue) };
+                            // pushpin.Background = new SolidColorBrush(Colors.Blue);
+                            //pushpin.Tag = "Moj prvi pun!!!";
+                            //pushpin.ToolTip = "Moj prvi pin!!";
+                            // pushpin.Location = location;
+                            // MapLayer.SetPosition(pushpin, location);
                             Map.Children.Add(pushpin);
 
                             allPushpins.Add(pushpin);
@@ -166,7 +165,7 @@ namespace HCI_Projekat.Pages
 
         private void ConnectPushpins(object sender, RoutedEventArgs e)
         {
-            if (allPushpins.Count < 2)
+            if (allPushpins.Count <= 2)
             {
                 // At least 2 pushpins are required to draw a line
                 return;
