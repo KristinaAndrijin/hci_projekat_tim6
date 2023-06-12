@@ -38,7 +38,9 @@ namespace HCI_Projekat.Pages
             {
                 if(AgentFrame != null)
                 {
-                    AgentFrame.Navigate(new TripsTable());
+                    var table = new TripsTable();
+                    AgentFrame.Navigate(table);
+                    table.Focus();
 
                 }
             }
@@ -46,7 +48,9 @@ namespace HCI_Projekat.Pages
             {
                 if (AgentFrame != null)
                 {
-                    AgentFrame.Navigate(new AttractionsTable());
+                    var table = new AttractionsTable();
+                    AgentFrame.Navigate(table);
+                    table.Focus();
 
 
                 }
@@ -65,7 +69,9 @@ namespace HCI_Projekat.Pages
             {
                 if (AgentFrame != null)
                 {
-                    AgentFrame.Navigate(new AccomodationTable());
+                    var table = new AccomodationTable();
+                    AgentFrame.Navigate(table);
+                    table.Focus();
 
                 }
             }

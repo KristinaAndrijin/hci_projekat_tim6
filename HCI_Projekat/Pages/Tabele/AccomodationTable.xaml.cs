@@ -100,9 +100,9 @@ namespace HCI_Projekat.Pages.Tabele
         {
             foreach (Accomodation selectedItem in selectedItems)
             {
-                var form = new Window();
-                form.DataContext = selectedItem;
-                form.ShowDialog();
+                AccomodationForm accomodationForm = new AccomodationForm();
+                accomodationForm.DataContext = selectedItem;
+                accomodationForm.Show();
             }
 
             using (var context = new Repository.AppContext())
@@ -136,8 +136,17 @@ namespace HCI_Projekat.Pages.Tabele
         }
         private void AddNewItem()
         {
-            var forma = new Window();
-            forma.ShowDialog();
+            AccomodationForm accomodationForm = new AccomodationForm();
+            accomodationForm.ItemAdded += AccomodationForm_ItemAdded;
+            accomodationForm.Show();
+        }
+
+        private void AccomodationForm_ItemAdded(object sender, EventArgs e)
+        {
+            using (var context = new Repository.AppContext())
+            {
+                DataGridSmestaj.ItemsSource = context.Accomodations?.ToList();
+            }
         }
 
         private void NovoButton_Click(object sender, RoutedEventArgs e)
@@ -147,12 +156,12 @@ namespace HCI_Projekat.Pages.Tabele
 
         private void AddNew(object sender, RoutedEventArgs e)
         {
-            AccomodationForm accomodationForm = new AccomodationForm();
-            accomodationForm.Show();
+           //kris funkcija, ne koristi
         }
 
         private void EditButton(object sender, RoutedEventArgs e)
         {
+            //kris funkcija, ne koristi
             //AccomodationForm accomodationForm = new AccomodationForm("tntntn");
             //accomodationForm.Show();
         }

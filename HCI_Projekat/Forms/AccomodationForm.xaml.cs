@@ -39,6 +39,8 @@ namespace HCI_Projekat.Forms
         string pin_address { get; set; }
 
         const string BING_API_KEY = "Ah8LozC7khuISaCoOppLN2Vm_mhOD65qXBZVEDcQoZ34UApWABR9jxtuKdlYb7jV";
+
+        public event EventHandler ItemAdded;//event koji hvatam u tabeli
         public AccomodationForm()
         {
             InitializeComponent();
@@ -341,6 +343,7 @@ namespace HCI_Projekat.Forms
         {
             AccomodationService.Add(pin_address, type, Name.Text);
             new MessageBoxCustom("Smeštaj je uspešno dodat", MessageType.Success, MessageButtons.Ok).ShowDialog();
+            ItemAdded?.Invoke(this, EventArgs.Empty);//event koji hvatam u tabeli
             Address.Text = null;
             City.Text = null;
             Name.Text = null;
