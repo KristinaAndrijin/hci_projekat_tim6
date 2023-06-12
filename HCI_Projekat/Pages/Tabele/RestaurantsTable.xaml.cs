@@ -47,6 +47,8 @@ namespace HCI_Projekat.Pages.Tabele
         }
 
         public ICommand DeleteSelectedItemsCommand { get; }
+        public ICommand EditSelectedItemsCommand { get; }
+
         public List<Restaurant> Restaurants { get; set; }
         public RestaurantsTable()
         {
@@ -55,6 +57,18 @@ namespace HCI_Projekat.Pages.Tabele
             Repository.AppContext dbContext = new Repository.AppContext();
             Restaurants = dbContext.Restaurants.ToList();
             DeleteSelectedItemsCommand = new RelayCommand<IEnumerable<Restaurant>>(ProcessSelectedItems, CanProcessSelectedItems);
+            EditSelectedItemsCommand = new RelayCommand<IEnumerable<Restaurant>>(EditSelectedItems, CanProcessSelectedItems);
+
+        }
+
+        private void EditSelectedItems(IEnumerable<Restaurant> selectedItems)
+        {
+            foreach(Restaurant selectedItem in selectedItems)
+            {
+                var form = new Window();
+                form.DataContext = selectedItem;
+                form.ShowDialog();
+            }
         }
 
         private void ProcessSelectedItems(IEnumerable<Restaurant> selectedItems)
@@ -95,6 +109,14 @@ namespace HCI_Projekat.Pages.Tabele
         private void YourDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedItems = new ObservableCollection<Restaurant>(DataGridRestorani.SelectedItems.Cast<Restaurant>());
+        }
+
+        private void DataGridRestorani_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                e.Handled = true; // Suppress the default delete behavior
+            }
         }
     }
 }

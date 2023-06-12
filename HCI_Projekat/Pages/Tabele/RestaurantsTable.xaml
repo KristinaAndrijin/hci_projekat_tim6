@@ -16,7 +16,7 @@
             <RowDefinition/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding Restaurants}" Name="DataGridRestorani" Grid.Row="1" Grid.Column="1" CanUserSortColumns="True" AutoGenerateColumns="False" SelectionChanged="YourDataGrid_SelectionChanged">
+        <DataGrid ItemsSource="{Binding Restaurants}" Name="DataGridRestorani" Grid.Row="1" Grid.Column="1" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" SelectionChanged="YourDataGrid_SelectionChanged" PreviewKeyDown="DataGridRestorani_PreviewKeyDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Width="*" Binding="{Binding Name}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Adresa" Width="*" Binding="{Binding Address}" IsReadOnly="True"/>
@@ -25,8 +25,14 @@
         </DataGrid>
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
             <Button Width="75" Margin="10,0,0,0" Content="Novo" ToolTip="Dodaj novi restoran, Ctrl+N"/>
-            <Button Width="75" Margin="10,0,0,0" Content="Izmeni" ToolTip="Izmeni odabrane restorane, Ctrl+E"/>
-            <Button Width="75" Margin="10,0,0,0" Content="Obriši" ToolTip="Obriši odabrane restorane, Delete" 
+            <Button Width="75" Margin="10,0,0,0" Content="Izmeni" ToolTip="Izmeni odabrane restorane, Ctrl+E" Focusable="False"
+                    Command="{Binding EditSelectedItemsCommand}" CommandParameter="{Binding SelectedItems}"
+                    IsEnabled="{Binding EditSelectedItemsCommand.CanExecute, Mode=OneWay}">
+                <Button.InputBindings>
+                    <KeyBinding Key="E" Modifiers="Ctrl" Command="{Binding EditSelectedItemsCommand}" CommandParameter="{Binding SelectedItems}" />
+                </Button.InputBindings>
+            </Button>
+            <Button Width="75" Margin="10,0,0,0" Content="Obriši" ToolTip="Obriši odabrane restorane, Delete" Focusable="False"
                     Command="{Binding DeleteSelectedItemsCommand}" CommandParameter="{Binding SelectedItems}"
                     IsEnabled="{Binding DeleteSelectedItemsCommand.CanExecute, Mode=OneWay}">
                 <Button.InputBindings>
