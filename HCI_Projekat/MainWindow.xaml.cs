@@ -20,6 +20,8 @@ using Microsoft.Maps.MapControl.WPF;
 using Microsoft.Maps.MapControl.WPF.Core;
 using System.Net;
 using System.IO;
+using System.Data;
+using System.Xml.Linq;
 
 namespace HCI_Projekat
 {
@@ -32,6 +34,14 @@ namespace HCI_Projekat
         public MainWindow()
         {
             InitializeComponent();
+
+            TripServicec.Add();
+            TripServicec.Add();
+            TripServicec.Add();
+            TripServicec.Add();
+            TripServicec.Add();
+            TripServicec.Add();
+
             if (UserService.HasLoggedIn)
             {
                 Login.Visibility = Visibility.Collapsed;

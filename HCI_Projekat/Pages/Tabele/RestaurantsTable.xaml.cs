@@ -1,4 +1,5 @@
 ﻿using HCI_Projekat.Commands;
+using HCI_Projekat.Forms;
 using HCI_Projekat.Model;
 using HCI_Projekat.Repository;
 using System;
@@ -64,9 +65,8 @@ namespace HCI_Projekat.Pages.Tabele
         {
             foreach(Restaurant selectedItem in selectedItems)
             {
-                var form = new Window();
-                form.DataContext = selectedItem;
-                form.ShowDialog();
+                RestaurantForm festaurantForm = new RestaurantForm(selectedItem);
+                festaurantForm.Show();
             }
 
             using(var context = new AppContext())
@@ -140,8 +140,8 @@ namespace HCI_Projekat.Pages.Tabele
 
         private void AddNewItem()
         {
-            var forma = new Window();
-            forma.ShowDialog();
+            RestaurantForm festaurantForm = new RestaurantForm();
+            festaurantForm.Show();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

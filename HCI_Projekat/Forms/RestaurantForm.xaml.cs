@@ -26,7 +26,7 @@ namespace HCI_Projekat.Forms
     /// <summary>
     /// Interaction logic for AccomodationForm.xaml
     /// </summary>
-    public partial class AccomodationForm : Window
+    public partial class RestaurantForm : Window
     {
         bool isAddressValid { get; set; }
         bool firstOpenAddress { get; set; }
@@ -35,15 +35,20 @@ namespace HCI_Projekat.Forms
         bool isNameValid { get; set; }
         bool firstOpenName { get; set; }
         Pushpin pushpin { get; set; }
-        AccomodationType type { get; set; }
+        RestaurantType type { get; set; }
         string pin_address { get; set; }
         bool edit { get; set; }
-        int acc_id { get; set; }
+        int restaurant_id { get; set; }
+        bool editFirstAddress { get; set; }
+        bool editFirstCity { get; set; }
+        bool editFirstName { get; set; }
+        string addressEdit { get; set; }
+        string cityEdit { get; set; }
+        string nameEdit { get; set; }
+
 
         const string BING_API_KEY = "Ah8LozC7khuISaCoOppLN2Vm_mhOD65qXBZVEDcQoZ34UApWABR9jxtuKdlYb7jV";
-
-        public event EventHandler ItemAdded;//event koji hvatam u tabeli
-        public AccomodationForm()
+        public RestaurantForm()
         {
             InitializeComponent();
             Map.Center = new Location(44.7866, 20.4489); // Beograd
@@ -55,10 +60,19 @@ namespace HCI_Projekat.Forms
             isNameValid = false;
             firstOpenName = true;
             edit = false;
+            Address.TextChanged += AddressTextChanged;
+            City.TextChanged += CityTextChanged;
+            Name.TextChanged += NameTextChanged;
+            editFirstAddress = false;
+            editFirstCity = false;
+            editFirstName = false;
         }
 
-        public AccomodationForm(Accomodation accomodation)
+        public RestaurantForm(Restaurant restaurant)
         {
+            //Address.TextChanged -= AddressTextChanged;
+            //City.TextChanged -= CityTextChanged;
+            //Name.TextChanged -= NameTextChanged;
             InitializeComponent();
             edit = true;
             Map.Center = new Location(44.7866, 20.4489); // Beograd
@@ -71,33 +85,51 @@ namespace HCI_Projekat.Forms
             firstOpenName = false;
             string street = "";
             string city = "";
-            string addressToParse = accomodation.Address;
+            string addressToParse = restaurant.Address;
             string[] partsOfAddress = addressToParse.Split(", ");
-            if (partsOfAddress.Length == 4 )
+            if (partsOfAddress.Length == 4)
             {
                 street = partsOfAddress[0];
                 city = partsOfAddress[2].Split(" ")[1];
-            } else if (partsOfAddress.Length == 3)
+            }
+            else if (partsOfAddress.Length == 3)
             {
                 street = partsOfAddress[0];
-                city = partsOfAddress[1].Split(" ")[1];
+                if (partsOfAddress[1].Split(" ").Length > 1) {
+                    city = partsOfAddress[1].Split(" ")[1];
+                } else
+                {
+                    city = partsOfAddress[1];
+                }
+
             }
             Address.Text = street;
+            addressEdit = street;
             City.Text = city;
-            AccomodationType t = accomodation.Type;
-            if (t == AccomodationType.Hotel)
+            cityEdit = city;
+            RestaurantType t = restaurant.Type;
+            if (t == RestaurantType.Ethno)
             {
                 Combo.SelectedIndex = 0;
-            } else if (t == AccomodationType.Motel)
+            }
+            else if (t == RestaurantType.Modern)
             {
                 Combo.SelectedIndex = 1;
-            } else
+            }
+            else
             {
                 Combo.SelectedIndex = 2;
             }
-            Name.Text = accomodation.Name;
+            Name.Text = restaurant.Name;
+            nameEdit = restaurant.Name;
             putPinPls(street + ", " + city + ", Srbija");
-            acc_id = accomodation.Id;
+            restaurant_id = restaurant.Id;
+            editFirstAddress = true;
+            editFirstCity = true;
+            editFirstName = true;
+            Address.TextChanged += AddressTextChanged;
+            City.TextChanged += CityTextChanged;
+            Name.TextChanged += NameTextChanged;
         }
 
         private void putPinPls(string address)
@@ -169,6 +201,12 @@ namespace HCI_Projekat.Forms
 
         private void AddressTextChanged(object sender, TextChangedEventArgs e)
         {
+            if (editFirstAddress)
+            {
+                Address.Text = addressEdit;
+                editFirstAddress = false;
+                return;
+            }
             string address = Address.Text;
             isAddressValid = IsValidAddress(address);
             if (isAddressValid)
@@ -224,6 +262,12 @@ namespace HCI_Projekat.Forms
 
         private void CityTextChanged(object sender, TextChangedEventArgs e)
         {
+            if (editFirstCity)
+            {
+                City.Text = cityEdit;
+                editFirstCity = false;
+                return;
+            }
             SubmitBtn.IsEnabled = false;
             SubmitBtn.Background = new SolidColorBrush(Colors.Gray);
             string city = City.Text;
@@ -324,11 +368,13 @@ namespace HCI_Projekat.Forms
                         pin_address = res_address;
                         //pushpin = pin;
                         UpdateButton();
-                    } else
+                    }
+                    else
                     {
                         MessageBox.Show("Adresa neuspešno pročitana");
                     }
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     MessageBox.Show("Adresa neuspešno pročitana: " + ex.Message);
                 }
@@ -355,7 +401,8 @@ namespace HCI_Projekat.Forms
                         return address["formattedAddress"].ToString();
                     }
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Adresa neuspešno pročitana: " + ex.Message);
                 return null;
@@ -369,20 +416,28 @@ namespace HCI_Projekat.Forms
 
             string selectedText = selectedItem.Content.ToString();
 
-            if (selectedText == "Hotel")
+            if (selectedText == "Etno")
             {
-                type = AccomodationType.Hotel;
-            } else if (selectedText == "Motel")
+                type = RestaurantType.Ethno;
+            }
+            else if (selectedText == "Moderan")
             {
-                type = AccomodationType.Motel;
-            } else
+                type = RestaurantType.Modern;
+            }
+            else
             {
-                type = AccomodationType.Tent;
+                type = RestaurantType.FastFood;
             }
         }
 
         private void NameTextChanged(object sender, TextChangedEventArgs e)
         {
+            if (editFirstName)
+            {
+                Name.Text = nameEdit;
+                editFirstName = false;
+                return;
+            }
             string name = Name.Text;
             isNameValid = IsValidName(name);
             if (isNameValid)
@@ -408,21 +463,20 @@ namespace HCI_Projekat.Forms
 
         private void AddAccomodation(object sender, RoutedEventArgs e)
         {
-            if (!edit) { 
-                AccomodationService.Add(pin_address, type, Name.Text);
-                new MessageBoxCustom("Smeštaj je uspešno dodat", MessageType.Success, MessageButtons.Ok).ShowDialog();
-                ItemAdded?.Invoke(this, EventArgs.Empty);//event koji hvatam u tabeli
+            if (!edit)
+            {
+                RestaurantService.Add(pin_address, type, Name.Text);
+                new MessageBoxCustom("Restoran je uspešno dodat", MessageType.Success, MessageButtons.Ok).ShowDialog();
                 Address.Text = null;
                 City.Text = null;
                 Name.Text = null;
-            } else
+            }
+            else
             {
-                AccomodationService.Edit(acc_id, pin_address, type, Name.Text);
-                new MessageBoxCustom("Smeštaj je uspešno izmenjen", MessageType.Success, MessageButtons.Ok).ShowDialog();
-                ItemAdded?.Invoke(this, EventArgs.Empty);//event koji hvatam u tabeli
+                RestaurantService.Edit(restaurant_id, pin_address, type, Name.Text);
+                new MessageBoxCustom("Restoran je uspešno izmenjen", MessageType.Success, MessageButtons.Ok).ShowDialog();
                 this.Close();
             }
-            
         }
 
         private void UpdateButton()
