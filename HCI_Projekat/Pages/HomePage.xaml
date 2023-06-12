@@ -36,26 +36,26 @@
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <WrapPanel>
                 <!-- Load trip cards dynamically -->
-                <ItemsControl ItemsSource="{Binding TripsList}">
+                <ItemsControl ItemsSource="{Binding TripsList, RelativeSource={RelativeSource AncestorType={x:Type local:HomePage}}}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10" 
-                                    Background="DarkGray" Margin="10" Padding="10">
+                            Background="DarkGray" Margin="10" Padding="10">
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="Bold" 
-                                               Foreground="White"/>
+                                       Foreground="White"/>
                                     <TextBlock Text="{Binding Price, StringFormat='{}{0}$'}" 
-                                               Foreground="Green" FontSize="16" Margin="0 5 0 10"/>
+                                       Foreground="Green" FontSize="16" Margin="0 5 0 10"/>
                                     <TextBlock Text="polazak: {Binding StartingAddress}" 
-                                               Foreground="White" Margin="0 0 0 5"/>
+                                       Foreground="White" Margin="0 0 0 5"/>
                                     <TextBlock Text="destinacija: {Binding EndingAddress}" 
-                                               Foreground="White" Margin="0 0 0 5"/>
+                                       Foreground="White" Margin="0 0 0 5"/>
                                     <TextBlock Text="atrakcije: {Binding AttractionsCount}" 
-                                               Foreground="White" Margin="0 0 0 5"/>
+                                       Foreground="White" Margin="0 0 0 5"/>
                                     <TextBlock Text="smeštaj: {Binding AccomodationsCount}" 
-                                               Foreground="White" Margin="0 0 0 5"/>
+                                       Foreground="White" Margin="0 0 0 5"/>
                                     <TextBlock Text="restorani: {Binding RestaurantsCount}" 
-                                               Foreground="White" Margin="0 0 0 5"/>
+                                       Foreground="White" Margin="0 0 0 5"/>
                                     <Button Content="Detalji" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
@@ -64,6 +64,7 @@
                 </ItemsControl>
             </WrapPanel>
         </ScrollViewer>
+
 
         <!-- Part 3: Pagination -->
         <Border Grid.Row="2" Background="LightGray">
