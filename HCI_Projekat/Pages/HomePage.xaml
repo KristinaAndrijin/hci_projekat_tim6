@@ -37,7 +37,7 @@
             <ItemsControl ItemsSource="{Binding TripsList, RelativeSource={RelativeSource AncestorType={x:Type local:HomePage}}}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Background="DarkGray" Margin="10" Padding="10">
+                        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Background="DarkGray" Margin="10" Padding="10" MaxWidth="300">
                             <StackPanel>
                                 <!-- Trip details -->
                                 <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="Bold" Foreground="White"/>
@@ -48,33 +48,69 @@
                                 <TextBlock Text="{Binding EndingAddress}" Foreground="White" Margin="0 0 0 5"/>
 
                                 <!-- Attractions -->
-                                <TextBlock Text="atrakcije: " Foreground="White" Margin="0 10 0 5"/>
+                                <Label FontWeight="Bold" Content="atrakcije: " Foreground="White" Margin="0 10 0 5"/>
                                 <ItemsControl ItemsSource="{Binding Attractions}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Name}" Foreground="White" Margin="0 0 0 5" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Name}" Foreground="White" Margin="0 0 5 0"/>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel MaxHeight="40" MaxWidth="250">
+                                                <WrapPanel.Resources>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="0,0,5,0"/>
+                                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                                    </Style>
+                                                </WrapPanel.Resources>
+                                            </WrapPanel>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
                                 </ItemsControl>
 
                                 <!-- Accommodations -->
-                                <TextBlock Text="smeštaj: " Foreground="White" Margin="0 10 0 5"/>
+                                <Label FontWeight="Bold" Content="smeštaj: " Foreground="White" Margin="0 10 0 5"/>
                                 <ItemsControl ItemsSource="{Binding Accomodations}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Name}" Foreground="White" Margin="0 0 0 5" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Name}" Foreground="White" Margin="0 0 5 0"/>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel MaxHeight="40" MaxWidth="250">
+                                                <WrapPanel.Resources>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="0,0,5,0"/>
+                                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                                    </Style>
+                                                </WrapPanel.Resources>
+                                            </WrapPanel>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
                                 </ItemsControl>
 
                                 <!-- Restaurants -->
-                                <TextBlock Text="restorani: " Foreground="White" Margin="0 10 0 5"/>
+                                <Label FontWeight="Bold" Content="restorani: " Foreground="White" Margin="0 10 0 5"/>
                                 <ItemsControl ItemsSource="{Binding Restaurants}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Name}" Foreground="White" Margin="0 0 0 5" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Name}" Foreground="White" Margin="0 0 5 0"/>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel MaxHeight="40" MaxWidth="250">
+                                                <WrapPanel.Resources>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="0,0,5,0"/>
+                                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                                    </Style>
+                                                </WrapPanel.Resources>
+                                            </WrapPanel>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
                                 </ItemsControl>
 
                                 <Button Content="Detalji" HorizontalAlignment="Center"/>
@@ -82,6 +118,11 @@
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
 
