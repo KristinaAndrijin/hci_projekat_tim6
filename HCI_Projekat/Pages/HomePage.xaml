@@ -16,7 +16,7 @@
     <Grid Margin="0,0,-182,-76">
         <!-- Part 1: Banner -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
             <!-- 20% of page height -->
             <RowDefinition Height="7*"/>
             <!-- 70% of page height -->
@@ -26,91 +26,74 @@
 
         <Grid Background="LightGray">
             <!-- Background image -->
-            <Image Source="/images/travel.png" Stretch="UniformToFill"></Image>
+            <Image Source="/images/banner.png" Stretch="UniformToFill"></Image>
             <!-- Text overlay -->
             <TextBlock Text="Agencija 6" Foreground="White" FontSize="20" Margin="15" 
                        Effect="{StaticResource DropShadowEffect}"/>
         </Grid>
 
-        <!-- Part 2: Tourist Trips -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
             <ItemsControl ItemsSource="{Binding TripsList, RelativeSource={RelativeSource AncestorType={x:Type local:HomePage}}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Background="DarkGray" Margin="10" Padding="10" MaxWidth="300">
+                        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Background="DarkGray" Margin="10" Padding="10" Width="200">
                             <StackPanel>
                                 <!-- Trip details -->
                                 <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="Bold" Foreground="White"/>
                                 <TextBlock Text="{Binding Price, StringFormat='{}{0} RSD'}" Foreground="Green" FontSize="16" Margin="0 5 0 10"/>
-                                <TextBlock Text="polazak: " Foreground="White" Margin="0 10 0 5"/>
-                                <TextBlock Text="{Binding StartingAddress}" Foreground="White" Margin="0 0 0 5"/>
-                                <TextBlock Text="destinacija: " Foreground="White" Margin="0 10 0 5"/>
-                                <TextBlock Text="{Binding EndingAddress}" Foreground="White" Margin="0 0 0 5"/>
+                                <TextBlock Text="polazak: " Foreground="White" FontWeight="Bold" Margin="0 10 0 5"/>
+                                <TextBlock Text="{Binding StartingAddress}" Foreground="White" Margin="0 0 0 5" FontSize="14"/>
+                                <TextBlock Text="destinacija: " Foreground="White" FontWeight="Bold" Margin="0 10 0 5"/>
+                                <TextBlock Text="{Binding EndingAddress}" Foreground="White" Margin="0 0 0 5" FontSize="14"/>
 
                                 <!-- Attractions -->
-                                <Label FontWeight="Bold" Content="atrakcije: " Foreground="White" Margin="0 10 0 5"/>
+                                <Label FontWeight="Bold" Content="atrakcije: " Foreground="White" Margin="0 10 0 5" FontSize="14"/>
                                 <ItemsControl ItemsSource="{Binding Attractions}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Name}" Foreground="White" Margin="0 0 5 0"/>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <WrapPanel MaxHeight="40" MaxWidth="250">
-                                                <WrapPanel.Resources>
-                                                    <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="0,0,5,0"/>
-                                                        <Setter Property="TextWrapping" Value="Wrap"/>
-                                                    </Style>
-                                                </WrapPanel.Resources>
-                                            </WrapPanel>
+                                            <StackPanel Orientation="Vertical"/>
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}" Foreground="White" Margin="0 0 5 0" FontSize="14"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
                                 </ItemsControl>
 
                                 <!-- Accommodations -->
-                                <Label FontWeight="Bold" Content="smeštaj: " Foreground="White" Margin="0 10 0 5"/>
+                                <Label FontWeight="Bold" Content="smeštaj: " Foreground="White" Margin="0 10 0 5" FontSize="14"/>
                                 <ItemsControl ItemsSource="{Binding Accomodations}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Name}" Foreground="White" Margin="0 0 5 0"/>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <WrapPanel MaxHeight="40" MaxWidth="250">
-                                                <WrapPanel.Resources>
-                                                    <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="0,0,5,0"/>
-                                                        <Setter Property="TextWrapping" Value="Wrap"/>
-                                                    </Style>
-                                                </WrapPanel.Resources>
-                                            </WrapPanel>
+                                            <StackPanel Orientation="Vertical"/>
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}" Foreground="White" Margin="0 0 5 0" FontSize="14"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
                                 </ItemsControl>
 
                                 <!-- Restaurants -->
-                                <Label FontWeight="Bold" Content="restorani: " Foreground="White" Margin="0 10 0 5"/>
+                                <Label FontWeight="Bold" Content="restorani: " Foreground="White" Margin="0 10 0 5" FontSize="14"/>
                                 <ItemsControl ItemsSource="{Binding Restaurants}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Name}" Foreground="White" Margin="0 0 5 0"/>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <WrapPanel MaxHeight="40" MaxWidth="250">
-                                                <WrapPanel.Resources>
-                                                    <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="0,0,5,0"/>
-                                                        <Setter Property="TextWrapping" Value="Wrap"/>
-                                                    </Style>
-                                                </WrapPanel.Resources>
-                                            </WrapPanel>
+                                            <StackPanel Orientation="Vertical"/>
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}" Foreground="White" Margin="0 0 5 0" FontSize="14"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
                                 </ItemsControl>
 
                                 <Button Content="Detalji" HorizontalAlignment="Center"/>
@@ -118,15 +101,8 @@
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="2"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
-
-
 
 
         <!-- Part 3: Pagination -->
