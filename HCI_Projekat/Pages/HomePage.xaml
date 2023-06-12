@@ -8,9 +8,12 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HomePage">
 
+    <Page.Resources>
+        <DropShadowEffect x:Key="DropShadowEffect" ShadowDepth="2" Opacity="0.8" 
+                          Color="Black" BlurRadius="3"/>
+    </Page.Resources>
 
-    <Grid>
-<<<<<<< HEAD
+    <Grid Margin="0,0,-182,-76">
         <!-- Part 1: Banner -->
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -23,29 +26,43 @@
 
         <Grid Background="LightGray">
             <!-- Background image -->
-            <Image Source="path_to_image.jpg" Stretch="Fill"/>
+            <Image Source="/images/travel.png" Stretch="UniformToFill"></Image>
             <!-- Text overlay -->
-            <TextBlock Text="Agencija 6" Foreground="White" Margin="10"/>
+            <TextBlock Text="Agencija 6" Foreground="White" FontSize="20" Margin="15" 
+                       Effect="{StaticResource DropShadowEffect}"/>
         </Grid>
 
         <!-- Part 2: Tourist Trips -->
-        <ScrollViewer Grid.Row="1">
-            <StackPanel>
-                <!-- Cards displaying tourist trips -->
-                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Margin="10" Padding="10">
-                    <StackPanel>
-                        <TextBlock Text="Dobar provod" FontSize="20" FontWeight="Bold"/>
-                        <TextBlock Text="250$" Foreground="Green" FontSize="16" Margin="0 5 0 10"/>
-                        <TextBlock Text="polazak: Beograd" Margin="0 0 0 5"/>
-                        <TextBlock Text="destinacija: Novi Sad" Margin="0 0 0 5"/>
-                        <TextBlock Text="atrakcije: atrakcija broj 1, atrakcija broj 2 ..." Margin="0 0 0 5"/>
-                        <TextBlock Text="smeštaj: hotel Aco" Margin="0 0 0 5"/>
-                        <TextBlock Text="restorani: restoran Mirko, restoran Marko ..." Margin="0 0 0 5"/>
-                        <Button Content="Detalji" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Border>
-                <!-- Repeat the above card structure for other trips -->
-            </StackPanel>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <WrapPanel>
+                <!-- Load trip cards dynamically -->
+                <ItemsControl ItemsSource="{Binding TripsList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10" 
+                                    Background="DarkGray" Margin="10" Padding="10">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="Bold" 
+                                               Foreground="White"/>
+                                    <TextBlock Text="{Binding Price, StringFormat='{}{0}$'}" 
+                                               Foreground="Green" FontSize="16" Margin="0 5 0 10"/>
+                                    <TextBlock Text="polazak: {Binding StartingAddress}" 
+                                               Foreground="White" Margin="0 0 0 5"/>
+                                    <TextBlock Text="destinacija: {Binding EndingAddress}" 
+                                               Foreground="White" Margin="0 0 0 5"/>
+                                    <TextBlock Text="atrakcije: {Binding AttractionsCount}" 
+                                               Foreground="White" Margin="0 0 0 5"/>
+                                    <TextBlock Text="smeštaj: {Binding AccomodationsCount}" 
+                                               Foreground="White" Margin="0 0 0 5"/>
+                                    <TextBlock Text="restorani: {Binding RestaurantsCount}" 
+                                               Foreground="White" Margin="0 0 0 5"/>
+                                    <Button Content="Detalji" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </WrapPanel>
         </ScrollViewer>
 
         <!-- Part 3: Pagination -->
@@ -54,9 +71,5 @@
                 <TextBlock Text="Total Trips: 10 | Current Page: 1" HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
-=======
-        <!--<local:MapControl/>-->
-        <Label>Cao ja sam homepage</Label>
->>>>>>> tabele
     </Grid>
 </Page>

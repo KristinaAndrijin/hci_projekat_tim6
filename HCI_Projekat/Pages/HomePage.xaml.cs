@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HCI_Projekat.Model;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,16 @@ namespace HCI_Projekat.Pages
     /// </summary>
     public partial class HomePage : Page
     {
+
+        public List<Trip> TripsList { get; set; }
         public HomePage()
         {
+            using (var context = new Repository.AppContext())
+            {
+                TripsList = context.Trips.Where(a => !a.IsDeleted).ToList();
+            }
             InitializeComponent();
+
         }
     }
 }
