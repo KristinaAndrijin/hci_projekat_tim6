@@ -1,5 +1,6 @@
 ﻿using HCI_Projekat.Commands;
 using HCI_Projekat.Model;
+﻿using HCI_Projekat.Forms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -142,6 +143,18 @@ namespace HCI_Projekat.Pages.Tabele
         private void NovoButton_Click(object sender, RoutedEventArgs e)
         {
             AddNewItem();
+        }
+
+        private void AddNew(object sender, RoutedEventArgs e)
+        {
+            AccomodationForm accomodationForm = new AccomodationForm();
+            accomodationForm.Show();
+        }
+
+        private void EditButton(object sender, RoutedEventArgs e)
+        {
+            //AccomodationForm accomodationForm = new AccomodationForm("tntntn");
+            //accomodationForm.Show();
         }
     }
 }

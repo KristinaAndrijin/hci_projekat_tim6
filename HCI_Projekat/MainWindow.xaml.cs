@@ -49,7 +49,7 @@ namespace HCI_Projekat
 
         private void BtnClickP1(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new HomePage();
+            MainFrame.Content = new AgentHomePage();
         }
 
         private void GoToLogin(object sender, RoutedEventArgs e)
