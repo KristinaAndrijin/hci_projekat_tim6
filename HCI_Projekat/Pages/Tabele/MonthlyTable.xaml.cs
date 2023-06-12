@@ -36,6 +36,7 @@ namespace HCI_Projekat.Pages.Tabele
             {
                 var thrityDaysAgo = PickedDate.AddDays(-30);
                 boughtTrips = context.BoughtTrips!.Where(a => (a.Date < PickedDate && a.Date > thrityDaysAgo)).ToList();
+                DataGridMonthly.ItemsSource = boughtTrips;
             }
 
         }
@@ -43,6 +44,12 @@ namespace HCI_Projekat.Pages.Tabele
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             PickedDate = DatePicker.SelectedDate!.Value;
+            using (var context = new Repository.AppContext())
+            {
+                var thrityDaysAgo = PickedDate.AddDays(-30);
+                boughtTrips = context.BoughtTrips!.Where(a => (a.Date < PickedDate && a.Date > thrityDaysAgo)).ToList();
+                DataGridMonthly.ItemsSource = boughtTrips;
+            }
         }
     }
 }

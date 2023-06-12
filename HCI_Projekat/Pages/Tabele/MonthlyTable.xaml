@@ -24,12 +24,12 @@
             </DatePicker>
             <Label Content="{Binding TestText}"></Label>
         </StackPanel>
-        <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" CanUserSortColumns="True">
+        <DataGrid Name="DataGridMonthly" ItemsSource="{Binding boughtTrips}" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" CanUserSortColumns="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Kupac" Width="*"/>
-                <DataGridTextColumn Header="Putovanje" Width="*"/>
-                <DataGridTextColumn Header="Datum" Width="*"/>
-                <DataGridTextColumn Header="Iznos" Width="*"/>
+                <DataGridTextColumn Header="Kupac" Width="*" Binding="{Binding UserNameAndLastname}"/>
+                <DataGridTextColumn Header="Putovanje" Width="*" Binding="{Binding TripName}"/>
+                <DataGridTextColumn Header="Datum" Width="*" Binding="{Binding Date}"/>
+                <DataGridTextColumn Header="Iznos" Width="*" Binding="{Binding Price}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

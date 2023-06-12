@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,10 @@ namespace HCI_Projekat.Pages.Tabele
             InitializeComponent();
             DataContext = this;
             Repository.AppContext dbContext = new Repository.AppContext();
-            TripsList = dbContext.Trips.ToList();
+            TripsList = dbContext.Trips
+                .Where(a => !a.IsDeleted)
+                .ToList();
+            Debug.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAA------------------------" + (TripsList[0]?.Accomodations.FirstOrDefault().Name).ToString());
         }
 
         private void AddNew(object sender, RoutedEventArgs e)
