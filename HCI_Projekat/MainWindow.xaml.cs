@@ -35,13 +35,6 @@ namespace HCI_Projekat
         {
             InitializeComponent();
 
-            TripServicec.Add();
-            TripServicec.Add();
-            TripServicec.Add();
-            TripServicec.Add();
-            TripServicec.Add();
-            TripServicec.Add();
-
             if (UserService.HasLoggedIn)
             {
                 Login.Visibility = Visibility.Collapsed;

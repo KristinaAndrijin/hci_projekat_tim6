@@ -75,6 +75,16 @@ namespace HCI_Projekat.Pages
 
                 }
             }
+            else if (selectedText == "Pregled za mesec")
+            {
+                if (AgentFrame != null)
+                {
+                    var table = new MonthlyTable();
+                    AgentFrame.Navigate(table);
+                    table.Focus();
+
+                }
+            }
         }
     }
 }

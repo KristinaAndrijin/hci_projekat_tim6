@@ -19,5 +19,9 @@ namespace HCI_Projekat.Model
         public ICollection<Attraction>? Attractions { get; set; }
         public ICollection<Restaurant>? Restaurants { get; set; }
         public ICollection<Accomodation>? Accomodations { get; set; }
+
+        public int AttractionsCount => Attractions?.Count ?? 0;
+        public int RestaurantsCount => Restaurants?.Count ?? 0;
+        public int AccomodationsCount => Accomodations?.Count ?? 0;
     }
 }
