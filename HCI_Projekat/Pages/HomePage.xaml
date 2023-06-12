@@ -9,6 +9,48 @@
       Title="HomePage">
 
     <Grid>
-        <Label>Cao ja sam homepage</Label>
+        <!-- Part 1: Banner -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <!-- 20% of page height -->
+            <RowDefinition Height="7*"/>
+            <!-- 70% of page height -->
+            <RowDefinition Height="1*"/>
+            <!-- 10% of page height -->
+        </Grid.RowDefinitions>
+
+        <Grid Background="LightGray">
+            <!-- Background image -->
+            <Image Source="path_to_image.jpg" Stretch="Fill"/>
+            <!-- Text overlay -->
+            <TextBlock Text="Agencija 6" Foreground="White" Margin="10"/>
+        </Grid>
+
+        <!-- Part 2: Tourist Trips -->
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <!-- Cards displaying tourist trips -->
+                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10" Margin="10" Padding="10">
+                    <StackPanel>
+                        <TextBlock Text="Dobar provod" FontSize="20" FontWeight="Bold"/>
+                        <TextBlock Text="250$" Foreground="Green" FontSize="16" Margin="0 5 0 10"/>
+                        <TextBlock Text="polazak: Beograd" Margin="0 0 0 5"/>
+                        <TextBlock Text="destinacija: Novi Sad" Margin="0 0 0 5"/>
+                        <TextBlock Text="atrakcije: atrakcija broj 1, atrakcija broj 2 ..." Margin="0 0 0 5"/>
+                        <TextBlock Text="smeštaj: hotel Aco" Margin="0 0 0 5"/>
+                        <TextBlock Text="restorani: restoran Mirko, restoran Marko ..." Margin="0 0 0 5"/>
+                        <Button Content="Detalji" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+                <!-- Repeat the above card structure for other trips -->
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Part 3: Pagination -->
+        <Border Grid.Row="2" Background="LightGray">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Total Trips: 10 | Current Page: 1" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>
