@@ -31,7 +31,7 @@ namespace HCI_Projekat.Service
         //}
         public static Accomodation? Add(string address, AccomodationType type, string name)
         {
-            Accomodation newUser = new Accomodation()
+            Accomodation newAccomodation = new Accomodation()
             {
                 Address = address,
                 Type = type,
@@ -39,11 +39,28 @@ namespace HCI_Projekat.Service
             };
             using (var context = new AppContext())
             {
-                context.Accomodations.Add(newUser);
+                context.Accomodations.Add(newAccomodation);
                 context.SaveChanges();
             }
-            return newUser;
+            return newAccomodation;
         }
+
+        public static Accomodation? Edit(int id, string address, AccomodationType type, string name) {
+            using (var context = new AppContext())
+            {
+                var acc = context.Accomodations.Find(id);
+                if (acc != null)
+                {
+                    acc.Address = address;
+                    acc.Type = type;
+                    acc.Name = name;
+                    context.SaveChanges();
+                    return acc;
+                }
+                return null;
+            }
+}
+
 
         //public static void Logout()
         //{

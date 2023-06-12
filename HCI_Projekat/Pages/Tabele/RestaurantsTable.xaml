@@ -25,7 +25,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-            <Button Width="75" Margin="10,0,0,0" Content="Novo" ToolTip="Dodaj novi restoran, Ctrl+N"/>
+            <Button Width="75" Margin="10,0,0,0" Content="Novo" ToolTip="Dodaj novi restoran, Ctrl+N" Click="AddNew"/>
             <Button Width="75" Margin="10,0,0,0" Content="Izmeni" ToolTip="Izmeni odabrane restorane, Ctrl+E" Focusable="True"
                     Command="{Binding EditSelectedItemsCommand}" CommandParameter="{Binding SelectedItems}"
                     IsEnabled="{Binding EditSelectedItemsCommand.CanExecute, Mode=OneWay}">
