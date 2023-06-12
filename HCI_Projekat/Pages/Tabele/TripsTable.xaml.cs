@@ -22,12 +22,10 @@ namespace HCI_Projekat.Pages.Tabele
     /// </summary>
     public partial class TripsTable : Page
     {
-        public DeleteTripCommand DeleteCommand { get; }
         public List<Trip> TripsList { get; set; }
         public TripsTable()
         {   
             InitializeComponent();
-            DeleteCommand = new DeleteTripCommand();
             DataContext = this;
             Repository.AppContext dbContext = new Repository.AppContext();
             TripsList = dbContext.Trips.ToList();

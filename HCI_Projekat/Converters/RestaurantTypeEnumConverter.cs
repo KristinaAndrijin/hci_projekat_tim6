@@ -19,8 +19,10 @@ namespace HCI_Projekat.Converters
                 {
                     case RestaurantType.FastFood:
                         return "Brza hrana";
+
                     case RestaurantType.Ethno:
                         return "Nacionalna kuhinja";
+
                     case RestaurantType.Modern:
                         return "Moderna kuhinja";
                 }
@@ -30,7 +32,22 @@ namespace HCI_Projekat.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if(value is string)
+            {
+                if((string)value == "Brza hrana")
+                {
+                    return RestaurantType.FastFood;
+                }
+                else if((string)value == "Nacionalna kuhinja")
+                {
+                    return RestaurantType.Ethno;
+                }
+                else if((string)value == "Moderna kuhinja")
+                {
+                    return RestaurantType.Modern;
+                }
+            }
+            return null;
         }
     }
 }

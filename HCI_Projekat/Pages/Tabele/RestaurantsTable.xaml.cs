@@ -48,14 +48,13 @@ namespace HCI_Projekat.Pages.Tabele
 
         public ICommand DeleteSelectedItemsCommand { get; }
         public ICommand EditSelectedItemsCommand { get; }
-
         public List<Restaurant> Restaurants { get; set; }
         public RestaurantsTable()
         {
             InitializeComponent();
             DataContext = this;
             AppContext dbContext = new AppContext();
-            Restaurants = dbContext.Restaurants.ToList();
+            Restaurants = dbContext.Restaurants!.ToList();
             DeleteSelectedItemsCommand = new RelayCommand<IEnumerable<Restaurant>>(ProcessSelectedItems, CanProcessSelectedItems);
             EditSelectedItemsCommand = new RelayCommand<IEnumerable<Restaurant>>(EditSelectedItems, CanProcessSelectedItems);
 
@@ -76,7 +75,7 @@ namespace HCI_Projekat.Pages.Tabele
             }
         }
 
-        private void ProcessSelectedItems(IEnumerable<Restaurant> selectedItems)
+        private void ProcessSelectedItems(IEnumerable<Restaurant> selectedItems) //zapravo za brisanje, chatty me je zezno
         {
             var msgBox = new MessageBoxCustom("Da li sigurno zelite da obrisete to?", MessageType.Confirmation, MessageButtons.YesNo);
             msgBox.ShowDialog();
@@ -143,6 +142,11 @@ namespace HCI_Projekat.Pages.Tabele
         {
             var forma = new Window();
             forma.ShowDialog();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewItem();
         }
     }
 }
