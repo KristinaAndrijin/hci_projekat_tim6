@@ -1,6 +1,7 @@
 ﻿using HCI_Projekat.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,10 +22,21 @@ namespace HCI_Projekat.Pages.Tabele
     /// </summary>
     public partial class MonthlyTable : Page
     {
+        internal DateTime PickedDate { get; set; }
         internal List<BoughtTrip> boughtTrips { get; set; }
+        public string TestText { get; set; }
+
         public MonthlyTable()
         {
             InitializeComponent();
+            PickedDate = DateTime.Now;
+            DataContext = this;
+            TestText = PickedDate.ToShortDateString();
+            using (var context = new Repository.AppContext())
+            {
+                var thrityDaysAgo = PickedDate.AddDays(-30);
+                boughtTrips = context.BoughtTrips!.Where(a => (a.Date < PickedDate && a.Date > thrityDaysAgo)).ToList();
+            }
 
         }
     }

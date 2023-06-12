@@ -14,7 +14,15 @@
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            
+            <Label>Odaberite datum </Label>
+            <DatePicker VerticalAlignment="Top" Margin="10,0,0,0" MinWidth="150" Name="DatePicker" SelectedDate="{Binding PickedDate}">
+                <DatePicker.Style>
+                    <Style TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignDatePicker}">
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                </DatePicker.Style>
+            </DatePicker>
+            <Label Content="{Binding TestText}"></Label>
         </StackPanel>
         <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" CanUserSortColumns="True">
             <DataGrid.Columns>
