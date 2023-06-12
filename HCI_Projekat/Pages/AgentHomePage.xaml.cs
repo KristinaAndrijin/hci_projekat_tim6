@@ -48,14 +48,17 @@ namespace HCI_Projekat.Pages
                 {
                     AgentFrame.Navigate(new AttractionsTable());
 
+
                 }
             }
             else if (selectedText == "Restorani")
             {
                 if (AgentFrame != null)
                 {
-                    AgentFrame.Navigate(new RestaurantsTable());
-
+                    var table = new RestaurantsTable();
+                    AgentFrame.Navigate(table);
+                    table.Focus();
+                    
                 }
             }
             else if (selectedText == "Smestaj")

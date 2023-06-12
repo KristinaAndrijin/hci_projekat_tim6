@@ -54,7 +54,7 @@ namespace HCI_Projekat.Pages.Tabele
         {
             InitializeComponent();
             DataContext = this;
-            Repository.AppContext dbContext = new Repository.AppContext();
+            AppContext dbContext = new AppContext();
             Restaurants = dbContext.Restaurants.ToList();
             DeleteSelectedItemsCommand = new RelayCommand<IEnumerable<Restaurant>>(ProcessSelectedItems, CanProcessSelectedItems);
             EditSelectedItemsCommand = new RelayCommand<IEnumerable<Restaurant>>(EditSelectedItems, CanProcessSelectedItems);
@@ -69,17 +69,22 @@ namespace HCI_Projekat.Pages.Tabele
                 form.DataContext = selectedItem;
                 form.ShowDialog();
             }
+
+            using(var context = new AppContext())
+            {
+                DataGridRestorani.ItemsSource = context.Restaurants?.ToList();
+            }
         }
 
         private void ProcessSelectedItems(IEnumerable<Restaurant> selectedItems)
         {
             var msgBox = new MessageBoxCustom("Da li sigurno zelite da obrisete to?", MessageType.Confirmation, MessageButtons.YesNo);
             msgBox.ShowDialog();
-            if ((bool)msgBox.DialogResult)
+            if ((bool)msgBox.DialogResult!)
             {
                 using (var context = new AppContext())
                 {
-                    DbSet<Restaurant> itemSet = context.Restaurants;
+                    DbSet<Restaurant> itemSet = context.Restaurants!;
 
                     foreach (Restaurant selectedItem in selectedItems)
                     {
@@ -105,7 +110,6 @@ namespace HCI_Projekat.Pages.Tabele
             return selectedItems != null && selectedItems.Any();
         }
 
-
         private void YourDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedItems = new ObservableCollection<Restaurant>(DataGridRestorani.SelectedItems.Cast<Restaurant>());
@@ -125,10 +129,20 @@ namespace HCI_Projekat.Pages.Tabele
             {
                 EditSelectedItemsCommand.Execute(SelectedItems);
             }
+            else if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.N)
+            {
+                AddNewItem();
+            }
             else if (e.Key == Key.Delete)
             {
                 DeleteSelectedItemsCommand.Execute(SelectedItems);
             }
+        }
+
+        private void AddNewItem()
+        {
+            var forma = new Window();
+            forma.ShowDialog();
         }
     }
 }
