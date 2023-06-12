@@ -13,21 +13,25 @@
             <RowDefinition/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <DataGrid Name="DataGridPutovanja" Grid.Row="1" Grid.Column="1" CanUserSortColumns="True">
+        <DataGrid ItemsSource="{Binding TripsList}" Name="DataGridPutovanja" Grid.Row="1" Grid.Column="1" CanUserSortColumns="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Width="2*"/>
-                <DataGridTextColumn Header="Pocetna adresa" Width="2*"/>
-                <DataGridTextColumn Header="Krajnnja adresa" Width="2*"/>
-                <DataGridTextColumn Header="Cena" Width="*"/>
-                <DataGridTextColumn Header="Broj atrakcija" Width="*"/>
-                <DataGridTextColumn Header="Broj restorana" Width="*"/>
-                <DataGridTextColumn Header="Broj smestaja" Width="*"/>
+                <DataGridTextColumn Header="Naziv" Width="2*" Binding="{Binding Name}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Pocetna adresa" Width="2*" Binding="{Binding StartingAddress}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Krajnnja adresa" Width="2*" Binding="{Binding EndingAddress}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Cena" Width="*" Binding="{Binding Price}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Broj atrakcija" Width="*" Binding="{Binding Attractions.Count}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Broj restorana" Width="*" Binding="{Binding Restaurants.Count}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Broj smestaja" Width="*" Binding="{Binding Accomodations.Count}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
             <Button Width="75" Margin="10,0,0,0" Content="Novo" ToolTip="Dodaj novo putovanje, Ctrl+N" Click="AddNew"/>
             <Button Width="75" Margin="10,0,0,0" Content="Izmeni" ToolTip="Izmeni odabrana putovanja, Ctrl+E" Click="EditButton"/>
-            <Button Width="75" Margin="10,0,0,0" Content="Obriši" ToolTip="Obriši odabrana putovanja, Delete" Click="DeleteButton"/>
+            <Button Width="75" Margin="10,0,0,0" Content="Obriši" ToolTip="Obriši odabrana putovanja, Delete" Command="{Binding DeleteCommand}">
+                <Button.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
+                </Button.InputBindings>
+            </Button>
         </StackPanel>
     </Grid>
 </Page>

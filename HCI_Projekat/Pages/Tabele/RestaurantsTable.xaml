@@ -3,27 +3,43 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:HCI_Projekat.Pages.Tabele"
+      xmlns:src="clr-namespace:HCI_Projekat.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="RestaurantsTable">
+      Title="RestaurantsTable"
+      Focusable="True" PreviewKeyDown="Page_PreviewKeyDown">
+    <Page.Resources>
+        <src:RestaurantTypeEnumConverter x:Key="typeConverter"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <DataGrid Name="DataGridRestorani" Grid.Row="1" Grid.Column="1" CanUserSortColumns="True">
+        <DataGrid ItemsSource="{Binding Restaurants}" Name="DataGridRestorani" Grid.Row="1" Grid.Column="1" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" SelectionChanged="YourDataGrid_SelectionChanged" PreviewKeyDown="DataGridRestorani_PreviewKeyDown">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Naziv" Width="*"/>
-                <DataGridTextColumn Header="Adresa" Width="*"/>
-                <DataGridTextColumn Header="Vrsta restorana" Width="*"/>
+                <DataGridTextColumn Header="Naziv" Width="*" Binding="{Binding Name}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Adresa" Width="*" Binding="{Binding Address}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Vrsta restorana" Width="*" Binding="{Binding Type, Converter={StaticResource typeConverter}}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
             <Button Width="75" Margin="10,0,0,0" Content="Novo" ToolTip="Dodaj novi restoran, Ctrl+N"/>
-            <Button Width="75" Margin="10,0,0,0" Content="Izmeni" ToolTip="Izmeni odabrane restorane, Ctrl+E"/>
-            <Button Width="75" Margin="10,0,0,0" Content="Obriši" ToolTip="Obriši odabrane restorane, Delete"/>
+            <Button Width="75" Margin="10,0,0,0" Content="Izmeni" ToolTip="Izmeni odabrane restorane, Ctrl+E" Focusable="True"
+                    Command="{Binding EditSelectedItemsCommand}" CommandParameter="{Binding SelectedItems}"
+                    IsEnabled="{Binding EditSelectedItemsCommand.CanExecute, Mode=OneWay}">
+                <Button.InputBindings>
+                    <KeyBinding Key="E" Modifiers="Ctrl" Command="{Binding EditSelectedItemsCommand}" CommandParameter="{Binding SelectedItems}" />
+                </Button.InputBindings>
+            </Button>
+            <Button Width="75" Margin="10,0,0,0" Content="Obriši" ToolTip="Obriši odabrane restorane, Delete" Focusable="True"
+                    Command="{Binding DeleteSelectedItemsCommand}" CommandParameter="{Binding SelectedItems}"
+                    IsEnabled="{Binding DeleteSelectedItemsCommand.CanExecute, Mode=OneWay}">
+                <Button.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding DeleteSelectedItemsCommand}" CommandParameter="{Binding SelectedItems}" />
+                </Button.InputBindings>
+            </Button>
         </StackPanel>
     </Grid>
 </Page>
