@@ -91,7 +91,7 @@
             </StackPanel>
             <TextBlock x:Name="NameValidationMessage" Text="Ovo polje mora biti popunjeno" Foreground="White" Margin="0, 0,0,0" Visibility="Collapsed" TextWrapping="Wrap" Height="30" HorizontalAlignment="Center"/>
             <Rectangle Fill="Wheat" Height="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10 20 0 0"/>
-            <Button Margin="0 20 0 0" Style="{StaticResource RoundedButtonStyle}" Width="350" Height="50" Content="Dodaj smeštaj" Background="Gray" Foreground="White" Click="AddAccomodation" IsEnabled="False" x:Name="SubmitBtn"/>
+            <Button Margin="0 20 0 0" Style="{StaticResource RoundedButtonStyle}" Width="350" Height="50" Content="Dodaj restoran" Background="Gray" Foreground="White" Click="AddAccomodation" IsEnabled="False" x:Name="SubmitBtn"/>
         </StackPanel>
     </Grid>
 </Window>

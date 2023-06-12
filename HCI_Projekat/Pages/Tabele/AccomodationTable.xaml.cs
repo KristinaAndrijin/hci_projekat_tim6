@@ -100,7 +100,7 @@ namespace HCI_Projekat.Pages.Tabele
         {
             foreach (Accomodation selectedItem in selectedItems)
             {
-                AccomodationForm accomodationForm = new AccomodationForm();
+                AccomodationForm accomodationForm = new AccomodationForm(selectedItem);
                 accomodationForm.DataContext = selectedItem;
                 accomodationForm.ItemAdded += AccomodationForm_ItemAdded;
                 accomodationForm.Show();
