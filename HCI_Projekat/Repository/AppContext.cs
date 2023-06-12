@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HCI_Projekat.Model;
+using System.Reflection.Emit;
 
 namespace HCI_Projekat.Repository
 {
@@ -16,5 +17,6 @@ namespace HCI_Projekat.Repository
         public DbSet<Accomodation>? Accomodations { get; set; }
         public DbSet<Restaurant>? Restaurants { get; set; }
         public DbSet<Attraction>? Attractions { get; set; }
+        public DbSet<BoughtTrip>? BoughtTrips { get; set; }
     }
 }

@@ -9,6 +9,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         Title="LoginPage"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+    
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -62,32 +63,37 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         <Frame x:Name="MainFrame" Margin="0,0,0,0" NavigationUIVisibility="Hidden"/>
         <Image Grid.Column="1" Source="/images/travel.png" Stretch="UniformToFill"></Image>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Grid.Column="0">
-            <TextBlock Text="Prijava" FontFamily="Arial" FontSize="36" Foreground="White" ></TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
-                <materialDesign:PackIcon VerticalAlignment="Center" Margin="0 0 5 0" Kind="Email" Width="40" Height="40"></materialDesign:PackIcon>
-                <Border CornerRadius="15 15 15 15" Background="White" Width="300" Height="50">
-                    <TextBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="250" Height="25" Background="White" BorderBrush="Black" 
-                    Text="{Binding surname}" materialDesign:HintAssist.Hint="Unesite email adresu" x:Name="Email" />
+            <TextBlock Text="Prijava" FontFamily="Arial" FontSize="36" Foreground="White" HorizontalAlignment="Center"></TextBlock>
+
+            <StackPanel Margin="0 20 0 0">
+                <TextBlock Text="Email adresa" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="28 0 5 0" />
+                <Border BorderThickness="1.5" x:Name="EmailBorder" CornerRadius="15 15 15 15" Background="White" Width="310" Height="50">
+                    <TextBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="280" Height="25" Background="White" BorderBrush="Black"
+                     materialDesign:HintAssist.Hint="ime@domen.com" x:Name="Email" LostFocus="Email_LostFocus"/>
                 </Border>
+                <TextBlock x:Name="EmailValidationMessage" Text="Email mora biti oblika ime@domen.com" Foreground="White" Margin="5,2,0,0" Visibility="Collapsed" TextWrapping="Wrap" Height="30" HorizontalAlignment="Center"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0 20 0 20">
-                <materialDesign:PackIcon VerticalAlignment="Center" Kind="Lock" Width="40" Height="40" Margin="0 0 5 0"></materialDesign:PackIcon>
-                <Border CornerRadius="15 15 15 15" Background="White" Width="300" Height="50">
-                    <PasswordBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="250" Height="25" Background="White" BorderBrush="Black"
-                    materialDesign:HintAssist.Hint="Unesite lozinku" x:Name="Password" />
+
+            <StackPanel Margin="0 20 0 20">
+                <TextBlock Text="Lozinka" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="28 0 5 0" />
+                <Border BorderThickness="1.5" x:Name="PasswordBorder" CornerRadius="15 15 15 15" Background="White" Width="310" Height="50">
+                    <PasswordBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="280" Height="25" Background="White" BorderBrush="Black"
+                         materialDesign:HintAssist.Hint="Unesite lozinku" x:Name="Password" PasswordChanged="Password_PasswordChanged" />
                 </Border>
+                <TextBlock x:Name="PasswordValidationMessage" Text="Lozinka treba da ima 8 karaktera, makar 1 veliko i malo slovo i broj" VerticalAlignment="Center" Foreground="White" Margin="5,2,0,0" Visibility="Visible" TextWrapping="Wrap" Height="30" />
             </StackPanel>
-            <Button Margin="0 0 0 0" Style="{StaticResource RoundedButtonStyle}" Width="350" Height="50" Content="Prijavi se" Background="Blue" Click="Login" />
+
+            <Button Margin="0 0 0 0" Style="{StaticResource RoundedButtonStyle}" Width="350" Height="50" Content="Prijavi se" Background="Gray" Click="Login" IsEnabled="False" x:Name="LoginButton" />
+
             <StackPanel Orientation="Horizontal" Margin="40 5 0 0">
                 <TextBlock Text="Nemate nalog?" FontFamily="Arial" FontSize="16" Foreground="White" VerticalAlignment="Center" />
                 <Button MinWidth="100" Margin="10,0,0,0" Click="GoToRegister" Style="{StaticResource MaterialDesignFlatButtonNoHover}">
                     <TextBlock Text="Registrujte se" Foreground="White" VerticalAlignment="Center" />
                 </Button>
             </StackPanel>
-
-            <!--<TextBlock x:Name="OutputTextBlock" Margin="10"> -->
-
-
         </StackPanel>
     </Grid>
+
+
+
 </Page>

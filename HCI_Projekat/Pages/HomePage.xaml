@@ -8,7 +8,9 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HomePage">
 
+
     <Grid>
+<<<<<<< HEAD
         <!-- Part 1: Banner -->
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -52,5 +54,9 @@
                 <TextBlock Text="Total Trips: 10 | Current Page: 1" HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
+=======
+        <!--<local:MapControl/>-->
+        <Label>Cao ja sam homepage</Label>
+>>>>>>> tabele
     </Grid>
 </Page>
