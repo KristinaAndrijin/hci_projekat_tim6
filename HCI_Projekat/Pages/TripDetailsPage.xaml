@@ -16,72 +16,72 @@
 
         <Border Grid.Column="0" Margin="20" Background="#404040" Padding="10" CornerRadius="10">
             <StackPanel>
-                <TextBlock Text="{Binding Trip.Name}" FontSize="40" FontWeight="Bold" Margin="0 0 0 20" Foreground="White"/>
+                <TextBlock Text="{Binding Trip.Name}" FontSize="32" FontWeight="Bold" Margin="0 0 0 20" Foreground="White"/>
 
-                <TextBlock Text="Atrakcije:" FontSize="28" FontWeight="Bold" Margin="0 0 0 10" Foreground="White"/>
+                <TextBlock Text="Atrakcije:" FontSize="24" FontWeight="Bold" Margin="0 0 0 10" Foreground="White"/>
                 <ItemsControl ItemsSource="{Binding Trip.Attractions}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
                                 <TextBlock>
-                                    <Run Text="-" FontSize="20" FontWeight="Bold" Foreground="White"/>
-                                    <Run Text="{Binding Name}" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                                    <Run Text="-" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                                    <Run Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="White"/>
                                 </TextBlock>
                                 <TextBlock>
-                                    <Run Text="{Binding Type}" Foreground="White"/>
-                                    <Run Text=", " Foreground="White"/>
-                                    <Run Text="{Binding Address}" Foreground="White"/>
+                                    <Run Text="{Binding Type}" FontSize="14" Foreground="White"/>
+                                    <Run Text=", " Foreground="White" FontSize="14"/>
+                                    <Run Text="{Binding Address}" Foreground="White" FontSize="14"/>
                                 </TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <TextBlock Text="Smeštaj:" FontSize="28" FontWeight="Bold" Margin="0 20 0 10" Foreground="White"/>
+                <TextBlock Text="Smeštaj:" FontSize="24" FontWeight="Bold" Margin="0 20 0 10" Foreground="White"/>
                 <ItemsControl ItemsSource="{Binding Trip.Accomodations}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
                                 <TextBlock>
-                                    <Run Text="-" FontSize="20" FontWeight="Bold" Foreground="White"/>
-                                    <Run Text="{Binding Name}" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                                    <Run Text="-" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                                    <Run Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="White"/>
                                 </TextBlock>
                                 <TextBlock>
-                                    <Run Text="{Binding Type}" Foreground="White"/>
-                                    <Run Text=", " Foreground="White"/>
-                                    <Run Text="{Binding Address}" Foreground="White"/>
+                                    <Run Text="{Binding Type}" Foreground="White" FontSize="14"/>
+                                    <Run Text=", " Foreground="White" FontSize="14"/>
+                                    <Run Text="{Binding Address}" Foreground="White" FontSize="14"/>
                                 </TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <TextBlock Text="Restorani:" FontSize="28" FontWeight="Bold" Margin="0 20 0 10" Foreground="White"/>
+                <TextBlock Text="Restorani:" FontSize="24" FontWeight="Bold" Margin="0 20 0 10" Foreground="White"/>
                 <ItemsControl ItemsSource="{Binding Trip.Restaurants}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
                                 <TextBlock>
-                                    <Run Text="-" FontSize="20" FontWeight="Bold" Foreground="White"/>
-                                    <Run Text="{Binding Name}" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                                    <Run Text="-" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                                    <Run Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="White"/>
                                 </TextBlock>
                                 <TextBlock>
-                                    <Run Text="{Binding Type}" Foreground="White"/>
-                                    <Run Text=", " Foreground="White"/>
-                                    <Run Text="{Binding Address}" Foreground="White"/>
+                                    <Run Text="{Binding Type}" Foreground="White" FontSize="14"/>
+                                    <Run Text=", " Foreground="White" FontSize="14"/>
+                                    <Run Text="{Binding Address}" Foreground="White" FontSize="14"/>
                                 </TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <TextBlock Text="{Binding Trip.Price, StringFormat='Cena: {0} RSD'}" FontSize="28" FontWeight="Bold" Margin="0 20 0 10" Foreground="#50fa7d"/>
+                <TextBlock Text="{Binding Trip.Price, StringFormat='Cena: {0} RSD'}" FontSize="24" FontWeight="Bold" Margin="0 20 0 10" Foreground="#50fa7d"/>
             </StackPanel>
         </Border>
 
         <Grid Grid.Column="1">
             <!-- Placeholder map -->
-            <Border Background="Purple" Margin="20" CornerRadius="10"/>
+            <Border Background="#404040" Margin="20" CornerRadius="10"/>
             <Button Content="Rezerviši" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
         </Grid>
     </Grid>
