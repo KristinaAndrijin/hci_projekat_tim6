@@ -51,6 +51,9 @@ namespace HCI_Projekat.Pages.Tabele
             DeleteSelectedItemsCommand = new RelayCommand<IEnumerable<Trip>>(DeleteSelectedItems, CanProcessSelectedItems);
             EditSelectedItemsCommand = new RelayCommand<IEnumerable<Trip>>(EditSelectedItems, CanProcessSelectedItems);
             TripsList = dbContext.Trips
+                .Include(a => a.Restaurants)
+                .Include(a => a.Accomodations)
+                .Include(a => a.Attractions)
                 .Where(a => !a.IsDeleted)
                 .ToList();
         }
@@ -118,7 +121,13 @@ namespace HCI_Projekat.Pages.Tabele
         {
             using (var context = new Repository.AppContext())
             {
-                DataGridPutovanja.ItemsSource = context.Trips?.Where(a => !a.IsDeleted).ToList();
+                TripsList = context.Trips
+                .Include(a => a.Restaurants)
+                .Include(a => a.Accomodations)
+                .Include(a => a.Attractions)
+                .Where(a => !a.IsDeleted)
+                .ToList();
+                DataGridPutovanja.ItemsSource = TripsList;
             }
         }
         private void EditButton(object sender, RoutedEventArgs e)

@@ -60,7 +60,6 @@ namespace HCI_Projekat.Pages.Tabele
         private void DataGridSmestaj_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedItems = new ObservableCollection<Accomodation>(DataGridSmestaj.SelectedItems.Cast<Accomodation>());
-
         }
 
         private bool CanProcessSelectedItems(IEnumerable<Accomodation> selectedItems)

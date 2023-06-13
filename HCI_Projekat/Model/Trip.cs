@@ -26,9 +26,5 @@ namespace HCI_Projekat.Model
         public virtual ICollection<Restaurant>? Restaurants { get; set; }
         [JsonIgnore]
         public virtual ICollection<Accomodation>? Accomodations { get; set; } 
-
-        public int AttractionsCount => Attractions?.Count ?? 0;
-        public int RestaurantsCount => Restaurants?.Count ?? 0;
-        public int AccomodationsCount => Accomodations?.Count ?? 0;
     }
 }

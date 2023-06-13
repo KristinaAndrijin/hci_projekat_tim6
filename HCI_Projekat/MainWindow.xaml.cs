@@ -51,6 +51,7 @@ namespace HCI_Projekat
             //}
 
             //_combo.ItemsSource = Options;
+            Mape.Visibility = Visibility.Collapsed;
 
             if (UserService.HasLoggedIn)
             {
