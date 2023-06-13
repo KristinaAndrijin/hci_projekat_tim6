@@ -18,9 +18,6 @@ using MaterialDesignThemes.Wpf;
 
 using System.Diagnostics;
 using System.Windows.Controls;
-using System.Data.Entity;
-using HCI_Projekat.Model;
-using HCI_Projekat.Service;
 
 namespace HCI_Projekat.Pages
 {
@@ -60,13 +57,6 @@ namespace HCI_Projekat.Pages
         private void BtnKupi_Click(object sender, RoutedEventArgs e)
         {
             PrintSelectedTime();
-
-            using (var dbContext = new Repository.AppContext()) {
-                BoughtTrip nbt = new BoughtTrip(UserService.CurrentlyLoggedIn, this.Trip, selectedDate, Trip.Price);
-                dbContext.BoughtTrips.Add(nbt);
-                dbContext.SaveChanges();
-            }
-            
             CloseReservationDialog(sender, e);
             btnRezervisiOpenDialog.IsEnabled = false;
         }
