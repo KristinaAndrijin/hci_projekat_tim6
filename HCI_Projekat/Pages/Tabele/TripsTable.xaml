@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding TripsList}" Name="DataGridPutovanja" Grid.Row="1" CanUserSortColumns="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow">
+        <DataGrid ItemsSource="{Binding TripsList}" Name="DataGridPutovanja" Grid.Row="1" CanUserSortColumns="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" IsReadOnly="True" SelectionChanged="DataGridPutovanja_SelectionChanged" PreviewKeyDown="DataGridPutovanja_PreviewKeyDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Width="2*" Binding="{Binding Name}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Pocetna adresa" Width="2*" Binding="{Binding StartingAddress}" IsReadOnly="True"/>
@@ -28,11 +28,8 @@
         </DataGrid>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Button Width="75" Margin="10,0,0,0" Content="Novo" ToolTip="Dodaj novo putovanje, Ctrl+N" Click="AddNew"/>
-            <Button Width="75" Margin="10,0,0,0" Content="Izmeni" ToolTip="Izmeni odabrana putovanja, Ctrl+E" Click="EditButton"/>
-            <Button Width="75" Margin="10,0,0,0" Content="Obriši" ToolTip="Obriši odabrana putovanja, Delete" Command="{Binding DeleteCommand}">
-                <Button.InputBindings>
-                    <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
-                </Button.InputBindings>
+            <Button Width="75" Margin="10,0,0,0" Content="Izmeni" ToolTip="Izmeni odabrana putovanja, Ctrl+E" Command="{Binding EditSelectedItemsCommand}" IsEnabled="{Binding EditSelectedItemsCommand.CanExecute, Mode=OneWay}"/>
+            <Button Width="75" Margin="10,0,0,0" Content="Obriši" ToolTip="Obriši odabrana putovanja, Delete" Command="{Binding DeleteSelectedItemsCommand}" IsEnabled="{Binding DeleteSelectedItemsCommand.CanExecute, Mode=OneWay}">
             </Button>
         </StackPanel>
     </Grid>

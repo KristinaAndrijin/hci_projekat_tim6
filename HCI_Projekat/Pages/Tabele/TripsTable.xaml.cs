@@ -37,6 +37,8 @@ namespace HCI_Projekat.Pages.Tabele
                 OnPropertyChanged(nameof(SelectedItems));
             }
         }
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public ICommand DeleteSelectedItemsCommand { get; }
         public ICommand EditSelectedItemsCommand { get; }
         public List<Trip> TripsList { get; set; }
@@ -60,10 +62,10 @@ namespace HCI_Projekat.Pages.Tabele
         {
             foreach (Trip selectedItem in selectedItems)
             {
-                //TripForm accomodationForm = new TripForm(selectedItem);
-                //accomodationForm.DataContext = selectedItem;
-                //accomodationForm.ItemAdded += AccomodationForm_ItemAdded;
-                //accomodationForm.Show();
+                TripForm form = new TripForm(selectedItem);
+                form.DataContext = selectedItem;
+                form.ItemAdded += Form_ItemAdded;
+                form.Show();
             }
 
             using (var context = new Repository.AppContext())
@@ -106,25 +108,30 @@ namespace HCI_Projekat.Pages.Tabele
             return selectedItems != null && selectedItems.Any();
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         private void AddNew(object sender, RoutedEventArgs e)
         {
             OpenNewForm();
         }
-
+        private void Form_ItemAdded(object sender, EventArgs e)
+        {
+            using (var context = new Repository.AppContext())
+            {
+                DataGridPutovanja.ItemsSource = context.Trips?.Where(a => !a.IsDeleted).ToList();
+            }
+        }
         private void EditButton(object sender, RoutedEventArgs e)
         {
             //placeholder prozor, ubaci svoj kad napravis formu
-            Window window = new Window();
-            window.Show();
+            //Window window = new Window();
+            //window.Show();
         }
 
         private void OpenNewForm()
         {
             //placeholder prozor, ubaci svoj kad napravis formu
             TripForm form = new TripForm();
-            //festaurantForm.ItemAdded += Form_ItemAdded;
+            form.ItemAdded += Form_ItemAdded;
             form.Show(); ;
         }
 
@@ -141,6 +148,19 @@ namespace HCI_Projekat.Pages.Tabele
             else if (e.Key == Key.Delete)
             {
                 DeleteSelectedItemsCommand.Execute(SelectedItems);
+            }
+        }
+
+        private void DataGridPutovanja_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedItems = new ObservableCollection<Trip>(DataGridPutovanja.SelectedItems.Cast<Trip>());
+        }
+
+        private void DataGridPutovanja_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                e.Handled = true; // Suppress the default delete behavior
             }
         }
     }
