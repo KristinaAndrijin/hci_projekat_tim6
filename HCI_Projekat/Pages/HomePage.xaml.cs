@@ -37,17 +37,19 @@ namespace HCI_Projekat.Pages
                     .Where(a => !a.IsDeleted)
                     .ToList();
 
-                foreach (var trip in TripsList)
-                {
-                    Debug.WriteLine($"Attractions for Trip '{trip.Name}':");
-                    foreach (var attraction in trip.Attractions)
-                    {
-                        Debug.WriteLine(attraction.Name);
-                    }
-                }
             }
             InitializeComponent();
 
         }
+
+        private void Card_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var card = (sender as FrameworkElement)?.DataContext as Trip;
+            if (card != null)
+            {
+                Debug.WriteLine($"Clicked on trip: {card.Name}, Price: {card.Price}");
+            }
+        }
+
     }
 }
