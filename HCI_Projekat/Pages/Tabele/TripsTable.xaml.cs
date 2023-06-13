@@ -32,7 +32,6 @@ namespace HCI_Projekat.Pages.Tabele
             TripsList = dbContext.Trips
                 .Where(a => !a.IsDeleted)
                 .ToList();
-            Debug.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAA------------------------" + (TripsList[0]?.Accomodations.FirstOrDefault().Name).ToString());
         }
 
         private void AddNew(object sender, RoutedEventArgs e)

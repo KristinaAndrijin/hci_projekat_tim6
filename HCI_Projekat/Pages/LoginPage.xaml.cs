@@ -57,6 +57,7 @@ namespace HCI_Projekat.Pages
                 MainWindowInstance.Logout.Visibility = Visibility.Visible;
                 if(u.Role == Role.User)
                 {
+                    MainWindowInstance.Pregled.Visibility = Visibility.Visible;
                     if (MainFrame.NavigationService.CanGoBack)
                     {
                         MainFrame.NavigationService.GoBack();

@@ -22,6 +22,7 @@ using System.Net;
 using System.IO;
 using System.Data;
 using System.Xml.Linq;
+using System.ComponentModel;
 
 namespace HCI_Projekat
 {
@@ -40,14 +41,20 @@ namespace HCI_Projekat
                 Login.Visibility = Visibility.Collapsed;
                 Register.Visibility = Visibility.Collapsed;
                 Logout.Visibility = Visibility.Visible;
+                if(UserService.CurrentlyLoggedIn!.Role == Role.User)
+                {
+                    Pregled.Visibility = Visibility.Visible;
+                }
+                
             }
             else
             {
                 Login.Visibility = Visibility.Visible;
                 Register.Visibility = Visibility.Visible;
                 Logout.Visibility = Visibility.Collapsed;
+                Pregled.Visibility = Visibility.Collapsed;
             }
-            MainFrame.Content = new AgentHomePage();
+            MainFrame.Content = new HomePage();
         }
 
         private void BtnClickP1(object sender, RoutedEventArgs e)
@@ -84,16 +91,26 @@ namespace HCI_Projekat
                 {
                     MainFrame.Content = new HomePage();
                 }
+                if(MainFrame.Content is UserTripsOverviewPage)
+                {
+                    MainFrame.NavigationService.GoBack();
+                }
             }
             UserService.Logout();
             Login.Visibility = Visibility.Visible;
             Register.Visibility = Visibility.Visible;
             Logout.Visibility = Visibility.Collapsed;
+            Pregled.Visibility = Visibility.Collapsed;
         }
         
         private void GoToMape(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new MapPage());
+        }
+
+        private void GoToUserTripOverview(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new UserTripsOverviewPage());
         }
     }
 }
