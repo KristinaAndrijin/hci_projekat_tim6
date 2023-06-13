@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Help\agent.html" />
+    <None Remove="Help\error.html" />
+    <None Remove="Help\index.html" />
+    <None Remove="Help\korisnik.html" />
     <None Remove="images\icon.ico" />
     <None Remove="images\travel.png" />
   </ItemGroup>
@@ -22,6 +26,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Help\korisnik.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\agent.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\error.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

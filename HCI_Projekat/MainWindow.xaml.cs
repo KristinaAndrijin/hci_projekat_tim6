@@ -128,6 +128,21 @@ namespace HCI_Projekat
         {
             MainFrame.Navigate(new UserTripsOverviewPage());
         }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            HelpProvider.ShowHelp("index", this);
+            /*IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
+            if (focusedControl is DependencyObject)
+            {
+                //string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+                
+            }*/
+        }
+        public void doThings(string param)
+        {
+
+        }
     }
     class Item : INotifyPropertyChanged
     {
@@ -172,5 +187,8 @@ namespace HCI_Projekat
 
         public event PropertyChangedEventHandler
                        PropertyChanged;
+
+
     }
+
 }

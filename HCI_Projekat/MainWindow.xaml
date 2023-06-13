@@ -16,6 +16,12 @@
     <Window.Icon>
         <BitmapImage UriSource="/HCI_Projekat;component/images/icon.ico" />
     </Window.Icon>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="ApplicationCommands.Help" Key="F1" CommandTarget="{Binding ElementName=MainWindow}"/>
+    </Window.InputBindings>
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
