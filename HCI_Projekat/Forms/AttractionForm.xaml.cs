@@ -387,6 +387,7 @@ namespace HCI_Projekat.Forms
                     MessageBox.Show("Adresa neuspešno pročitana: " + ex.Message);
                 }
             }
+            Map.MouseLeftButtonDown -= Map_MouseLeftButtonDownAdd;
         }
 
         private string GetAddressFromLocation(double latitude, double longitude)

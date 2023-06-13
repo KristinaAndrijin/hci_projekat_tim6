@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using HCI_Projekat.Commands;
 using HCI_Projekat.Forms;
 using HCI_Projekat.Model;
+using HCI_Projekat.Service;
 
 namespace HCI_Projekat.Pages.Tabele
 {
@@ -35,16 +36,16 @@ namespace HCI_Projekat.Pages.Tabele
         private void AddNew(object sender, RoutedEventArgs e)
         {
             //placeholder prozor, ubaci svoj kad napravis formu
-            TripForm festaurantForm = new TripForm();
+            TripForm tripForm = new TripForm();
             //festaurantForm.ItemAdded += Form_ItemAdded;
-            festaurantForm.Show(); ;
+            tripForm.Show(); ;
         }
 
         private void EditButton(object sender, RoutedEventArgs e)
         {
-            //placeholder prozor, ubaci svoj kad napravis formu
-            Window window = new Window();
-            window.Show();
+            Trip trip = TripService.GetAllAccomodations().FirstOrDefault(); 
+            TripForm tripForm = new TripForm(trip);
+            tripForm.Show(); ;
         }
     }
 }

@@ -189,7 +189,7 @@
         <!-- Add navigation buttons -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10">
             <Button x:Name="PreviousButton" Content="Previous" Click="Previous_Click" Margin="5" IsEnabled="false"/>
-            <Button x:Name="NextButton" Content="Next" Click="Next_Click" Margin="5" IsEnabled="true"/>
+            <Button x:Name="NextButton" Content="Next" Click="Next_Click" Margin="5" IsEnabled="false"/>
         </StackPanel>
 
         <!-- Close button -->
