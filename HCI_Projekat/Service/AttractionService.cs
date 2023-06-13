@@ -53,5 +53,18 @@ namespace HCI_Projekat.Service
                 return context.Attractions.ToList();
             }
         }
+
+        public static Attraction? FindById(int id)
+        {
+            using (var context = new AppContext())
+            {
+                var att = context.Attractions.Find(id);
+                if (att != null)
+                {
+                    return att;
+                }
+                return null;
+            }
+        }
     }
 }

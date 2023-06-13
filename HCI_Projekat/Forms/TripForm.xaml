@@ -127,7 +127,7 @@
                             SelectedItemsOverride="{Binding SelectedItems}"
                             ItemsSource="{Binding Path=Options}"
                             SelectedMemberPath="Selected"
-                            ItemSelectionChanged="_combo_ItemSelectionChanged"
+                            ItemSelectionChanged="_combo_ItemSelectionChangedAtt"
                             Width="300" Height="30"
                             Margin="5"
                             VerticalAlignment="Center" />
@@ -142,7 +142,7 @@
                             SelectedItemsOverride="{Binding SelectedItems}"
                             ItemsSource="{Binding Path=Options}"
                             SelectedMemberPath="Selected"
-                            ItemSelectionChanged="_combo_ItemSelectionChanged"
+                            ItemSelectionChanged="_combo_ItemSelectionChangedRest"
                             Width="300" Height="30"
                             Margin="5"
                             VerticalAlignment="Center" />
@@ -157,7 +157,7 @@
                             SelectedItemsOverride="{Binding SelectedItems}"
                             ItemsSource="{Binding Path=Options}"
                             SelectedMemberPath="Selected"
-                            ItemSelectionChanged="_combo_ItemSelectionChanged"
+                            ItemSelectionChanged="_combo_ItemSelectionChangedAcc"
                             Width="300" Height="30"
                             Margin="5"
                             VerticalAlignment="Center" />

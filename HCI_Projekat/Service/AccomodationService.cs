@@ -52,5 +52,18 @@ namespace HCI_Projekat.Service
                 return context.Accomodations.ToList();
             }
         }
+
+        public static Accomodation? FindById(int id)
+        {
+            using (var context = new AppContext())
+            {
+                var acc = context.Accomodations.Find(id);
+                if (acc != null)
+                {
+                    return acc;
+                }
+                return null;
+            }
+        }
     }
 }

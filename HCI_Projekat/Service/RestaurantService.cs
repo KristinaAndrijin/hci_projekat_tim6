@@ -53,5 +53,18 @@ namespace HCI_Projekat.Service
                 return context.Restaurants.ToList();
             }
         }
+
+        public static Restaurant FindById(int id)
+        {
+            using (var context = new AppContext())
+            {
+                var restaurant = context.Restaurants?.Find(id);
+                if (restaurant != null)
+                {
+                    return restaurant;
+                }
+                return null;
+            }
+        }
     }
 }
