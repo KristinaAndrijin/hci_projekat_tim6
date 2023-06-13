@@ -15,5 +15,18 @@ namespace HCI_Projekat.Model
         public Trip Trip { get; set; }
         public DateTime Date { get; set; }
         public int Price { get; set; }
+
+        public string UserNameAndLastname()
+        {
+            return User.Name + " " + User.Lastname;
+        }
+        public string UserEmail()
+        {
+            return User.Email!;
+        }
+        public string TripName()
+        {
+            return Trip.Name!;
+        }
     }
 }

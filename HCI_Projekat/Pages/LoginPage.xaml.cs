@@ -24,9 +24,17 @@ namespace HCI_Projekat.Pages
     public partial class LoginPage : Page
     {
         public MainWindow MainWindowInstance { get; set; }
+        bool isValidPassword {  get; set; }
+        bool isValidEmail { get; set; }
+        bool firstOpenEmail { get; set; }
+        bool firstOpenPassword { get; set; }
 
         public LoginPage()
         {
+            isValidEmail = false;
+            isValidPassword = false;
+            firstOpenEmail = true;
+            firstOpenPassword = true;
             InitializeComponent();
         }
 
@@ -47,10 +55,18 @@ namespace HCI_Projekat.Pages
                 MainWindowInstance.Login.Visibility = Visibility.Collapsed;
                 MainWindowInstance.Register.Visibility = Visibility.Collapsed;
                 MainWindowInstance.Logout.Visibility = Visibility.Visible;
-                if (MainFrame.NavigationService.CanGoBack)
+                if(u.Role == Role.User)
                 {
-                    MainFrame.NavigationService.GoBack();
+                    if (MainFrame.NavigationService.CanGoBack)
+                    {
+                        MainFrame.NavigationService.GoBack();
+                    }
                 }
+                else if(u.Role == Role.Agent)
+                {
+                    MainWindowInstance.MainFrame.NavigationService.Navigate(new AgentHomePage());
+                }
+                
             } else
             {
                 new MessageBoxCustom("Prijava nije uspela!", MessageType.Warning, MessageButtons.Ok).ShowDialog();
@@ -66,5 +82,117 @@ namespace HCI_Projekat.Pages
             }
         }
 
+        private void EmailTextChanged(object sender, TextChangedEventArgs e)
+        {
+            string email = Email.Text;
+            isValidEmail = IsValidEmail(email);
+            if (isValidEmail)
+            {
+                EmailBorder.BorderBrush = new SolidColorBrush(Colors.Green);
+                EmailBorder.BorderThickness = new Thickness(2);
+                EmailValidationMessage.Visibility = Visibility.Collapsed;
+            } else
+            {
+                EmailBorder.BorderBrush = new SolidColorBrush(Colors.Red);
+                EmailValidationMessage.Visibility = Visibility.Visible;
+            }
+            UpdateLoginButtonState();
+        }
+
+        private void Password_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            string password = Password.Password;
+            isValidPassword = IsValidPassword(password);
+            if (isValidPassword)
+            {
+                PasswordBorder.BorderBrush = new SolidColorBrush(Colors.Green);
+                PasswordBorder.BorderThickness = new Thickness(2);
+                PasswordValidationMessage.Visibility = Visibility.Collapsed;
+            } else
+            {
+                PasswordBorder.BorderBrush = new SolidColorBrush(Colors.Red);
+                PasswordValidationMessage.Visibility = Visibility.Visible;
+            }
+            UpdateLoginButtonState();
+        }
+
+        private void UpdateLoginButtonState()
+        {
+            if (isValidEmail && isValidPassword) 
+            {
+                LoginButton.Background = new SolidColorBrush(Colors.Blue);
+                LoginButton.IsEnabled = true;
+                //EmailBorder.BorderBrush = new SolidColorBrush(Colors.Green);
+                //PasswordBorder.BorderBrush = new SolidColorBrush(Colors.Green);
+            } else
+            {
+                LoginButton.Background = new SolidColorBrush(Colors.Gray);
+                LoginButton.IsEnabled = false;
+            }
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            string emailRegex = @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
+
+            return System.Text.RegularExpressions.Regex.IsMatch(email, emailRegex);
+        }
+
+        private bool IsValidPassword(string password)
+        {
+            string passwordRegex = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+
+            return System.Text.RegularExpressions.Regex.IsMatch(password, passwordRegex);
+        }
+
+        private void Email_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (firstOpenEmail)
+            {
+                firstOpenEmail = false;
+                Email.TextChanged += EmailTextChanged;
+                string email = Email.Text;
+                isValidEmail = IsValidEmail(email);
+
+                if (isValidEmail)
+                {
+                    EmailBorder.BorderBrush = new SolidColorBrush(Colors.Green);
+                    EmailBorder.BorderThickness = new Thickness(2);
+                    EmailValidationMessage.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    EmailBorder.BorderBrush = new SolidColorBrush(Colors.Red);
+                    EmailValidationMessage.Visibility = Visibility.Visible;
+                }
+                UpdateLoginButtonState();
+            }
+            
+        }
+
+        private void Password_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (firstOpenPassword)
+            {
+                firstOpenPassword = false;
+                Password.PasswordChanged += Password_PasswordChanged;
+                string password = Password.Password;
+                isValidPassword = IsValidPassword(password);
+
+                if (isValidPassword)
+                {
+                    PasswordBorder.BorderBrush = new SolidColorBrush(Colors.Green);
+                    PasswordBorder.BorderThickness = new Thickness(2);
+                    PasswordValidationMessage.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    PasswordBorder.BorderBrush = new SolidColorBrush(Colors.Red);
+                    PasswordValidationMessage.Visibility = Visibility.Visible;
+                }
+                UpdateLoginButtonState();
+            }
+
+        }
     }
 }

@@ -14,7 +14,8 @@ namespace HCI_Projekat.Model
         public string? Name { get; set; }
         public string? Address { get; set; }
         public RestaurantType Type { get; set; }
-        public ICollection<Trip> Trips { get; set; }
+        public virtual ICollection<Trip> Trips { get; set; }
+        public bool IsDeleted { get; set; }
     }
     public enum RestaurantType
     {

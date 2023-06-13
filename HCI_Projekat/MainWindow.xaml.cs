@@ -1,6 +1,7 @@
 ﻿using HCI_Projekat.Model;
 using HCI_Projekat.Pages;
 using HCI_Projekat.Service;
+using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Microsoft.Maps.MapControl.WPF;
+using Microsoft.Maps.MapControl.WPF.Core;
+using System.Net;
+using System.IO;
+using System.Data;
+using System.Xml.Linq;
 
 namespace HCI_Projekat
 {
@@ -28,13 +34,7 @@ namespace HCI_Projekat
         public MainWindow()
         {
             InitializeComponent();
-            //UserService.Register("djole", "1234", "Djordje", "Djordjevic", "User");
-            //User? u = UserService.Login("djole", "1234");
-            //if (u != null)
-            //{
-            //    Console.WriteLine("pozdrav, " + u.Name);
-            //}
-            MainFrame.Content = new HomePage();
+
             if (UserService.HasLoggedIn)
             {
                 Login.Visibility = Visibility.Collapsed;
@@ -47,11 +47,13 @@ namespace HCI_Projekat
                 Register.Visibility = Visibility.Visible;
                 Logout.Visibility = Visibility.Collapsed;
             }
+            MainFrame.Content = new HomePage();
         }
 
         private void BtnClickP1(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new HomePage();
+            //ignore
+            MainFrame.Content = new AgentHomePage();
         }
 
         private void GoToLogin(object sender, RoutedEventArgs e)
@@ -76,10 +78,22 @@ namespace HCI_Projekat
 
         private void GoToLogout(object sender, RoutedEventArgs e)
         {
+            if (UserService.HasLoggedIn)
+            {
+                if(UserService.CurrentlyLoggedIn.Role == Role.Agent)
+                {
+                    MainFrame.Content = new HomePage();
+                }
+            }
             UserService.Logout();
             Login.Visibility = Visibility.Visible;
             Register.Visibility = Visibility.Visible;
             Logout.Visibility = Visibility.Collapsed;
+        }
+        
+        private void GoToMape(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new MapPage());
         }
     }
 }
