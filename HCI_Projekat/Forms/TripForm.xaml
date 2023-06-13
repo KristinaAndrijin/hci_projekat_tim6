@@ -104,7 +104,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Button  Click="AddStartPushpinClick" Width="100"  Foreground="Black" VerticalAlignment="Bottom" Margin="10,10,10,0" Content="Dodaj prvi" Style="{StaticResource RoundedButtonStyle}"/>
                             <Button  Click="AddEndPushpinClick" Width="100" Foreground="Black" VerticalAlignment="Bottom" Margin="10,10,10,0" Content="Dodaj drugi" Style="{StaticResource RoundedButtonStyle}"/>
-                            <Button Width="100"  Foreground="Black" VerticalAlignment="Bottom" Margin="10,10,10,0" Content="Poveži" Style="{StaticResource RoundedButtonStyle}"/>
+                            <Button Click="ConnectPushpins" Width="100"  Foreground="Black" VerticalAlignment="Bottom" Margin="10,10,10,0" Content="Poveži" Style="{StaticResource RoundedButtonStyle}"/>
                             <!-- Click="AddPushpinClick" -->
                         </StackPanel>
 
