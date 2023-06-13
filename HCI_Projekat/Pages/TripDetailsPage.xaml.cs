@@ -35,7 +35,7 @@ namespace HCI_Projekat.Pages
         {
             if (HasBoughtTrip(Trip))
             {
-                ShowMessageBox("Ovo putovanje Vam je već rezervisano.", MessageType.Warning, MessageButtons.Ok);
+                ShowMessageBox("Ovo putovanje je već rezervisano za Vas.", MessageType.Warning, MessageButtons.Ok);
                 return;
             }
 
@@ -48,20 +48,19 @@ namespace HCI_Projekat.Pages
 
             ShowMessageBox("Putovanje uspešno kupljeno", MessageType.Success, MessageButtons.Ok);
             CloseReservationDialog(sender, e);
-            btnRezervisiOpenDialog.IsEnabled = false;
         }
 
         private void BtnRezervisi_Click(object sender, RoutedEventArgs e)
         {
             if (selectedDate == DateTime.MinValue || selectedDate <= DateTime.Now.Date)
             {
-                ShowMessageBox("Uneseni datum nije adekvatan ili u budućnosti, molimo pokušajte ponovo.", MessageType.Warning, MessageButtons.Ok);
+                ShowMessageBox("Uneseni datum je u prošlosti, molimo pokušajte ponovo.", MessageType.Warning, MessageButtons.Ok);
                 return;
             }
 
             if (HasBoughtTrip(Trip))
             {
-                ShowMessageBox("Ovo putovanje Vam je već rezervisano.", MessageType.Warning, MessageButtons.Ok);
+                ShowMessageBox("Ovo putovanje je već rezervisano za Vas.", MessageType.Warning, MessageButtons.Ok);
                 return;
             }
 
@@ -74,7 +73,6 @@ namespace HCI_Projekat.Pages
 
             ShowMessageBox("Putovanje uspešno rezervisano", MessageType.Success, MessageButtons.Ok);
             CloseReservationDialog(sender, e);
-            btnRezervisiOpenDialog.IsEnabled = false;
         }
 
         private bool HasBoughtTrip(Trip trip)
@@ -87,8 +85,6 @@ namespace HCI_Projekat.Pages
             }
         }
 
-
-
         private void ShowMessageBox(string message, MessageType type, MessageButtons buttons)
         {
             MessageBoxCustom messageBox = new MessageBoxCustom(message, type, buttons);
@@ -98,6 +94,13 @@ namespace HCI_Projekat.Pages
 
         private void OpenReservationDialog(object sender, RoutedEventArgs e)
         {
+            if (UserService.CurrentlyLoggedIn == null)
+            {
+                ShowMessageBox("Morate se prijaviti da biste rezervisali putovanje.", MessageType.Warning, MessageButtons.Ok);
+                return;
+            }
+
+
             ReservationDialog.Visibility = Visibility.Visible;
         }
 
