@@ -7,12 +7,21 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800"
+        Title="HCI Tim 6" Height="500" Width="800"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         MinHeight="700"
         MinWidth="800"
         >
+    <Window.Icon>
+        <BitmapImage UriSource="/HCI_Projekat;component/images/icon.ico" />
+    </Window.Icon>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="ApplicationCommands.Help" Key="F1" CommandTarget="{Binding ElementName=MainWindow}"/>
+    </Window.InputBindings>
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -45,6 +54,8 @@
             <Button x:Name="Register" MinWidth="100" Margin="0,0,10,0" Click="GoToRegister">Registracija</Button>
             <Button x:Name="Logout" MinWidth="100" Margin="0,0,10,0" Click="GoToLogout">Odjavite se</Button>
             <Button x:Name="Mape" MinWidth="100" Margin="0,0,10,0" Click="GoToMape">Mape</Button>
+            <Button x:Name="Pregled" MinWidth="100" Margin="0,0,10,0" Click="GoToUserTripOverview">Putovanja</Button>
+
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Button MinWidth="100" Margin="0,0,10,0" Click="NavigateBack" IsEnabled="{Binding ElementName=MainFrame, Path=CanGoBack}" Style="{StaticResource MaterialDesignFlatButtonNoHover}" ToolTip="Prethodna stranica">

@@ -49,7 +49,7 @@ namespace HCI_Projekat.Service
         {
             using (var context = new AppContext())
             {
-                return context.Accomodations.ToList();
+                return context.Accomodations.Where(a => !a.IsDeleted).ToList();
             }
         }
 

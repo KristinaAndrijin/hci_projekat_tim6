@@ -7,31 +7,29 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Focusable="True"
-      Title="TripsTable">
+      Title="TripsTable"
+      PreviewKeyDown="Page_PreviewKeyDown">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding TripsList}" Name="DataGridPutovanja" Grid.Row="1" CanUserSortColumns="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow">
+        <DataGrid ItemsSource="{Binding TripsList}" Name="DataGridPutovanja" Grid.Row="1" CanUserSortColumns="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" IsReadOnly="True" SelectionChanged="DataGridPutovanja_SelectionChanged" PreviewKeyDown="DataGridPutovanja_PreviewKeyDown">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Width="2*" Binding="{Binding Name}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Pocetna adresa" Width="2*" Binding="{Binding StartingAddress}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Krajnnja adresa" Width="2*" Binding="{Binding EndingAddress}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Cena" Width="*" Binding="{Binding Price}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Broj atrakcija" Width="*" Binding="{Binding AttractionsCount}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Broj restorana" Width="*" Binding="{Binding RestaurantsCount}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Broj smestaja" Width="*" Binding="{Binding AccomodationsCount}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Broj atrakcija" Width="*" Binding="{Binding Attractions.Count}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Broj restorana" Width="*" Binding="{Binding Restaurants.Count}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Broj smestaja" Width="*" Binding="{Binding Accomodations.Count}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Button Width="75" Margin="10,0,0,0" Content="Novo" ToolTip="Dodaj novo putovanje, Ctrl+N" Click="AddNew"/>
-            <Button Width="75" Margin="10,0,0,0" Content="Izmeni" ToolTip="Izmeni odabrana putovanja, Ctrl+E" Click="EditButton"/>
-            <Button Width="75" Margin="10,0,0,0" Content="Obriši" ToolTip="Obriši odabrana putovanja, Delete" Command="{Binding DeleteCommand}">
-                <Button.InputBindings>
-                    <KeyBinding Key="Delete" Command="{Binding DeleteCommand}" />
-                </Button.InputBindings>
+            <Button Width="75" Margin="10,0,0,0" Content="Izmeni" ToolTip="Izmeni odabrana putovanja, Ctrl+E" Command="{Binding EditSelectedItemsCommand}" CommandParameter="{Binding SelectedItems}" IsEnabled="{Binding EditSelectedItemsCommand.CanExecute, Mode=OneWay}"/>
+            <Button Width="75" Margin="10,0,0,0" Content="Obriši" ToolTip="Obriši odabrana putovanja, Delete" Command="{Binding DeleteSelectedItemsCommand}" CommandParameter="{Binding SelectedItems}" IsEnabled="{Binding DeleteSelectedItemsCommand.CanExecute, Mode=OneWay}">
             </Button>
         </StackPanel>
     </Grid>

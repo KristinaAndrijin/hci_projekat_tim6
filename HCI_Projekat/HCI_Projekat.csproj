@@ -8,6 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Help\agent.html" />
+    <None Remove="Help\error.html" />
+    <None Remove="Help\formaOstalo.bmp" />
+    <None Remove="Help\formaPutovanjaStep1.bmp" />
+    <None Remove="Help\formaPutovanjaStep2.bmp" />
+    <None Remove="Help\index.html" />
+    <None Remove="Help\korisnik.html" />
+    <None Remove="Help\tabelaOstalo.bmp" />
+    <None Remove="Help\tabelaPutovanja.bmp" />
+    <None Remove="images\icon.ico" />
+    <None Remove="images\banner.png" />
     <None Remove="images\travel.png" />
   </ItemGroup>
 
@@ -21,6 +32,39 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Help\formaOstalo.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\formaPutovanjaStep2.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\korisnik.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\agent.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\error.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\formaPutovanjaStep1.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\tabelaOstalo.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\tabelaPutovanja.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\banner.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\travel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

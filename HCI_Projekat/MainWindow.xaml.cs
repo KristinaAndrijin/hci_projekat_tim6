@@ -4,6 +4,21 @@ using HCI_Projekat.Service;
 using HCI_Projekat.Forms;
 using System;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Microsoft.Maps.MapControl.WPF;
+using Microsoft.Maps.MapControl.WPF.Core;
+using System.Net;
+using System.IO;
+using System.Data;
+using System.Xml.Linq;
+using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Xceed.Wpf.Toolkit;
@@ -36,21 +51,29 @@ namespace HCI_Projekat
             //}
 
             //_combo.ItemsSource = Options;
+            Mape.Visibility = Visibility.Collapsed;
 
             if (UserService.HasLoggedIn)
             {
                 Login.Visibility = Visibility.Collapsed;
                 Register.Visibility = Visibility.Collapsed;
                 Logout.Visibility = Visibility.Visible;
+                if(UserService.CurrentlyLoggedIn!.Role == Role.User)
+                {
+                    Pregled.Visibility = Visibility.Visible;
+                }
+                
             }
             else
             {
                 Login.Visibility = Visibility.Visible;
                 Register.Visibility = Visibility.Visible;
                 Logout.Visibility = Visibility.Collapsed;
+                Pregled.Visibility = Visibility.Collapsed;
             }
-            MainFrame.Content = new AgentHomePage();
-            //MainFrame.Content = new TripForm();
+            HomePage homePage = new HomePage();
+            MainFrame.Content = homePage;
+            homePage.MainWindowInstance = this;
         }
 
         private void BtnClickP1(object sender, RoutedEventArgs e)
@@ -87,11 +110,16 @@ namespace HCI_Projekat
                 {
                     MainFrame.Content = new HomePage();
                 }
+                if(MainFrame.Content is UserTripsOverviewPage)
+                {
+                    MainFrame.NavigationService.GoBack();
+                }
             }
             UserService.Logout();
             Login.Visibility = Visibility.Visible;
             Register.Visibility = Visibility.Visible;
             Logout.Visibility = Visibility.Collapsed;
+            Pregled.Visibility = Visibility.Collapsed;
         }
 
         private void GoToMape(object sender, RoutedEventArgs e)
@@ -99,25 +127,25 @@ namespace HCI_Projekat
             MainFrame.Navigate(new MapPage());
         }
 
-        //private void _combo_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
-        //{
-        //    CheckComboBox checkComboBox = (CheckComboBox)sender;
+        private void GoToUserTripOverview(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new UserTripsOverviewPage());
+        }
 
-        //    // Get the selected items
-        //    ObservableCollection<Object> selectedItems = (ObservableCollection<Object>) checkComboBox.SelectedItems;
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            HelpProvider.ShowHelp("index", this);
+            /*IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
+            if (focusedControl is DependencyObject)
+            {
+                //string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+                
+            }*/
+        }
+        public void doThings(string param)
+        {
 
-        //    string textneki = "";
-        //    // Access the selected items
-        //    foreach (Item selectedItem in selectedItems)
-        //    {
-        //        // Perform some action with the selected item
-        //        // You may need to cast the item to the appropriate type
-        //        string selectedLanguage = selectedItem.Name;
-        //        textneki += selectedLanguage;
-        //        // Do something with the selected language
-        //    }
-        //    blockie.Text = textneki;
-        //}
+        }
     }
     class Item : INotifyPropertyChanged
     {
@@ -162,5 +190,8 @@ namespace HCI_Projekat
 
         public event PropertyChangedEventHandler
                        PropertyChanged;
+
+
     }
+
 }
