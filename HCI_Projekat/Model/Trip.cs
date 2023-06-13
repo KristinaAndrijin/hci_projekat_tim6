@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace HCI_Projekat.Model
 {
@@ -23,6 +26,7 @@ namespace HCI_Projekat.Model
         public virtual ICollection<Restaurant>? Restaurants { get; set; }
         [JsonIgnore]
         public virtual ICollection<Accomodation>? Accomodations { get; set; } 
+
         public int AttractionsCount => Attractions?.Count ?? 0;
         public int RestaurantsCount => Restaurants?.Count ?? 0;
         public int AccomodationsCount => Accomodations?.Count ?? 0;

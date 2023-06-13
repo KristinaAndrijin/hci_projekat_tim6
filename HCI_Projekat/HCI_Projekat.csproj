@@ -13,6 +13,7 @@
     <None Remove="Help\index.html" />
     <None Remove="Help\korisnik.html" />
     <None Remove="images\icon.ico" />
+    <None Remove="images\banner.png" />
     <None Remove="images\travel.png" />
   </ItemGroup>
 
@@ -39,6 +40,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="images\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\banner.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="images\travel.png">
