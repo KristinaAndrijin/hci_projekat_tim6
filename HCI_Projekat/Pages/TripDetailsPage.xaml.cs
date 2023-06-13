@@ -24,6 +24,7 @@ namespace HCI_Projekat.Pages
     public partial class TripDetailsPage : Page
     {
         public Trip Trip { get; set; }
+        private DateTime selectedDate;
 
         public TripDetailsPage(Trip trip)
         {
@@ -46,7 +47,8 @@ namespace HCI_Projekat.Pages
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            DateTime selectedDate = datePicker.SelectedDate ?? DateTime.MinValue;
+            DatePicker datePicker = (DatePicker)sender;
+            selectedDate = datePicker.SelectedDate ?? DateTime.MinValue;
             bool isFutureDate = selectedDate > DateTime.Now.Date;
 
             btnRezervisi.IsEnabled = isFutureDate;
@@ -54,15 +56,21 @@ namespace HCI_Projekat.Pages
 
         private void BtnKupi_Click(object sender, RoutedEventArgs e)
         {
-            // Handle the "Kupi" button click event
+            PrintSelectedTime();
+            CloseReservationDialog(sender, e);
+            btnRezervisiOpenDialog.IsEnabled = false;
         }
 
         private void BtnRezervisi_Click(object sender, RoutedEventArgs e)
         {
-            // Handle the "Rezerviši" button click event
+            PrintSelectedTime();
+            CloseReservationDialog(sender, e);
+            btnRezervisiOpenDialog.IsEnabled = false;
         }
 
+        private void PrintSelectedTime()
+        {
+            Debug.WriteLine($"Selected time: {selectedDate}");
+        }
     }
-
-
 }

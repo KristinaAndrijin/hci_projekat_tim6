@@ -83,7 +83,7 @@
         <Grid Grid.Column="1">
             <!-- Placeholder map -->
             <Border Background="#404040" Margin="20" CornerRadius="10"/>
-            <Button Content="Rezerviši" Click="OpenReservationDialog" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
+            <Button Name="btnRezervisiOpenDialog" Content="Rezerviši" Click="OpenReservationDialog" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20"/>
         </Grid>
 
         <!-- Reservation Dialog -->
