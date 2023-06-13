@@ -32,5 +32,37 @@ namespace HCI_Projekat.Pages
             Debug.WriteLine($"Clicked on trip: {trip.Name}, Price: {trip.Price}");
             DataContext = this;
         }
+
+
+        private void OpenReservationDialog(object sender, RoutedEventArgs e)
+        {
+            ReservationDialog.Visibility = Visibility.Visible;
+        }
+
+        private void CloseReservationDialog(object sender, RoutedEventArgs e)
+        {
+            ReservationDialog.Visibility = Visibility.Collapsed;
+        }
+
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime selectedDate = datePicker.SelectedDate ?? DateTime.MinValue;
+            bool isFutureDate = selectedDate > DateTime.Now.Date;
+
+            btnRezervisi.IsEnabled = isFutureDate;
+        }
+
+        private void BtnKupi_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle the "Kupi" button click event
+        }
+
+        private void BtnRezervisi_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle the "Rezerviši" button click event
+        }
+
     }
+
+
 }
