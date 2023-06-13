@@ -12,15 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using HCI_Projekat.Model;
-using MaterialDesignThemes.Wpf;
-
-using System.Diagnostics;
-using System.Windows.Controls;
-using System.Data.Entity;
 using HCI_Projekat.Model;
 using HCI_Projekat.Service;
+using MaterialDesignThemes.Wpf;
 
 namespace HCI_Projekat.Pages
 {
@@ -37,6 +31,70 @@ namespace HCI_Projekat.Pages
             DataContext = this;
         }
 
+        private void BtnKupi_Click(object sender, RoutedEventArgs e)
+        {
+            if (HasBoughtTrip(Trip))
+            {
+                ShowMessageBox("Ovo putovanje Vam je već rezervisano.", MessageType.Warning, MessageButtons.Ok);
+                return;
+            }
+
+            using (var dbContext = new Repository.AppContext())
+            {
+                BoughtTrip boughtTrip = new BoughtTrip(UserService.CurrentlyLoggedIn, Trip, DateTime.Now, Trip.Price);
+                dbContext.BoughtTrips.Add(boughtTrip);
+                dbContext.SaveChanges();
+            }
+
+            ShowMessageBox("Putovanje uspešno kupljeno", MessageType.Success, MessageButtons.Ok);
+            CloseReservationDialog(sender, e);
+            btnRezervisiOpenDialog.IsEnabled = false;
+        }
+
+        private void BtnRezervisi_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedDate == DateTime.MinValue || selectedDate <= DateTime.Now.Date)
+            {
+                ShowMessageBox("Uneseni datum nije adekvatan ili u budućnosti, molimo pokušajte ponovo.", MessageType.Warning, MessageButtons.Ok);
+                return;
+            }
+
+            if (HasBoughtTrip(Trip))
+            {
+                ShowMessageBox("Ovo putovanje Vam je već rezervisano.", MessageType.Warning, MessageButtons.Ok);
+                return;
+            }
+
+            using (var dbContext = new Repository.AppContext())
+            {
+                BoughtTrip boughtTrip = new BoughtTrip(UserService.CurrentlyLoggedIn, Trip, selectedDate, Trip.Price);
+                dbContext.BoughtTrips.Add(boughtTrip);
+                dbContext.SaveChanges();
+            }
+
+            ShowMessageBox("Putovanje uspešno rezervisano", MessageType.Success, MessageButtons.Ok);
+            CloseReservationDialog(sender, e);
+            btnRezervisiOpenDialog.IsEnabled = false;
+        }
+
+        private bool HasBoughtTrip(Trip trip)
+        {
+            using (var dbContext = new Repository.AppContext())
+            {
+                int userId = UserService.CurrentlyLoggedIn.Id; 
+                int tripId = trip.Id; 
+                return dbContext.BoughtTrips.Any(bt => bt.User.Id == userId && bt.Trip.Id == tripId);
+            }
+        }
+
+
+
+        private void ShowMessageBox(string message, MessageType type, MessageButtons buttons)
+        {
+            MessageBoxCustom messageBox = new MessageBoxCustom(message, type, buttons);
+            messageBox.Owner = Application.Current.MainWindow;
+            messageBox.ShowDialog();
+        }
 
         private void OpenReservationDialog(object sender, RoutedEventArgs e)
         {
@@ -50,37 +108,8 @@ namespace HCI_Projekat.Pages
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            DatePicker datePicker = (DatePicker)sender;
             selectedDate = datePicker.SelectedDate ?? DateTime.MinValue;
-            bool isFutureDate = selectedDate > DateTime.Now.Date;
-
-            btnRezervisi.IsEnabled = isFutureDate;
-        }
-
-        private void BtnKupi_Click(object sender, RoutedEventArgs e)
-        {
-            PrintSelectedTime();
-
-            using (var dbContext = new Repository.AppContext()) {
-                BoughtTrip nbt = new BoughtTrip(UserService.CurrentlyLoggedIn, this.Trip, selectedDate, Trip.Price);
-                dbContext.BoughtTrips.Add(nbt);
-                dbContext.SaveChanges();
-            }
-            
-            CloseReservationDialog(sender, e);
-            btnRezervisiOpenDialog.IsEnabled = false;
-        }
-
-        private void BtnRezervisi_Click(object sender, RoutedEventArgs e)
-        {
-            PrintSelectedTime();
-            CloseReservationDialog(sender, e);
-            btnRezervisiOpenDialog.IsEnabled = false;
-        }
-
-        private void PrintSelectedTime()
-        {
-            Debug.WriteLine($"Selected time: {selectedDate}");
+            btnRezervisi.IsEnabled = selectedDate != DateTime.MinValue;
         }
     }
 }
