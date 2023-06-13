@@ -38,11 +38,17 @@ namespace HCI_Projekat.Forms
         AccomodationType type { get; set; }
         string pin_address { get; set; }
         bool edit { get; set; }
-        int acc_id { get; set; }
+        int accomodation_id { get; set; }
+        bool editFirstAddress { get; set; }
+        bool editFirstCity { get; set; }
+        bool editFirstName { get; set; }
+        string addressEdit { get; set; }
+        string cityEdit { get; set; }
+        string nameEdit { get; set; }
+        public event EventHandler ItemAdded;//event koji hvatam u tabeli
+
 
         const string BING_API_KEY = "Ah8LozC7khuISaCoOppLN2Vm_mhOD65qXBZVEDcQoZ34UApWABR9jxtuKdlYb7jV";
-
-        public event EventHandler ItemAdded;//event koji hvatam u tabeli
         public AccomodationForm()
         {
             InitializeComponent();
@@ -55,11 +61,21 @@ namespace HCI_Projekat.Forms
             isNameValid = false;
             firstOpenName = true;
             edit = false;
+            Address.TextChanged += AddressTextChanged;
+            City.TextChanged += CityTextChanged;
+            Name.TextChanged += NameTextChanged;
+            editFirstAddress = false;
+            editFirstCity = false;
+            editFirstName = false;
         }
 
         public AccomodationForm(Accomodation accomodation)
         {
+            //Address.TextChanged -= AddressTextChanged;
+            //City.TextChanged -= CityTextChanged;
+            //Name.TextChanged -= NameTextChanged;
             InitializeComponent();
+            SubmitBtn.Content = "Izmeni restoran";
             edit = true;
             Map.Center = new Location(44.7866, 20.4489); // Beograd
             Map.ZoomLevel = 12;
@@ -73,31 +89,51 @@ namespace HCI_Projekat.Forms
             string city = "";
             string addressToParse = accomodation.Address;
             string[] partsOfAddress = addressToParse.Split(", ");
-            if (partsOfAddress.Length == 4 )
+            if (partsOfAddress.Length == 4)
             {
                 street = partsOfAddress[0];
                 city = partsOfAddress[2].Split(" ")[1];
-            } else if (partsOfAddress.Length == 3)
+            }
+            else if (partsOfAddress.Length == 3)
             {
                 street = partsOfAddress[0];
-                city = partsOfAddress[1].Split(" ")[1];
+                if (partsOfAddress[1].Split(" ").Length > 1)
+                {
+                    city = partsOfAddress[1].Split(" ")[1];
+                }
+                else
+                {
+                    city = partsOfAddress[1];
+                }
+
             }
             Address.Text = street;
+            addressEdit = street;
             City.Text = city;
+            cityEdit = city;
             AccomodationType t = accomodation.Type;
             if (t == AccomodationType.Hotel)
             {
                 Combo.SelectedIndex = 0;
-            } else if (t == AccomodationType.Motel)
+            }
+            else if (t == AccomodationType.Motel)
             {
                 Combo.SelectedIndex = 1;
-            } else
+            }
+            else
             {
                 Combo.SelectedIndex = 2;
             }
             Name.Text = accomodation.Name;
+            nameEdit = accomodation.Name;
             putPinPls(street + ", " + city + ", Srbija");
-            acc_id = accomodation.Id;
+            accomodation_id = accomodation.Id;
+            editFirstAddress = true;
+            editFirstCity = true;
+            editFirstName = true;
+            Address.TextChanged += AddressTextChanged;
+            City.TextChanged += CityTextChanged;
+            Name.TextChanged += NameTextChanged;
         }
 
         private void putPinPls(string address)
@@ -169,6 +205,12 @@ namespace HCI_Projekat.Forms
 
         private void AddressTextChanged(object sender, TextChangedEventArgs e)
         {
+            if (editFirstAddress)
+            {
+                Address.Text = addressEdit;
+                editFirstAddress = false;
+                return;
+            }
             string address = Address.Text;
             isAddressValid = IsValidAddress(address);
             if (isAddressValid)
@@ -224,6 +266,12 @@ namespace HCI_Projekat.Forms
 
         private void CityTextChanged(object sender, TextChangedEventArgs e)
         {
+            if (editFirstCity)
+            {
+                City.Text = cityEdit;
+                editFirstCity = false;
+                return;
+            }
             SubmitBtn.IsEnabled = false;
             SubmitBtn.Background = new SolidColorBrush(Colors.Gray);
             string city = City.Text;
@@ -324,15 +372,18 @@ namespace HCI_Projekat.Forms
                         pin_address = res_address;
                         //pushpin = pin;
                         UpdateButton();
-                    } else
+                    }
+                    else
                     {
                         MessageBox.Show("Adresa neuspešno pročitana");
                     }
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     MessageBox.Show("Adresa neuspešno pročitana: " + ex.Message);
                 }
             }
+            Map.MouseLeftButtonDown -= Map_MouseLeftButtonDownAdd;
         }
 
         private string GetAddressFromLocation(double latitude, double longitude)
@@ -355,7 +406,8 @@ namespace HCI_Projekat.Forms
                         return address["formattedAddress"].ToString();
                     }
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Adresa neuspešno pročitana: " + ex.Message);
                 return null;
@@ -372,10 +424,12 @@ namespace HCI_Projekat.Forms
             if (selectedText == "Hotel")
             {
                 type = AccomodationType.Hotel;
-            } else if (selectedText == "Motel")
+            }
+            else if (selectedText == "Model")
             {
                 type = AccomodationType.Motel;
-            } else
+            }
+            else
             {
                 type = AccomodationType.Tent;
             }
@@ -383,6 +437,12 @@ namespace HCI_Projekat.Forms
 
         private void NameTextChanged(object sender, TextChangedEventArgs e)
         {
+            if (editFirstName)
+            {
+                Name.Text = nameEdit;
+                editFirstName = false;
+                return;
+            }
             string name = Name.Text;
             isNameValid = IsValidName(name);
             if (isNameValid)
@@ -408,21 +468,22 @@ namespace HCI_Projekat.Forms
 
         private void AddAccomodation(object sender, RoutedEventArgs e)
         {
-            if (!edit) { 
+            if (!edit)
+            {
                 AccomodationService.Add(pin_address, type, Name.Text);
                 new MessageBoxCustom("Smeštaj je uspešno dodat", MessageType.Success, MessageButtons.Ok).ShowDialog();
                 ItemAdded?.Invoke(this, EventArgs.Empty);//event koji hvatam u tabeli
                 Address.Text = null;
                 City.Text = null;
                 Name.Text = null;
-            } else
+            }
+            else
             {
-                AccomodationService.Edit(acc_id, pin_address, type, Name.Text);
+                AccomodationService.Edit(accomodation_id, pin_address, type, Name.Text);
                 new MessageBoxCustom("Smeštaj je uspešno izmenjen", MessageType.Success, MessageButtons.Ok).ShowDialog();
                 ItemAdded?.Invoke(this, EventArgs.Empty);//event koji hvatam u tabeli
                 this.Close();
             }
-            
         }
 
         private void UpdateButton()

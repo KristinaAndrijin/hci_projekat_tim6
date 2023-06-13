@@ -7,7 +7,8 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="TripDetailsPage">
+      Title="TripDetailsPage"
+      xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -86,6 +87,7 @@
         <Grid Grid.Column="1">
             <!-- Placeholder map -->
             <Border Background="#404040" Margin="20" CornerRadius="10"/>
+            <m:Map VerticalAlignment="Center" Width="700" Height="550" x:Name="Map" CredentialsProvider="Ah8LozC7khuISaCoOppLN2Vm_mhOD65qXBZVEDcQoZ34UApWABR9jxtuKdlYb7jV" />
         </Grid>
 
         <!-- Reservation Dialog -->

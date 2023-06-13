@@ -23,6 +23,9 @@ namespace HCI_Projekat.Pages
         public Trip Trip { get; set; }
         private DateTime selectedDate;
 
+        //Map.Center = new Microsoft.Maps.MapControl.WPF.Location(44.7866, 20.4489); // Beograd
+        //Map.ZoomLevel = 12;
+
         public TripDetailsPage(Trip trip)
         {
             this.Trip = trip;
@@ -79,8 +82,8 @@ namespace HCI_Projekat.Pages
         {
             using (var dbContext = new Repository.AppContext())
             {
-                int userId = UserService.CurrentlyLoggedIn.Id; 
-                int tripId = trip.Id; 
+                int userId = UserService.CurrentlyLoggedIn.Id;
+                int tripId = trip.Id;
                 return dbContext.BoughtTrips.Any(bt => bt.User.Id == userId && bt.Trip.Id == tripId);
             }
         }

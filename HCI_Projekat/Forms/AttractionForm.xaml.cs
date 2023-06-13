@@ -26,7 +26,7 @@ namespace HCI_Projekat.Forms
     /// <summary>
     /// Interaction logic for AccomodationForm.xaml
     /// </summary>
-    public partial class tripForm : Window
+    public partial class AttractionForm : Window
     {
         bool isAddressValid { get; set; }
         bool firstOpenAddress { get; set; }
@@ -35,7 +35,7 @@ namespace HCI_Projekat.Forms
         bool isNameValid { get; set; }
         bool firstOpenName { get; set; }
         Pushpin pushpin { get; set; }
-        RestaurantType type { get; set; }
+        AttractionType type { get; set; }
         string pin_address { get; set; }
         bool edit { get; set; }
         int restaurant_id { get; set; }
@@ -49,7 +49,7 @@ namespace HCI_Projekat.Forms
 
 
         const string BING_API_KEY = "Ah8LozC7khuISaCoOppLN2Vm_mhOD65qXBZVEDcQoZ34UApWABR9jxtuKdlYb7jV";
-        public tripForm()
+        public AttractionForm()
         {
             InitializeComponent();
             Map.Center = new Location(44.7866, 20.4489); // Beograd
@@ -69,13 +69,13 @@ namespace HCI_Projekat.Forms
             editFirstName = false;
         }
 
-        public tripForm(Restaurant restaurant)
+        public AttractionForm(Attraction attraction)
         {
             //Address.TextChanged -= AddressTextChanged;
             //City.TextChanged -= CityTextChanged;
             //Name.TextChanged -= NameTextChanged;
             InitializeComponent();
-            SubmitBtn.Content = "Izmeni restoran";
+            SubmitBtn.Content = "Izmeni atrakciju";
             edit = true;
             Map.Center = new Location(44.7866, 20.4489); // Beograd
             Map.ZoomLevel = 12;
@@ -87,7 +87,7 @@ namespace HCI_Projekat.Forms
             firstOpenName = false;
             string street = "";
             string city = "";
-            string addressToParse = restaurant.Address;
+            string addressToParse = attraction.Address;
             string[] partsOfAddress = addressToParse.Split(", ");
             if (partsOfAddress.Length == 4)
             {
@@ -97,9 +97,11 @@ namespace HCI_Projekat.Forms
             else if (partsOfAddress.Length == 3)
             {
                 street = partsOfAddress[0];
-                if (partsOfAddress[1].Split(" ").Length > 1) {
+                if (partsOfAddress[1].Split(" ").Length > 1)
+                {
                     city = partsOfAddress[1].Split(" ")[1];
-                } else
+                }
+                else
                 {
                     city = partsOfAddress[1];
                 }
@@ -109,23 +111,27 @@ namespace HCI_Projekat.Forms
             addressEdit = street;
             City.Text = city;
             cityEdit = city;
-            RestaurantType t = restaurant.Type;
-            if (t == RestaurantType.Ethno)
+            AttractionType t = attraction.Type;
+            if (t == AttractionType.Cultural)
             {
                 Combo.SelectedIndex = 0;
             }
-            else if (t == RestaurantType.Modern)
+            else if (t == AttractionType.Religious)
             {
                 Combo.SelectedIndex = 1;
             }
-            else
+            else if (t == AttractionType.Entertainment)
             {
                 Combo.SelectedIndex = 2;
             }
-            Name.Text = restaurant.Name;
-            nameEdit = restaurant.Name;
+            else
+            {
+                Combo.SelectedIndex = 3;
+            }
+            Name.Text = attraction.Name;
+            nameEdit = attraction.Name;
             putPinPls(street + ", " + city + ", Srbija");
-            restaurant_id = restaurant.Id;
+            restaurant_id = attraction.Id;
             editFirstAddress = true;
             editFirstCity = true;
             editFirstName = true;
@@ -419,17 +425,21 @@ namespace HCI_Projekat.Forms
 
             string selectedText = selectedItem.Content.ToString();
 
-            if (selectedText == "Etno")
+            if (selectedText == "Kulturološka")
             {
-                type = RestaurantType.Ethno;
+                type = AttractionType.Cultural;
             }
-            else if (selectedText == "Moderan")
+            else if (selectedText == "Verska")
             {
-                type = RestaurantType.Modern;
+                type = AttractionType.Religious;
+            }
+            else if (selectedText == "Zabavna")
+            {
+                type = AttractionType.Entertainment;
             }
             else
             {
-                type = RestaurantType.FastFood;
+                type = AttractionType.Nature;
             }
         }
 
@@ -468,8 +478,8 @@ namespace HCI_Projekat.Forms
         {
             if (!edit)
             {
-                RestaurantService.Add(pin_address, type, Name.Text);
-                new MessageBoxCustom("Restoran je uspešno dodat", MessageType.Success, MessageButtons.Ok).ShowDialog();
+                AttractionService.Add(pin_address, type, Name.Text);
+                new MessageBoxCustom("Atrakcija je uspešno dodata", MessageType.Success, MessageButtons.Ok).ShowDialog();
                 ItemAdded?.Invoke(this, EventArgs.Empty);//event koji hvatam u tabeli
                 Address.Text = null;
                 City.Text = null;
@@ -477,8 +487,8 @@ namespace HCI_Projekat.Forms
             }
             else
             {
-                RestaurantService.Edit(restaurant_id, pin_address, type, Name.Text);
-                new MessageBoxCustom("Restoran je uspešno izmenjen", MessageType.Success, MessageButtons.Ok).ShowDialog();
+                AttractionService.Edit(restaurant_id, pin_address, type, Name.Text);
+                new MessageBoxCustom("Atrakcija je uspešno izmenjena", MessageType.Success, MessageButtons.Ok).ShowDialog();
                 ItemAdded?.Invoke(this, EventArgs.Empty);//event koji hvatam u tabeli
                 this.Close();
             }

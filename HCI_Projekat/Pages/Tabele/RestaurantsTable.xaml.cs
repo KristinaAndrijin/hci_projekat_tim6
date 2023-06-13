@@ -65,9 +65,9 @@ namespace HCI_Projekat.Pages.Tabele
         {
             foreach(Restaurant selectedItem in selectedItems)
             {
-                RestaurantForm festaurantForm = new RestaurantForm(selectedItem);
-                festaurantForm.ItemAdded += Form_ItemAdded;
-                festaurantForm.Show();
+                tripForm restaurantForm = new tripForm(selectedItem);
+                restaurantForm.ItemAdded += Form_ItemAdded;
+                restaurantForm.Show();
             }
 
             using(var context = new AppContext())
@@ -141,7 +141,7 @@ namespace HCI_Projekat.Pages.Tabele
 
         private void AddNewItem()
         {
-            RestaurantForm festaurantForm = new RestaurantForm();
+            tripForm festaurantForm = new tripForm();
             festaurantForm.ItemAdded += Form_ItemAdded;
             festaurantForm.Show();
         }

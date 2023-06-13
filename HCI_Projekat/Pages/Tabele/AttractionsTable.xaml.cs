@@ -97,10 +97,10 @@ namespace HCI_Projekat.Pages.Tabele
         {
             foreach (Attraction selectedItem in selectedItems)
             {
-                //TODO: Staviti odgovarajucu formu!!!
-                //AccomodationForm accomodationForm = new AccomodationForm();
-                //accomodationForm.DataContext = selectedItem;
-                //accomodationForm.Show();
+                AttractionForm attractionForm = new AttractionForm(selectedItem);
+                attractionForm.DataContext = selectedItem;
+                attractionForm.ItemAdded += AccomodationForm_ItemAdded;
+                attractionForm.Show();
             }
 
             using (var context = new Repository.AppContext())
@@ -119,9 +119,9 @@ namespace HCI_Projekat.Pages.Tabele
         private void AddNewItem()
         {
             //TODO: Staviti odgovarajucu formu!!!
-            //AccomodationForm accomodationForm = new AccomodationForm();
-            //accomodationForm.ItemAdded += AccomodationForm_ItemAdded;
-            //accomodationForm.Show();
+            AttractionForm attractionForm = new AttractionForm();
+            attractionForm.ItemAdded += AccomodationForm_ItemAdded;
+            attractionForm.Show();
         }
         private void AccomodationForm_ItemAdded(object sender, EventArgs e)
         {
