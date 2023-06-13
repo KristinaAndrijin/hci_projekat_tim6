@@ -70,7 +70,9 @@ namespace HCI_Projekat
                 Logout.Visibility = Visibility.Collapsed;
                 Pregled.Visibility = Visibility.Collapsed;
             }
-            MainFrame.Content = new HomePage();
+            HomePage homePage = new HomePage();
+            MainFrame.Content = homePage;
+            homePage.MainWindowInstance = this;
         }
 
         private void BtnClickP1(object sender, RoutedEventArgs e)

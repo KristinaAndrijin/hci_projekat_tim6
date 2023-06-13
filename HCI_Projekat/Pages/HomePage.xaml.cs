@@ -26,6 +26,7 @@ namespace HCI_Projekat.Pages
     {
 
         public List<Trip> TripsList { get; set; }
+        public MainWindow MainWindowInstance { get; set; }
         public HomePage()
         {
             using (var context = new Repository.AppContext())
@@ -47,7 +48,11 @@ namespace HCI_Projekat.Pages
             var card = (sender as FrameworkElement)?.DataContext as Trip;
             if (card != null)
             {
-                Debug.WriteLine($"Clicked on trip: {card.Name}, Price: {card.Price}");
+                MainWindowInstance.MainFrame.NavigationService.Navigate(new TripDetailsPage(card));
+            }
+            else 
+            {
+                throw new Exception("Kartica ne postoji");
             }
         }
 
