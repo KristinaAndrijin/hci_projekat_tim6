@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HCI_Projekat" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="800"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -50,5 +52,22 @@
             </Button>
         </StackPanel>
         <Frame x:Name="MainFrame" Margin="0,35,0,0" NavigationUIVisibility="Hidden"/>
+        <!--
+        <xctk:CheckComboBox x:Name="_combo"
+                            Background="White"
+                            Foreground="Black"
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Center" 
+                             DisplayMemberPath="Name"
+                             ValueMemberPath="Level"
+                             SelectedValue="{Binding SelectedValue}"
+                             SelectedItemsOverride="{Binding SelectedItems}"
+                             ItemsSource="{Binding Path=Options}"
+                            SelectedMemberPath="Selected"
+                            ItemSelectionChanged ="_combo_ItemSelectionChanged"
+                            /> 
+        <TextBlock Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" x:Name="blockie">poy</TextBlock>
+        -->
+        
     </Grid>
 </Window>
