@@ -166,7 +166,8 @@ namespace HCI_Projekat.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Adresa neuspešno unešena: " + ex.Message);
+                var msgBox = new MessageBoxCustom("Adresa neuspešno unešena: ", MessageType.Warning, MessageButtons.Ok);
+                msgBox.ShowDialog();
             }
         }
 
@@ -339,7 +340,8 @@ namespace HCI_Projekat.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Adresa neuspešno unešena: " + ex.Message);
+                var msgBox = new MessageBoxCustom("Adresa neuspešno unešena: ", MessageType.Warning, MessageButtons.Ok);
+                msgBox.ShowDialog();
             }
         }
 
@@ -375,12 +377,14 @@ namespace HCI_Projekat.Forms
                     }
                     else
                     {
-                        MessageBox.Show("Adresa neuspešno pročitana");
+                        var msgBox = new MessageBoxCustom("Adresa neuspešno unešena: ", MessageType.Warning, MessageButtons.Ok);
+                        msgBox.ShowDialog();
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Adresa neuspešno pročitana: " + ex.Message);
+                    var msgBox = new MessageBoxCustom("Adresa neuspešno unešena: ", MessageType.Warning, MessageButtons.Ok);
+                    msgBox.ShowDialog();
                 }
             }
             Map.MouseLeftButtonDown -= Map_MouseLeftButtonDownAdd;
@@ -409,7 +413,8 @@ namespace HCI_Projekat.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Adresa neuspešno pročitana: " + ex.Message);
+                var msgBox = new MessageBoxCustom("Adresa neuspešno unešena: ", MessageType.Warning, MessageButtons.Ok);
+                msgBox.ShowDialog();
                 return null;
             }
         }
