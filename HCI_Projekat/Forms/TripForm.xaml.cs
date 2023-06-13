@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -53,6 +54,10 @@ namespace HCI_Projekat.Forms
         string addressEndEdit { get; set; }
         string cityStartEdit { get; set; }
         string cityEndEdit { get; set; }
+        int iddddddddd { get; set; }
+        List<Attraction> attractions;
+        List<Accomodation> accomodations;
+        List<Restaurant> restaurants;
 
         public TripForm()
         {
@@ -229,6 +234,10 @@ namespace HCI_Projekat.Forms
                 });
             }
             _combo_attraction.ItemsSource = Options;
+
+            attractions = new List<Attraction>();
+            accomodations = new List<Accomodation>();
+            restaurants = new List<Restaurant>();
         }
 
 
@@ -679,24 +688,56 @@ namespace HCI_Projekat.Forms
             }
         }
 
-        private void _combo_ItemSelectionChanged(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
+        private void _combo_ItemSelectionChangedAtt(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
         {
             CheckComboBox checkComboBox = (CheckComboBox)sender;
 
             // Get the selected items
             ObservableCollection<Object> selectedItems = (ObservableCollection<Object>)checkComboBox.SelectedItems;
 
-            string textneki = "";
-            // Access the selected items
+            attractions = new List<Attraction>();
             foreach (Item selectedItem in selectedItems)
             {
-                // Perform some action with the selected item
-                // You may need to cast the item to the appropriate type
-                string selectedLanguage = selectedItem.Name;
-                textneki += selectedLanguage;
-                // Do something with the selected language
+                int id = selectedItem.Id;
+                iddddddddd = id;
+                Attraction att = AttractionService.FindById(id);
+                attractions.Add(att);
             }
-            //blockie.Text = textneki;
+        }
+
+        private void _combo_ItemSelectionChangedAcc(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
+        {
+            CheckComboBox checkComboBox = (CheckComboBox)sender;
+
+            // Get the selected items
+            ObservableCollection<Object> selectedItems = (ObservableCollection<Object>)checkComboBox.SelectedItems;
+            accomodations = new List<Accomodation>();
+            foreach (Item selectedItem in selectedItems)
+            {
+                int id = selectedItem.Id;
+
+                iddddddddd = id;
+                Accomodation att = AccomodationService.FindById(id);
+                accomodations.Add(att);
+            }
+        }
+
+        private void _combo_ItemSelectionChangedRest(object sender, Xceed.Wpf.Toolkit.Primitives.ItemSelectionChangedEventArgs e)
+        {
+            CheckComboBox checkComboBox = (CheckComboBox)sender;
+
+            // Get the selected items
+            ObservableCollection<Object> selectedItems = (ObservableCollection<Object>)checkComboBox.SelectedItems;
+
+            restaurants = new List<Restaurant>();
+            foreach (Item selectedItem in selectedItems)
+            {
+                int id = selectedItem.Id;
+
+                iddddddddd = id;
+                Restaurant att = RestaurantService.FindById(id);
+                restaurants.Add(att);
+            }
         }
 
         private void NameTextChanged(object sender, TextChangedEventArgs e)
@@ -783,10 +824,52 @@ namespace HCI_Projekat.Forms
             }
             else
             {
-                TripService.Add(pinStartAddress, pinEndAddress, Name.Text, numPrice);
-                var msgBox = new MessageBoxCustom("Uspešno dodato putovanje ", MessageType.Success, MessageButtons.Ok);
-                ItemAdded?.Invoke(this, EventArgs.Empty);//event koji hvatam u tabeli
-                msgBox.ShowDialog();
+                List<Attraction> atts = new List<Attraction>();
+                List<Accomodation> accs = new List<Accomodation>();
+                List<Restaurant> rts = new List<Restaurant>();
+                if (attractions.Count == 0)
+                {
+                    atts = null;
+                } else
+                {
+                    atts = attractions;
+                }
+                if (accomodations.Count == 0)
+                {
+                    accs = null;
+                }
+                else
+                {
+                    accs = accomodations;
+                }
+                if (restaurants.Count == 0)
+                {
+                    rts = null;
+                }
+                else
+                {
+                    rts = restaurants;
+                }
+                if (!edit)
+                {
+                    TripService.Add(pinStartAddress, pinEndAddress, Name.Text, numPrice, accs, atts, rts);
+                    var msgBox = new MessageBoxCustom("Uspešno dodato putovanje ", MessageType.Success, MessageButtons.Ok);
+                    msgBox.ShowDialog();
+                    ItemAdded?.Invoke(this, EventArgs.Empty);
+                    StartAddress.Text = null;
+                    EndAddress.Text = null;
+                    StartCity.Text = null;
+                    EndCity.Text = null;
+                    Name.Text = null;
+                    Price.Text = null;
+                }
+                else {
+                    TripService.Edit(iddddddddd, pinStartAddress, pinEndAddress, Name.Text, numPrice, accs, atts, rts);
+                    var msgBox = new MessageBoxCustom("Uspešno izmenjeno putovanje ", MessageType.Success, MessageButtons.Ok);
+                    msgBox.ShowDialog();
+                    ItemAdded?.Invoke(this, EventArgs.Empty);
+                    this.Close();
+                }
             }
         }
 
