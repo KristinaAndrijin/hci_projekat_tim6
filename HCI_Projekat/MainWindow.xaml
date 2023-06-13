@@ -5,12 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HCI_Projekat" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800"
+        Title="HCI Tim 6" Height="500" Width="800"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         MinHeight="700"
         MinWidth="800"
         >
+    <Window.Icon>
+        <BitmapImage UriSource="/HCI_Projekat;component/images/icon.ico" />
+    </Window.Icon>
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
