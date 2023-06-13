@@ -14,19 +14,13 @@
     </Page.Resources>
 
     <Grid>
-        <!-- Part 1: Banner -->
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <!-- 20% of page height -->
             <RowDefinition Height="7*"/>
-            <!-- 70% of page height -->
-            <!-- 10% of page height -->
         </Grid.RowDefinitions>
 
         <Grid Background="LightGray">
-            <!-- Background image -->
             <Image Source="/images/banner.png" Stretch="UniformToFill"></Image>
-            <!-- Text overlay -->
             <TextBlock Text="Agencija 6" Foreground="White" FontSize="28" Margin="15" 
                        Effect="{StaticResource DropShadowEffect}"/>
         </Grid>

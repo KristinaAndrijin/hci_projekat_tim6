@@ -11,11 +11,11 @@ using AppContext = HCI_Projekat.Repository.AppContext;
 
 namespace HCI_Projekat.Service
 {
-    internal class AccomodationService
+    internal class AttractionService
     {
-        public static Accomodation? Add(string address, AccomodationType type, string name)
+        public static Attraction? Add(string address, AttractionType type, string name)
         {
-            Accomodation newAccomodation = new Accomodation()
+            Attraction newAttraction = new Attraction()
             {
                 Address = address,
                 Type = type,
@@ -23,44 +23,45 @@ namespace HCI_Projekat.Service
             };
             using (var context = new AppContext())
             {
-                context.Accomodations.Add(newAccomodation);
+                context.Attractions.Add(newAttraction);
                 context.SaveChanges();
             }
-            return newAccomodation;
+            return newAttraction;
         }
 
-        public static Accomodation? Edit(int id, string address, AccomodationType type, string name) {
+        public static Attraction? Edit(int id, string address, AttractionType type, string name)
+        {
             using (var context = new AppContext())
             {
-                var acc = context.Accomodations.Find(id);
-                if (acc != null)
+                var att = context.Attractions.Find(id);
+                if (att != null)
                 {
-                    acc.Address = address;
-                    acc.Type = type;
-                    acc.Name = name;
+                    att.Address = address;
+                    att.Type = type;
+                    att.Name = name;
                     context.SaveChanges();
-                    return acc;
+                    return att;
                 }
                 return null;
             }
         }
 
-        public static List<Accomodation> GetAllAccomodations()
+        public static List<Attraction> GetAllAttractions()
         {
             using (var context = new AppContext())
             {
-                return context.Accomodations.Where(a => !a.IsDeleted).ToList();
+                return context.Attractions.Where(a => !a.IsDeleted).ToList();
             }
         }
 
-        public static Accomodation? FindById(int id)
+        public static Attraction? FindById(int id)
         {
             using (var context = new AppContext())
             {
-                var acc = context.Accomodations.Find(id);
-                if (acc != null)
+                var att = context.Attractions.Find(id);
+                if (att != null)
                 {
-                    return acc;
+                    return att;
                 }
                 return null;
             }

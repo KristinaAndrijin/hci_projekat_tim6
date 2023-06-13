@@ -13,22 +13,6 @@ namespace HCI_Projekat.Service
     {
         internal class RestaurantService
         {
-            //public static bool HasLoggedIn { get; set; }
-            //public static User? CurrentlyLoggedIn { get; set; }
-            //public static User? Login(string username, string password)
-            //{
-            //    using (var context = new AppContext())
-            //    {
-            //        var user = context.Users.FirstOrDefault(p => p.Email == username && p.Password == password);
-            //        if (user != null)
-            //        {
-            //            HasLoggedIn = true;
-            //            CurrentlyLoggedIn = user;
-            //            return user;
-            //        }
-            //        return null;
-            //    }
-            //}
             public static Restaurant? Add(string address, RestaurantType type, string name)
             {
                 Restaurant newRestaurant = new Restaurant()
@@ -61,5 +45,26 @@ namespace HCI_Projekat.Service
                     return null;
                 }
             }
+
+        public static List<Restaurant> GetAllRestaurants()
+        {
+            using (var context = new AppContext())
+            {
+                return context.Restaurants.Where(a => !a.IsDeleted).ToList();
+            }
         }
+
+        public static Restaurant FindById(int id)
+        {
+            using (var context = new AppContext())
+            {
+                var restaurant = context.Restaurants?.Find(id);
+                if (restaurant != null)
+                {
+                    return restaurant;
+                }
+                return null;
+            }
+        }
+    }
 }

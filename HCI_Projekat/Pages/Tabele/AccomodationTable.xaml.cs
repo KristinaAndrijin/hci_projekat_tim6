@@ -60,7 +60,6 @@ namespace HCI_Projekat.Pages.Tabele
         private void DataGridSmestaj_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedItems = new ObservableCollection<Accomodation>(DataGridSmestaj.SelectedItems.Cast<Accomodation>());
-
         }
 
         private bool CanProcessSelectedItems(IEnumerable<Accomodation> selectedItems)
@@ -100,7 +99,7 @@ namespace HCI_Projekat.Pages.Tabele
         {
             foreach (Accomodation selectedItem in selectedItems)
             {
-                AccomodationForm accomodationForm = new AccomodationForm();
+                AccomodationForm accomodationForm = new AccomodationForm(selectedItem);
                 accomodationForm.DataContext = selectedItem;
                 accomodationForm.ItemAdded += AccomodationForm_ItemAdded;
                 accomodationForm.Show();

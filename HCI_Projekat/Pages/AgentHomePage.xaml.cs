@@ -85,6 +85,16 @@ namespace HCI_Projekat.Pages
 
                 }
             }
+            else if (selectedText == "Pregled po putovanju")
+            {
+                if (AgentFrame != null)
+                {
+                    var table = new ByTripTable();
+                    AgentFrame.Navigate(table);
+                    table.Focus();
+
+                }
+            }
         }
     }
 }
