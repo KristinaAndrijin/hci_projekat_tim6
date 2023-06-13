@@ -16,6 +16,14 @@ namespace HCI_Projekat.Model
         public DateTime Date { get; set; }
         public int Price { get; set; }
 
+        public BoughtTrip (User user, Trip trip, DateTime date, int price)
+        {
+            User = user;
+            Trip = trip;
+            Date = date;
+            Price = price;
+        }
+
         public string UserNameAndLastname()
         {
             return User.Name + " " + User.Lastname;
