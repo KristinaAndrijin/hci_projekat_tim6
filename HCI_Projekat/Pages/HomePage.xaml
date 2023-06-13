@@ -27,7 +27,7 @@
             <!-- Background image -->
             <Image Source="/images/banner.png" Stretch="UniformToFill"></Image>
             <!-- Text overlay -->
-            <TextBlock Text="Agencija 6" Foreground="White" FontSize="24" Margin="15" 
+            <TextBlock Text="Agencija 6" Foreground="White" FontSize="28" Margin="15" 
                        Effect="{StaticResource DropShadowEffect}"/>
         </Grid>
 
