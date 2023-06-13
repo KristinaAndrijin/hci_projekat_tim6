@@ -872,6 +872,20 @@ namespace HCI_Projekat.Forms
                 }
             }
         }
+        private void ConnectPushpins(object sender, RoutedEventArgs e)
+        {
+
+            MapPolyline polyline = new MapPolyline();
+            polyline.Stroke = new SolidColorBrush(Colors.Blue);
+            polyline.StrokeThickness = 2;
+
+            LocationCollection locations = new LocationCollection();
+            locations.Add(startPushpin.Location);
+            locations.Add(endPushpin.Location);
+
+            polyline.Locations = locations;
+            Map.Children.Add(polyline);
+        }
 
     }
 

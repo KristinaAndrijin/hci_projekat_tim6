@@ -15,31 +15,55 @@ namespace HCI_Projekat.Service
 
         public static Trip? Add(string startAddress, string endAddress, string name, int price, List<Accomodation> accomodations = null, List<Attraction> attractions = null, List<Restaurant> rastaurants = null)
         {
-            if (accomodations == null)
-            {
-                accomodations=new List<Accomodation>();
-            }
-            if (attractions == null) { attractions=new List<Attraction>();}
-            if (rastaurants == null) { rastaurants = new List<Restaurant>(); }
+            
             Trip newTrip = new Trip()
             {
                 StartingAddress = startAddress,
                 EndingAddress = endAddress,
                 Name = name,
                 Price = price,
-                Accomodations = accomodations,
-                Restaurants = rastaurants,
-                Attractions = attractions
+                Accomodations = new List<Accomodation>(),
+                Restaurants = new List<Restaurant>(),
+                Attractions = new List<Attraction>()
             };
+            
             using (var context = new AppContext())
             {
+                if (accomodations != null)
+                {
+                    foreach (Accomodation accomodation in accomodations)
+                    {
+                        var obj = context.Accomodations.Find(accomodation.Id);
+                        newTrip.Accomodations.Add(obj);
+                        obj.Trips.Add(newTrip);
+                        
+                    }
+                }
+                if (attractions != null) 
+                {
+                    foreach (Attraction attraction in attractions)
+                    {
+                        var obj = context.Attractions.Find(attraction.Id);
+                        newTrip.Attractions.Add(obj);
+                        obj.Trips.Add(newTrip);
+                    }
+                }
+                if (rastaurants != null) 
+                {
+                    foreach (Restaurant rastaurant in rastaurants)
+                    {
+                        var obj = context.Restaurants.Find(rastaurant.Id);
+                        newTrip.Restaurants.Add(obj);
+                        obj.Trips.Add(newTrip);
+                    }
+                }
                 context.Trips.Add(newTrip);
                 context.SaveChanges();
             }
             return newTrip;
         }
 
-        public static Trip? Edit(int id, string startAddress, string endAddress, string name, int price, List<Accomodation> accomodations = null, List<Attraction> attractions = null, List<Restaurant> rastaurants = null)
+        public static Trip? Edit(int id, string startAddress, string endAddress, string name, int price, List<Accomodation> accomodations = null, List<Attraction> attractions = null, List<Restaurant> restaurants = null)
         {
             using (var context = new AppContext())
             {
@@ -47,36 +71,58 @@ namespace HCI_Projekat.Service
 
                 if (trip != null)
                 {
-                    if (accomodations == null && trip.Accomodations != null)
-                    {
-                        accomodations = (List<Accomodation>?)trip.Accomodations;
-                    } else if (accomodations == null && trip.Accomodations == null)
-                        {
-                            accomodations = new List<Accomodation>();
-                        }
-                    if (attractions == null && trip.Attractions != null)
-                    {
-                        attractions = (List<Attraction>?)trip.Attractions;
-                    }
-                    else if (attractions == null && trip.Accomodations == null)
-                    {
-                        attractions = new List<Attraction>();
-                    }
-                    if (rastaurants == null && trip.Restaurants != null)
-                    {
-                        rastaurants = (List<Restaurant>?)trip.Restaurants;
-                    }
-                    else if (rastaurants == null && trip.Restaurants == null)
-                    {
-                        rastaurants = new List<Restaurant>();
-                    }
+
                     trip.StartingAddress = startAddress;
                     trip.StartingAddress = endAddress;
                     trip.Name = name;
                     trip.Price = price;
-                    trip.Accomodations = accomodations;
-                    trip.Restaurants = rastaurants;
-                    trip.Attractions = attractions;
+                    if(accomodations != null)
+                    {
+                        foreach(Accomodation accomodation in trip.Accomodations)
+                        {
+                            context.Accomodations.Find(accomodation.Id).Trips.Remove(context.Trips.Find(trip.Id));
+
+                        }
+                        trip.Accomodations = new List<Accomodation>();
+                        foreach(Accomodation accomodation in accomodations)
+                        {
+                            var obj = context.Accomodations.Find(accomodation.Id);
+                            trip.Accomodations.Add(obj);
+                            obj.Trips.Add(trip);
+
+                        }
+                    }
+                    if (restaurants != null)
+                    {
+                        foreach(Restaurant restaurant in trip.Restaurants)
+                        {
+                            context.Restaurants.Find(restaurant.Id).Trips.Remove(context.Trips.Find(trip.Id));
+                        }
+
+                        trip.Restaurants = new List<Restaurant>();
+                        foreach (Restaurant restaurant in restaurants)
+                        {
+                            var obj = context.Restaurants.Find(restaurant.Id);
+                            trip.Restaurants.Add(obj);
+                            obj.Trips.Add(trip);
+
+                        }
+                    }
+                    if (attractions != null)
+                    {
+                        foreach(Attraction attraction in trip.Attractions)
+                        {
+                            context.Attractions.Find(attraction.Id).Trips.Remove(context.Trips.Find(trip.Id));
+                        }
+
+                        trip.Attractions = new List<Attraction>();
+                        foreach (Attraction attraction in attractions)
+                        {
+                            var obj = context.Attractions.Find(attraction.Id);
+                            trip.Attractions.Add(obj);
+                            obj.Trips.Add(trip);
+                        }
+                    }
                     context.SaveChanges();
                     return trip;
                 }
