@@ -66,10 +66,14 @@ namespace HCI_Projekat.Pages.Tabele
         {
             foreach (Trip selectedItem in selectedItems)
             {
-                TripForm form = new TripForm(selectedItem);
-                form.DataContext = selectedItem;
-                form.ItemAdded += Form_ItemAdded;
-                form.Show();
+                using(var context = new Repository.AppContext())
+                {
+                    Trip t = context.Trips.Find(selectedItem.Id);
+                    TripForm form = new TripForm(t);
+                    form.ItemAdded += Form_ItemAdded;
+                    form.Show();
+                }
+                
             }
 
             using (var context = new Repository.AppContext())

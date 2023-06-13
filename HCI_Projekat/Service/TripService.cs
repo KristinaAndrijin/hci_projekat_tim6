@@ -52,7 +52,7 @@ namespace HCI_Projekat.Service
         {
             using (var context = new AppContext())
             {
-                return context.Trips.ToList();
+                return context.Trips.Where(a => !a.IsDeleted).ToList();
             }
         }
     }

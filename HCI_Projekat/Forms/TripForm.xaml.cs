@@ -785,6 +785,7 @@ namespace HCI_Projekat.Forms
             {
                 TripService.Add(pinStartAddress, pinEndAddress, Name.Text, numPrice);
                 var msgBox = new MessageBoxCustom("Uspešno dodato putovanje ", MessageType.Success, MessageButtons.Ok);
+                ItemAdded?.Invoke(this, EventArgs.Empty);//event koji hvatam u tabeli
                 msgBox.ShowDialog();
             }
         }
