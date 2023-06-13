@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using HCI_Projekat.Commands;
 using HCI_Projekat.Forms;
 using HCI_Projekat.Model;
+using HCI_Projekat.Service;
 
 namespace HCI_Projekat.Pages.Tabele
 {

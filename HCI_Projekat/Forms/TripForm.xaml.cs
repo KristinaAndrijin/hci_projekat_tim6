@@ -39,6 +39,21 @@ namespace HCI_Projekat.Forms
         bool firstOpenEndCity { get; set; }
         Pushpin endPushpin { get; set; }
         string pinEndAddress { get; set; }
+
+        bool editFirstStartAddress { get; set; }    
+        bool editFirstEndAddress { get; set; }
+        bool editFirstStartCity { get; set; }
+        bool editFirstEndCity { get; set; }
+        bool editFirstName { get; set; }
+        bool editFirstPrice { get; set; }
+        string nameEdit { get; set; }
+        int priceEdit { get; set; }
+
+        string addressStartEdit { get; set; }
+        string addressEndEdit { get; set; }
+        string cityStartEdit { get; set; }
+        string cityEndEdit { get; set; }
+
         public TripForm()
         {
             InitializeComponent();
@@ -64,6 +79,12 @@ namespace HCI_Projekat.Forms
             EndCity.TextChanged += EndCityTextChanged;
             Price.TextChanged += PriceTextChanged;
             InitCombox();
+            editFirstEndAddress = false;
+            editFirstStartAddress = false;
+            editFirstStartCity = false;
+            editFirstEndCity = false;
+            editFirstName = false;
+            editFirstPrice = false;
         }
 
         public TripForm(Trip trip)
@@ -73,6 +94,7 @@ namespace HCI_Projekat.Forms
             Map.Center = new Microsoft.Maps.MapControl.WPF.Location(44.7866, 20.4489); // Beograd
             Map.ZoomLevel = 12;
             edit = true;
+            SubmitBtn.Content = "Izmeni putovanje";
             isStartAddressValid = true;
             firstOpenStartAddress = false;
             isStartCityValid = true;
@@ -86,6 +108,84 @@ namespace HCI_Projekat.Forms
             isPriceValid = true;
             firstOpenPrice = false;
             InitCombox();
+            editFirstEndAddress = true;
+            editFirstStartAddress = true;
+            editFirstStartCity = true;
+            editFirstEndCity = true;
+            editFirstName = true;
+            editFirstPrice = true;
+
+
+            string streetStart = "";
+            string cityStart = "";
+            string streetEnd = "";
+            string cityEnd = "";
+
+            string addressToParse = trip.StartingAddress;
+            string[] partsOfAddress = addressToParse.Split(", ");
+            if (partsOfAddress.Length == 4)
+            {
+                streetStart = partsOfAddress[0];
+                cityStart = partsOfAddress[2].Split(" ")[1];
+            }
+            else if (partsOfAddress.Length == 3)
+            {
+                streetStart = partsOfAddress[0];
+                if (partsOfAddress[1].Split(" ").Length > 1)
+                {
+                    cityStart = partsOfAddress[1].Split(" ")[1];
+                }
+                else
+                {
+                    cityStart = partsOfAddress[1];
+                }
+
+            }
+
+            addressToParse = trip.EndingAddress;
+            partsOfAddress = addressToParse.Split(", ");
+            if (partsOfAddress.Length == 4)
+            {
+                streetEnd = partsOfAddress[0];
+                cityEnd = partsOfAddress[2].Split(" ")[1];
+            }
+            else if (partsOfAddress.Length == 3)
+            {
+                streetEnd = partsOfAddress[0];
+                if (partsOfAddress[1].Split(" ").Length > 1)
+                {
+                    cityEnd = partsOfAddress[1].Split(" ")[1];
+                }
+                else
+                {
+                    cityEnd = partsOfAddress[1];
+                }
+
+            }
+
+            StartAddress.Text = streetStart;
+            addressStartEdit = streetStart;
+            StartCity.Text = cityStart;
+            cityStartEdit = cityStart;
+            EndAddress.Text = streetEnd;
+            addressEndEdit = streetEnd;
+            EndCity.Text = cityEnd;
+            cityEndEdit = cityEnd;
+
+            Name.Text = trip.Name;
+            nameEdit = trip.Name;
+            Price.Text = trip.Price.ToString();
+            priceEdit = trip.Price;
+
+            putPinPls(streetStart + ", " + cityStart + ", Srbija", true);
+            putPinPls(streetEnd + ", " + cityEnd + ", Srbija", false);
+
+            StartAddress.TextChanged += StartAddressTextChanged;
+            StartCity.TextChanged += StartCityTextChanged;
+            EndAddress.TextChanged += EndAddressTextChanged;
+            EndCity.TextChanged += EndCityTextChanged;
+            Price.TextChanged += PriceTextChanged;
+            
         }
 
         private void InitCombox()
@@ -168,55 +268,57 @@ namespace HCI_Projekat.Forms
             this.Close();
         }
 
-        //private void putPinPls(string address, bool start)
-        //{
-        //    try
-        //    {
-        //        string requestUrl = string.Format("http://dev.virtualearth.net/REST/v1/Locations?q={0}&key={1}", address, BING_API_KEY);
+        private void putPinPls(string address, bool start)
+        {
+            try
+            {
+                string requestUrl = string.Format("http://dev.virtualearth.net/REST/v1/Locations?q={0}&key={1}", address, BING_API_KEY);
 
-        //        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUrl);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestUrl);
 
-        //        using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-        //        {
-        //            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-        //            {
-        //                string responseJson = reader.ReadToEnd();
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        string responseJson = reader.ReadToEnd();
 
-        //                dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(responseJson);
-        //                double latitude = data.resourceSets[0].resources[0].point.coordinates[0];
-        //                double longitude = data.resourceSets[0].resources[0].point.coordinates[1];
+                        dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(responseJson);
+                        double latitude = data.resourceSets[0].resources[0].point.coordinates[0];
+                        double longitude = data.resourceSets[0].resources[0].point.coordinates[1];
 
-        //                Location location = new Location(latitude, longitude);
-        //                Pushpin pin = new Pushpin { Location = location, Background = new SolidColorBrush(Colors.Blue) };
-        //                Map.Children.Add(pin);
-        //                if (start)
-        //                {
-        //                    startPushpin = pin;
-        //                    pinStartAddress = address;
-        //                } else
-        //                {
-        //                    endPushpin = pin;
-        //                    pinEndAddress = address;
-        //                }
-        //                Map.Center = new Location(latitude, longitude);
-        //                UpdateButtons();
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Adresa neuspešno unešena: " + ex.Message);
-        //    }
-        //}
+                        Microsoft.Maps.MapControl.WPF.Location location = new Microsoft.Maps.MapControl.WPF.Location(latitude, longitude);
+                        Pushpin pin = new Pushpin { Location = location, Background = new SolidColorBrush(Colors.Blue) };
+                        Map.Children.Add(pin);
+                        if (start)
+                        {
+                            startPushpin = pin;
+                            pinStartAddress = address;
+                        }
+                        else
+                        {
+                            endPushpin = pin;
+                            pinEndAddress = address;
+                        }
+                        Map.Center = new Microsoft.Maps.MapControl.WPF.Location(latitude, longitude);
+                        UpdateNextButton();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var msgBox = new MessageBoxCustom("Adresa neuspešno unešena: ", MessageType.Warning, MessageButtons.Ok);
+                msgBox.ShowDialog();
+            }
+        }
 
         private void StartAddressTextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (editFirstStartAddress)
-            //{
-            //    StartAddress.Text = addressEdit;
-            //    editFirstAddress = false;
-            //    return;
-            //}
+            if (editFirstStartAddress)
+            {
+                StartAddress.Text = addressStartEdit;
+                editFirstStartAddress = false;
+                return;
+            }
             string address = StartAddress.Text;
             isStartAddressValid = IsValidAddress(address);
             if (isStartAddressValid)
@@ -245,12 +347,12 @@ namespace HCI_Projekat.Forms
 
         private void EndAddressTextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (editFirstStartAddress)
-            //{
-            //    StartAddress.Text = addressEdit;
-            //    editFirstAddress = false;
-            //    return;
-            //}
+            if (editFirstEndAddress)
+            {
+                StartAddress.Text = addressEndEdit;
+                editFirstEndAddress = false;
+                return;
+            }
             string address = EndAddress.Text;
             isEndAddressValid = IsValidAddress(address);
             if (isEndAddressValid)
@@ -273,12 +375,12 @@ namespace HCI_Projekat.Forms
 
         private void StartCityTextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (editFirstStartCity)
-            //{
-            //    City.Text = cityEdit;
-            //    editFirstCity = false;
-            //    return;
-            //}
+            if (editFirstStartCity)
+            {
+                StartCity.Text = cityStartEdit;
+                editFirstStartCity = false;
+                return;
+            }
             NextButton.IsEnabled = false;
             //NextButton.Background = new SolidColorBrush(Colors.Gray);
             string city = StartCity.Text;
@@ -310,12 +412,12 @@ namespace HCI_Projekat.Forms
 
         private void EndCityTextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (editFirstStartCity)
-            //{
-            //    City.Text = cityEdit;
-            //    editFirstCity = false;
-            //    return;
-            //}
+            if (editFirstEndCity)
+            {
+                EndCity.Text = cityEndEdit;
+                editFirstEndCity = false;
+                return;
+            }
             NextButton.IsEnabled = false;
             //NextButton.Background = new SolidColorBrush(Colors.Gray);
             string city = EndCity.Text;
@@ -484,6 +586,7 @@ namespace HCI_Projekat.Forms
                     msgBox.ShowDialog();
                 }
             }
+            Map.MouseLeftButtonDown -= Map_MouseLeftButtonDownAddStart;
         }
 
         private void Map_MouseLeftButtonDownAddEnd(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -517,6 +620,7 @@ namespace HCI_Projekat.Forms
                     msgBox.ShowDialog();
                 }
             }
+            Map.MouseLeftButtonDown -= Map_MouseLeftButtonDownAddEnd;
         }
 
         private string GetAddressFromLocation(double latitude, double longitude)
@@ -597,12 +701,12 @@ namespace HCI_Projekat.Forms
 
         private void NameTextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (editFirstName)
-            //{
-            //    Name.Text = nameEdit;
-            //    editFirstName = false;
-            //    return;
-            //}
+            if (editFirstName)
+            {
+                Name.Text = nameEdit;
+                editFirstName = false;
+                return;
+            }
             string name = Name.Text;
             isNameValid = IsValidName(name);
             if (isNameValid)
@@ -628,12 +732,12 @@ namespace HCI_Projekat.Forms
 
         private void PriceTextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (editFirstName)
-            //{
-            //    Name.Text = nameEdit;
-            //    editFirstName = false;
-            //    return;
-            //}
+            if (editFirstPrice)
+            {
+                Price.Text = priceEdit.ToString();
+                editFirstPrice = false;
+                return;
+            }
             string price = Price.Text;
             isPriceValid = IsValidPrice(price);
             if (isPriceValid)
@@ -673,14 +777,14 @@ namespace HCI_Projekat.Forms
             bool success = int.TryParse(Price.Text, out numPrice);
             if (!success)
             {
-                var msgBox = new MessageBoxCustom("Adresa neuspešno unešena: ", MessageType.Warning, MessageButtons.Ok);
+                var msgBox = new MessageBoxCustom("Cena nije adekvatno unešena (samo brojevi) ", MessageType.Warning, MessageButtons.Ok);
                 msgBox.ShowDialog();
                 return;
             }
             else
             {
                 TripService.Add(pinStartAddress, pinEndAddress, Name.Text, numPrice);
-                var msgBox = new MessageBoxCustom("Adresa neuspešno unešena: ", MessageType.Warning, MessageButtons.Ok);
+                var msgBox = new MessageBoxCustom("Uspešno dodato putovanje ", MessageType.Success, MessageButtons.Ok);
                 msgBox.ShowDialog();
             }
         }
