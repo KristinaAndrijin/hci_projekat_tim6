@@ -13,22 +13,6 @@ namespace HCI_Projekat.Service
 {
     internal class AttractionService
     {
-        //public static bool HasLoggedIn { get; set; }
-        //public static User? CurrentlyLoggedIn { get; set; }
-        //public static User? Login(string username, string password)
-        //{
-        //    using (var context = new AppContext())
-        //    {
-        //        var user = context.Users.FirstOrDefault(p => p.Email == username && p.Password == password);
-        //        if (user != null)
-        //        {
-        //            HasLoggedIn = true;
-        //            CurrentlyLoggedIn = user;
-        //            return user;
-        //        }
-        //        return null;
-        //    }
-        //}
         public static Attraction? Add(string address, AttractionType type, string name)
         {
             Attraction newAttraction = new Attraction()
@@ -62,11 +46,12 @@ namespace HCI_Projekat.Service
             }
         }
 
-
-        //public static void Logout()
-        //{
-        //    HasLoggedIn = false;
-        //    CurrentlyLoggedIn = null;
-        //}
+        public static List<Attraction> GetAllAttractions()
+        {
+            using (var context = new AppContext())
+            {
+                return context.Attractions.ToList();
+            }
+        }
     }
 }

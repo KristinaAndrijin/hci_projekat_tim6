@@ -26,7 +26,7 @@ namespace HCI_Projekat.Forms
     /// <summary>
     /// Interaction logic for AccomodationForm.xaml
     /// </summary>
-    public partial class RestaurantForm : Window
+    public partial class tripForm : Window
     {
         bool isAddressValid { get; set; }
         bool firstOpenAddress { get; set; }
@@ -49,7 +49,7 @@ namespace HCI_Projekat.Forms
 
 
         const string BING_API_KEY = "Ah8LozC7khuISaCoOppLN2Vm_mhOD65qXBZVEDcQoZ34UApWABR9jxtuKdlYb7jV";
-        public RestaurantForm()
+        public tripForm()
         {
             InitializeComponent();
             Map.Center = new Location(44.7866, 20.4489); // Beograd
@@ -69,7 +69,7 @@ namespace HCI_Projekat.Forms
             editFirstName = false;
         }
 
-        public RestaurantForm(Restaurant restaurant)
+        public tripForm(Restaurant restaurant)
         {
             //Address.TextChanged -= AddressTextChanged;
             //City.TextChanged -= CityTextChanged;

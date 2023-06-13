@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HCI_Projekat.Commands;
+using HCI_Projekat.Forms;
 using HCI_Projekat.Model;
 
 namespace HCI_Projekat.Pages.Tabele
@@ -37,8 +38,9 @@ namespace HCI_Projekat.Pages.Tabele
         private void AddNew(object sender, RoutedEventArgs e)
         {
             //placeholder prozor, ubaci svoj kad napravis formu
-            Window window = new Window();
-            window.Show();
+            TripForm festaurantForm = new TripForm();
+            //festaurantForm.ItemAdded += Form_ItemAdded;
+            festaurantForm.Show(); ;
         }
 
         private void EditButton(object sender, RoutedEventArgs e)
