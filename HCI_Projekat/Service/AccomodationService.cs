@@ -13,22 +13,6 @@ namespace HCI_Projekat.Service
 {
     internal class AccomodationService
     {
-        //public static bool HasLoggedIn { get; set; }
-        //public static User? CurrentlyLoggedIn { get; set; }
-        //public static User? Login(string username, string password)
-        //{
-        //    using (var context = new AppContext())
-        //    {
-        //        var user = context.Users.FirstOrDefault(p => p.Email == username && p.Password == password);
-        //        if (user != null)
-        //        {
-        //            HasLoggedIn = true;
-        //            CurrentlyLoggedIn = user;
-        //            return user;
-        //        }
-        //        return null;
-        //    }
-        //}
         public static Accomodation? Add(string address, AccomodationType type, string name)
         {
             Accomodation newAccomodation = new Accomodation()
@@ -59,13 +43,14 @@ namespace HCI_Projekat.Service
                 }
                 return null;
             }
-}
+        }
 
-
-        //public static void Logout()
-        //{
-        //    HasLoggedIn = false;
-        //    CurrentlyLoggedIn = null;
-        //}
+        public static List<Accomodation> GetAllAccomodations()
+        {
+            using (var context = new AppContext())
+            {
+                return context.Accomodations.ToList();
+            }
+        }
     }
 }
