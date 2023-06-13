@@ -47,7 +47,9 @@ namespace HCI_Projekat
                 Register.Visibility = Visibility.Visible;
                 Logout.Visibility = Visibility.Collapsed;
             }
-            MainFrame.Content = new HomePage();
+            HomePage homePage = new HomePage();
+            MainFrame.Content = homePage;
+            homePage.MainWindowInstance = this;
         }
 
         private void BtnClickP1(object sender, RoutedEventArgs e)
