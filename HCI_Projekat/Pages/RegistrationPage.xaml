@@ -1,0 +1,121 @@
+﻿<Page x:Class="HCI_Projekat.Pages.RegistrationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HCI_Projekat"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="RegistrationPage"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        MinHeight="600"
+      >
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="BorderBrush" Value="Black" />
+            </Style>
+            <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignPasswordBox}">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="BorderBrush" Value="Black" />
+            </Style>
+            <Style x:Key="RoundedButtonStyle" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="MaterialDesignFlatButtonNoHover" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                <Setter Property="BorderThickness" Value="0" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid PreviewKeyDown="Grid_PreviewKeyDown">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Frame x:Name="MainFrame" Margin="0,0,0,0" NavigationUIVisibility="Hidden"/>
+        <Image Grid.Column="1" Source="/images/travel.png" Stretch="UniformToFill"></Image>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Grid.Column="0">
+            <TextBlock Text="Registracija" FontFamily="Arial" FontSize="36" Foreground="White" HorizontalAlignment="Center"></TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="0 20 0 00" HorizontalAlignment="Center">
+                <StackPanel Margin="0 20 0 0">
+                    <TextBlock Text="Ime" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="5 0 5 0" />
+                    <Border BorderThickness="1.5" x:Name="NameBorder" CornerRadius="15 15 15 15" Background="White" Width="150" Height="50" Margin="0 0 10 0">
+                        <TextBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="120" Height="25" Background="White" BorderBrush="Black" 
+                                Text="{Binding name}" x:Name="Name" LostFocus="Name_LostFocus"/>
+                    </Border>
+                </StackPanel>
+                <StackPanel Margin="0 20 0 0">
+                    <TextBlock Text="Prezime" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="5 0 5 0" />
+                    <Border BorderThickness="1.5" x:Name="SurnameBorder" CornerRadius="15 15 15 15" Background="White" Width="150" Height="50" HorizontalAlignment="Center">
+                        <TextBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="120" Height="25" Background="White" BorderBrush="Black" 
+                            Text="{Binding surname}" x:Name="Surname" LostFocus="Surname_LostFocus"/>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+            <TextBlock x:Name="NameValidationMessage" Text="Ime i prezime sadrže samo slova" Foreground="White" Margin="5,2,0,0" Visibility="Collapsed" TextWrapping="Wrap" Height="30" HorizontalAlignment="Center"/>
+            <StackPanel Margin="0 10 0 0">
+                <TextBlock Text="Email adresa" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="28 0 5 0" />
+                <Border BorderThickness="1.5" x:Name="EmailBorder" CornerRadius="15 15 15 15" Background="White" Width="310" Height="50">
+                    <TextBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="280" Height="25" Background="White" BorderBrush="Black"
+                     materialDesign:HintAssist.Hint="ime@domen.com" x:Name="Email" LostFocus="Email_LostFocus"/>
+                </Border>
+                <TextBlock x:Name="EmailValidationMessage" Text="Email mora biti oblika ime@domen.com" Foreground="White" Margin="5,2,0,0" Visibility="Collapsed" TextWrapping="Wrap" Height="30" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Margin="0 10 0 0">
+                <TextBlock Text="Lozinka" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="28 0 5 0" />
+                <Border BorderThickness="1.5" x:Name="PasswordBorder" CornerRadius="15 15 15 15" Background="White" Width="310" Height="50" Margin="0 0 0 0">
+                    <PasswordBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="280" Height="25" Background="White" BorderBrush="Black" 
+                     x:Name="Password" LostFocus="Password_LostFocus"/>
+                </Border>
+                <TextBlock x:Name="PasswordValidationMessage" Text="Lozinka treba da ima 8 karaktera, makar 1 veliko i malo slovo i broj" Foreground="White" Margin="5,2,0,0" Visibility="Collapsed" TextWrapping="Wrap" Height="30" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Margin="0 10 0 20">
+                <TextBlock Text="Ponovljena lozinka" FontSize="16" Foreground="White" HorizontalAlignment="Left" Margin="28 0 5 0" />
+                <Border BorderThickness="1.5" x:Name="RepeatPasswordBorder" CornerRadius="15 15 15 15" Background="White" Width="310" Height="50">
+                    <PasswordBox VerticalAlignment="Center" Margin="0 0 0 0" Padding="0 0 0 0" Width="280" Height="25" Background="White" BorderBrush="Black" 
+                         x:Name="RepeatPassword" PasswordChanged="RepeatPassword_PasswordChanged"/>
+                </Border>
+                <TextBlock x:Name="RepeatPasswordValidationMessage" Text="Lozinke se ne poklapaju" Foreground="White" Margin="5,2,0,0" Visibility="Collapsed" TextWrapping="Wrap" Height="30" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <Button Margin="0 0 0 0" Style="{StaticResource RoundedButtonStyle}" Width="350" Height="50" Content="Registrujte se" Background="Gray" Click="Register" IsEnabled="False" x:Name="RegisterButton"/>
+            <StackPanel Orientation="Horizontal" Margin="40 5 0 0">
+                <TextBlock Text="Imate nalog?" FontFamily="Arial" FontSize="16" Foreground="White" VerticalAlignment="Center" />
+                <Button MinWidth="100" Margin="0,0,0,0" Click="GoToLogin" Style="{StaticResource MaterialDesignFlatButtonNoHover}">
+                    <TextBlock Text="Prijavite se" Foreground="White" VerticalAlignment="Center" />
+                </Button>
+            </StackPanel>
+
+            <!--<TextBlock x:Name="OutputTextBlock" Margin="10"> -->
+
+        </StackPanel>
+    </Grid>
+</Page>

@@ -3,10 +3,82 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HCI_Projekat"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:local="clr-namespace:HCI_Projekat" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 
+        mc:Ignorable="d"
+        Title="HCI Tim 6" Height="500" Width="800"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        MinHeight="700"
+        MinWidth="800"
+        >
+    <Window.Icon>
+        <BitmapImage UriSource="/HCI_Projekat;component/images/icon.ico" />
+    </Window.Icon>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="ApplicationCommands.Help" Key="F1" CommandTarget="{Binding ElementName=MainWindow}"/>
+    </Window.InputBindings>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="MaterialDesignFlatButtonNoHover" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" TargetName="ContentPresenter" Value="0.5" />
+                                    <Setter Property="Foreground" Value="Gray" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Button x:Name="Login" MinWidth="100" Margin="0,0,10,0" Click="GoToLogin">Prijava</Button>
+            <Button x:Name="Register" MinWidth="100" Margin="0,0,10,0" Click="GoToRegister">Registracija</Button>
+            <Button x:Name="Logout" MinWidth="100" Margin="0,0,10,0" Click="GoToLogout">Odjavite se</Button>
+            <Button x:Name="Mape" MinWidth="100" Margin="0,0,10,0" Click="GoToMape">Mape</Button>
+            <Button x:Name="Pregled" MinWidth="100" Margin="0,0,10,0" Click="GoToUserTripOverview">Putovanja</Button>
+
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Button MinWidth="100" Margin="0,0,10,0" Click="NavigateBack" IsEnabled="{Binding ElementName=MainFrame, Path=CanGoBack}" Style="{StaticResource MaterialDesignFlatButtonNoHover}" ToolTip="Prethodna stranica">
+                <materialDesign:PackIcon Width="100" Kind="ArrowLeft" Foreground="White"/>
+            </Button>
+        </StackPanel>
+        <Frame x:Name="MainFrame" Margin="0,35,0,0" NavigationUIVisibility="Hidden"/>
+        <!--
+        <xctk:CheckComboBox x:Name="_combo"
+                            Background="White"
+                            Foreground="Black"
+                             HorizontalAlignment="Center" 
+                             VerticalAlignment="Center" 
+                             DisplayMemberPath="Name"
+                             ValueMemberPath="Level"
+                             SelectedValue="{Binding SelectedValue}"
+                             SelectedItemsOverride="{Binding SelectedItems}"
+                             ItemsSource="{Binding Path=Options}"
+                            SelectedMemberPath="Selected"
+                            ItemSelectionChanged ="_combo_ItemSelectionChanged"
+                            /> 
+        <TextBlock Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" x:Name="blockie">poy</TextBlock>
+        -->
+        
     </Grid>
 </Window>

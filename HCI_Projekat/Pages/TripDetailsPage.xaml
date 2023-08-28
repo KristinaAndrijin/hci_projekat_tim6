@@ -1,0 +1,131 @@
+﻿<Page x:Class="HCI_Projekat.Pages.TripDetailsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:HCI_Projekat.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TripDetailsPage"
+      xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" Margin="20" VerticalScrollBarVisibility="Auto">
+            <Border Background="#404040" Padding="20 15 35 15" CornerRadius="10">
+                <StackPanel>
+                    <TextBlock Text="{Binding Trip.Name}" FontSize="32" FontWeight="Bold" Margin="0 0 0 20" Foreground="White"/>
+
+                    <TextBlock Text="Atrakcije:" FontSize="24" FontWeight="Bold" Margin="0 0 0 10" Foreground="White"/>
+                    <ItemsControl ItemsSource="{Binding Trip.Attractions}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock>
+                                        <Run Text="-" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                                        <Run Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <Run Text="{Binding Type}" FontSize="14" Foreground="White"/>
+                                        <Run Text=", " Foreground="White" FontSize="14"/>
+                                        <Run Text="{Binding Address}" Foreground="White" FontSize="14"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock Text="Smeštaj:" FontSize="24" FontWeight="Bold" Margin="0 20 0 10" Foreground="White"/>
+                    <ItemsControl ItemsSource="{Binding Trip.Accomodations}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock>
+                                        <Run Text="-" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                                        <Run Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <Run Text="{Binding Type}" Foreground="White" FontSize="14"/>
+                                        <Run Text=", " Foreground="White" FontSize="14"/>
+                                        <Run Text="{Binding Address}" Foreground="White" FontSize="14"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock Text="Restorani:" FontSize="24" FontWeight="Bold" Margin="0 20 0 10" Foreground="White"/>
+                    <ItemsControl ItemsSource="{Binding Trip.Restaurants}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock>
+                                        <Run Text="-" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                                        <Run Text="{Binding Name}" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <Run Text="{Binding Type}" Foreground="White" FontSize="14"/>
+                                        <Run Text=", " Foreground="White" FontSize="14"/>
+                                        <Run Text="{Binding Address}" Foreground="White" FontSize="14"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock Text="{Binding Trip.Price, StringFormat='Cena: {0} RSD'}" FontSize="24" FontWeight="Bold" Margin="0 20 0 10" Foreground="#50fa7d"/>
+                    <Button Name="btnRezervisiOpenDialog" Content="Rezerviši" Click="OpenReservationDialog" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+
+        <Grid Grid.Column="1">
+            <!-- Placeholder map -->
+            <Border Background="#404040" Margin="20" CornerRadius="10"/>
+            <m:Map VerticalAlignment="Center" Width="700" Height="550" x:Name="Map" CredentialsProvider="Ah8LozC7khuISaCoOppLN2Vm_mhOD65qXBZVEDcQoZ34UApWABR9jxtuKdlYb7jV" />
+        </Grid>
+
+        <!-- Reservation Dialog -->
+        <Grid x:Name="ReservationDialogWrapper" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border x:Name="ReservationDialog" Visibility="Collapsed" Background="#555555" Padding="20" CornerRadius="10" MinWidth="300">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <TextBlock Text="Kupite/Rezervišite" FontSize="20" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <Button x:Name="btnClose" Click="CloseReservationDialog" Width="35" Height="35" Background="Transparent" Foreground="White" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
+                            <materialDesign:PackIcon Kind="Close"/>
+                        </Button>
+                    </StackPanel>
+
+                    <DatePicker x:Name="datePicker" SelectedDateChanged="DatePicker_SelectedDateChanged" Grid.Row="1" Margin="0 20" Foreground="White">
+                        <DatePicker.Resources>
+                            <Style TargetType="DatePickerTextBox">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button x:Name="btnKupi" Content="Kupi" Click="BtnKupi_Click" Margin="0 10 10 0" HorizontalAlignment="Left"/>
+                        <Button x:Name="btnRezervisi" Content="Rezerviši" Click="BtnRezervisi_Click" Margin="0 10 10 0" HorizontalAlignment="Left" IsEnabled="False"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>
